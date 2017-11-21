@@ -104,11 +104,11 @@ ul.navig li a:hover{
 .search-bar1 input[type="submit"]{
 	width:20%;
 	padding:15px;
-	background:#ff7105 url(../images/search.png)no-repeat 55px;
+	background:#ff7105 url(../images/search.png)no-repeat 50px;
 	outline:none;
 	-webkit-appearance: none;
 	border:0;
-	margin: -87px 0px 0px 900px;
+	margin: -87px 0px 0px 850px;
 	display: inline-block;
 	vertical-align: -webkit-baseline-middle;
 }
