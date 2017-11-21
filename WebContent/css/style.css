@@ -108,7 +108,7 @@ ul.navig li a:hover{
 	outline:none;
 	-webkit-appearance: none;
 	border:0;
-	margin: -87px 0px 0px 900px;
+	margin: -87px -20px 0px 900px;
 	display: inline-block;
 	vertical-align: -webkit-baseline-middle;
 }
