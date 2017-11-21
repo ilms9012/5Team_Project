@@ -19,11 +19,8 @@
 <script type="text/javascript" src="js/jquery.mixitup.min.js"></script>
 <script type="text/javascript">
 $(function () {
-	
 	var filterList = {
-	
 		init: function () {
-		
 			// MixItUp plugin
 			// http://mixitup.io
 			$('#portfoliolist').mixitup({
@@ -34,11 +31,8 @@ $(function () {
 				// call the hover effect
 				onMixEnd: filterList.hoverEffect()
 			});				
-		
 		},
-		
 		hoverEffect: function () {
-		
 			// Simple parallax effect
 			$('#portfoliolist .portfolio').hover(
 				function () {
@@ -50,15 +44,10 @@ $(function () {
 					$(this).find('img').stop().animate({top: 0}, 300, 'easeOutQuad');								
 				}		
 			);				
-		
 		}
-
 	};
-	
 	// Run the show!
 	filterList.init();
-	
-	
 });	
 </script>
 
@@ -67,141 +56,14 @@ $(function () {
 <%@ include file="header.jsp" %>
 <!-- Header Starts Here -->
 
-<div class="banner">
 <p align="cetner">
-<div class="search-bar1">
-<!-- <br> -->
-<!-- <br> -->
-<!-- <br> -->
-<!-- <br> -->
-<!-- <br> -->
-<!-- <br> -->
-<!-- <br> -->
-<!-- <br> -->
-<!-- <br> -->
-<!-- <br> -->
-<!-- <br> -->
-<!-- <br> -->
-<!-- <br> -->
-<!-- <br> -->
-<!-- <br> -->
-<!-- <br> -->
-<!-- <br> -->
-<!-- <br> -->
-<!-- <br> -->
-<!-- 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
-					<input type="text" placeholder="search" required=""  value="search"/>
-					<input type="submit" value="" />
-			</div>
-		<br>
-</div>
+	<div class="banner">
+		<div class="search-bar1">
+			<input type="text" placeholder="배틀그라운드 아이디를 입력하세요." required="required"/>
+			<input type="submit" value="" />
+		</div>
+	</div>
 </p>
-<!-- Header Ends Here -->	
-<div class="banner-bot">
-	<div class="container">
-		<h2>Leader Board gg </h2>
-		<p>[ PLAYERUNKNOWN'S BATTLEGROUNDS ] 의 새로운 커뮤니티</p>
-		<p>통계, 랭킹, 전적비교, 공략/팁 자유게시판등 PUBG의 NO.1 커뮤니티 </p>
-		<nav class="cl-effect-3"><a href="#">More</a></nav>
-	</div>
-</div>
-<!-- Gallery Starts Here -->
-<div class="gallery">
-	<div class="container">
-		<h3>Gallery</h3>
-		<div class="gallery-top">
-			<ul id="filters" class="clearfix">
-						<li><span class="filter active" data-filter="app card icon logo web">1</span></li>
-						<li><span class="filter" data-filter="app">2</span></li>
-						<li><span class="filter" data-filter="card">3</span></li>
-						<li><span class="filter" data-filter="icon">4</span></li>
-					</ul>
-					<div id="portfoliolist">
-					<div class="portfolio app mix_all" data-cat="app" style="display: inline-block; opacity: 1;">
-						<div class="portfolio-wrapper">		
-							<a href="#" class="b-link-stripe b-animate-go  thickbox">
-						     <img src="images/pic1.jpg" width="300px" height="170px"/><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 "> </h2>
-						  		</div></a>
-		                </div>
-					</div>				
-					<div class="portfolio icon mix_all" data-cat="icon" style="display: inline-block; opacity: 1;">
-						<div class="portfolio-wrapper">		
-							<a href="#" class="b-link-stripe b-animate-go  thickbox">
-						     <img src="images/pic2.jpg" width="300px" height="170px"/><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 "> </h2>
-						  	 </div></a>
-		                </div>
-					</div>		
-					<div class="portfolio card mix_all" data-cat="card" style="display: inline-block; opacity: 1;">
-						<div class="portfolio-wrapper">		
-							<a href="#" class="b-link-stripe b-animate-go  thickbox">
-						     <img src="images/pic3.jpg" width="300px" height="170px"/><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 "> </h2>
-						  	 </div></a>
-		                </div>
-					</div>				
-					<div class="portfolio logos mix_all" data-cat="logo" style="display: inline-block; opacity: 1;">
-						<div class="portfolio-wrapper">		
-							<a href="#" class="b-link-stripe b-animate-go  thickbox">
-						     <img src="images/pic4.jpg" width="300px" height="170px"/><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 "> </h2>
-						  	 </div></a>
-		                </div>
-					</div>	
-					<div class="portfolio card mix_all" data-cat="card" style="display: inline-block; opacity: 1;">
-						<div class="portfolio-wrapper">		
-							<a href="#" class="b-link-stripe b-animate-go  thickbox">
-						     <img src="images/pic5.jpg" width="300px" height="170px"/><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 "> </h2>
-						  	 </div></a>
-		                </div>
-					</div>	
-				</div>
-
-		</div>
-	</div>
-</div>
-<!-- Gallery Ends Here -->
-<!-- Video Part starts Here -->
-<div class="video-serch">
-	<div class="container">
-		<div class="col-md-6 vid-col">
-			<p>PLAYERUNKNOWN'S BATTLEGROUNDS PLAY VIDEO</p>
-			<p>딩셉션 "TOP10 모음 #17" - 배틀그라운드 솔로 | 4entro DinghisKhan's TOP10 #17</p>
-			<div class="more">
-				<a href="https://www.youtube.com/playlist?list=PLDyV6eNsGltkPB0eJZCXNtQKCxf__Z4yr">See more videos</a>
-			</div>
-		</div> 
-		<div class="col-md-6 vid-coll">
-			<img src="images/vid-img.jpg" width="580px" height="350px" alt="">
-			<div class="play-but">
-				<a href="#small-dialog5" class="thickbox play-icon popup-with-zoom-anim"><img src="images/vid-play.png" alt="" /></a>
-			</div>
-			<!--pop-up-box-->
-					  <script type="text/javascript" src="js/modernizr.custom.53451.js"></script>  
-					
-			<!--pop-up-box-->
-			<div id="small-dialog5" class="mfp-hide">
-					<iframe src="//player.vimeo.com/video/38584262"  frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen> </iframe>
-				</div>
-				
-				 <script>
-						$(document).ready(function() {
-						$('.popup-with-zoom-anim').magnificPopup({
-							type: 'inline',
-							fixedContentPos: false,
-							fixedBgPos: true,
-							overflowY: 'auto',
-							closeBtnInside: true,
-							preloader: false,
-							midClick: true,
-							removalDelay: 300,
-							mainClass: 'my-mfp-zoom-in'
-						});
-																						
-						});
-				</script>
-		</div>
-		<div class="clearfix"></div>
-	</div>	
-</div>
-<!-- Video Part Ends Here -->
 <!-- What New Part starts Here -->
 <div class="what-new">
 	<div class="container">
