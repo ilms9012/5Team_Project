@@ -22,7 +22,6 @@
 	$(function() {
 		var filterList = {
 			init : function() {
-
 				// MixItUp plugin
 				// http://mixitup.io
 				$('#portfoliolist').mixitup({
@@ -64,8 +63,9 @@
 	<div class="header">
 		<div class="container">
 			<div class="logo">
-				<a href="index.jsp"><img src="images/logo.png" width="60%"
-					height="20%" alt=""></a>
+				<a href="index.jsp">
+					<img src="images/logo.png" width="60%" height="20%" alt="">
+				</a>
 			</div>
 			<span class="menu"></span>
 			<div class="navigation">
@@ -93,7 +93,6 @@
 						});
 					});
 				</script>
-
 			</div>
 			<div class="clearfix"></div>
 		</div>
