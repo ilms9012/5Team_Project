@@ -3,9 +3,11 @@
 <html>
 <head>
 
-<script type="text/javascript" src="js/jquery.mixitup.min.js"></script>
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.mixitup.min.js"></script>
+<script src="js/jquery-1.11.0.min.js"></script>
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet"
@@ -15,17 +17,18 @@
 	
 <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="js/jquery-1.11.0.min.js"></script>
+
 <!-- Custom Theme files -->
 <link href="css/style.css" rel='stylesheet' type='text/css' />
 <!-- Custom Theme files -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <script type="application/x-javascript">
 	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
 </script>
+
 <!-- Google Fonts -->
-<link
-	href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700'
+<link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700'
 	rel='stylesheet' type='text/css'>
 
 <script type="text/javascript">
@@ -68,8 +71,8 @@
 	
 		$('#loginBtn').click(function(){
 			alert('눌림');
-			$('#loginModal').modal('hide');
-			$('#authModal').modal('show');
+			$('#loginModal .close').click();
+			$('#hiddenModal').click();
 		})
 		
  		// 회원가입 버튼을 누르는 순간 중복확인하고 새로운 모달창으로 이동하면서 이메일 인증
@@ -250,34 +253,27 @@
 <!-- 								</form> -->
 							</div>
 							<div role="tabpanel" class="tab-pane" id="joinTab">
-<!-- 								<form action="join.do" method="post" id="joinForm"> -->
-									<div class="form-group">
-										<label for="recipient-name" class="col-form-label">이메일</label>
-										<input type="email" class="form-control" id="id" name="id">
-									</div>
-									<div class="form-group">
-										<label for="message-text" class="col-form-label">패스워드</label>
-										<input type="password" class="form-control" id="password" name="password">
-									</div>
-									<div class="form-group">
-										<label for="message-text" class="col-form-label">
-											패스워드 확인
-										</label> 
-										<input type="password" class="form-control" id="passwordConfirm">
-									</div>
-									<div class="form-group">
-										<label for="recipient-name" class="col-form-label">닉네임</label>
-										<input type="text" class="form-control" id="nickName" name="nickName">
-									</div>
-									<div class="form-group">
-										<label for="recipient-name" class="col-form-label">이메일 인증</label><br>
-										<input type="password" class="form-control" style="width: 51%; display: inline;" id="password" placeholder="인증번호를 입력하세요.">
-										<button class="btn btn-primary">인증메일 보내기</button>
-									</div>
-									<div>
-										<button class="btn btn-primary btn-block join">회원가입</button>
-									</div>
-<!-- 								</form> -->
+								<div class="form-group">
+									<label for="recipient-name" class="col-form-label">이메일</label>
+									<input type="email" class="form-control" id="id" name="id">
+								</div>
+								<div class="form-group">
+									<label for="message-text" class="col-form-label">패스워드</label>
+									<input type="password" class="form-control" id="password" name="password">
+								</div>
+								<div class="form-group">
+									<label for="message-text" class="col-form-label">
+										패스워드 확인
+									</label> 
+									<input type="password" class="form-control" id="passwordConfirm">
+								</div>
+								<div class="form-group">
+									<label for="recipient-name" class="col-form-label">닉네임</label>
+									<input type="text" class="form-control" id="nickName" name="nickName">
+								</div>
+								<div>
+									<button class="btn btn-primary btn-block join">회원가입</button>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -286,6 +282,7 @@
 		</div>
 	</div>
 <!-- loginModal END -->
+	<input type="hidden" data-toggle="modal" data-target="#authModal" id="hiddenModal">
 <!-- authModeal START -->
 	<div class="modal modal-mystyle fade" id="authModal" tabindex="-1" role="dialog"
 		aria-labelledby="authModealLabel" aria-hidden="true">
@@ -306,10 +303,10 @@
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="col-form-label">인증번호</label>
-							<input type="password" class="form-control" id="password" placeholder="메일로 온 인증번호를 써주세요.">
+							<input type="password" class="form-control" id="authNum" placeholder="메일로 온 인증번호를 써주세요.">
 						</div>
 						<div>
-							<input type="submit" value="인증확인" class="btn btn-primary btn-block login">
+							<input type="submit" value="인증확인" class="btn btn-primary btn-block auth">
 						</div>
 					</form>
 				</div>
