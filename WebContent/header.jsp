@@ -3,6 +3,7 @@
 <html>
 <head>
 
+<script type="text/javascript" src="js/jquery.mixitup.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
 <link rel="stylesheet"
@@ -26,7 +27,6 @@
 <link
 	href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700'
 	rel='stylesheet' type='text/css'>
-<script type="text/javascript" src="js/jquery.mixitup.min.js"></script>
 
 <script type="text/javascript">
 	$(function() {
@@ -65,32 +65,18 @@
 		};
 		// Run the show!
 		filterList.init();
-
+	
+		$('#loginBtn').click(function(){
+			alert('눌림');
+			$('#loginModal').modal('hide');
+			$('#authModal').modal('show');
+		})
 		
  		// 회원가입 버튼을 누르는 순간 중복확인하고 새로운 모달창으로 이동하면서 이메일 인증
 		$('#loginModal .join').click(function(){
 		    var id = $('#id').val();
 		    var password = $('#password').val();
 		    var nickName = $('#nickName').val();
-		    var check = 0;
-			$.ajax({
-				type:'post',
-				url:'joinCheck.do', 
-				data:'id='+id+'&nickName='+nickName, 
-				dataType:'text',
-				success: function(check){
-					if(check=='idOverlap'){
-						alert('중복된 이메일입니다. 다른 이메일로 가입해주세요.');
-					} else if(check=='nickOverlap'){
-						alert('중복된 닉네임입니다. 다른 닉네임으로 가입해주세요.');
-					} else {
-						check = 1;
-					}
-				},
-				error: function(){
-					alert('중복체크 중 에러가 발생했습니다.');
-				}
-			})
 			
 			if(id==""){
 				alert('이메일을 입력해주세요.');
@@ -100,26 +86,44 @@
 				alert('패스워드가 맞지 않습니다.');
 			} else if(nickName==""){
 				alert('닉네임을 입력해주세요.');
-			} else if(check == 1){
+			} else {
 				$.ajax({
 					type:'post',
-					url:'join.do', 
-					data:'id='+id+'&passowrd='+password+'&nickName='+nickName, 
-					dataType:'json',
+					url:'joinCheck.do', 
+					data:'id='+id+'&nickName='+nickName, 
+					dataType:'text',
 					success: function(check){
-						if(check=='true'){
-							$('#loginModal').modal('hide');
-							$('#authModal').modal('show');
-							alert('임시 회원가입 성공');
+						if(check=='idOverlap'){
+							alert('중복된 이메일입니다. 다른 이메일로 가입해주세요.');
+						} else if(check=='nickOverlap'){
+							alert('중복된 닉네임입니다. 다른 닉네임으로 가입해주세요.');
 						} else {
-							alert('임시 회원가입 실패');
+							$.ajax({
+								type:'post',
+								url:'join.do', 
+								data:'id='+id+'&password='+password+'&nickName='+nickName, 
+								dataType:'text',
+								success: function(join){
+									alert(join);
+									if(join=='true'){
+										alert('임시 회원가입 성공');
+										$('#loginModal').modal('hide');
+										$('#authModal').modal('show');
+									} else {
+										alert('임시 회원가입 실패');
+									}
+								},
+								error: function(){
+									alert('임시 회원가입 중 에러가 발생했습니다.');
+								}
+							})
 						}
 					},
 					error: function(){
-						alert('회원가입 중 에러가 발생했습니다.');
+						alert('중복체크 중 에러가 발생했습니다.');
 					}
 				})
-			}
+			} 
 			return false;
 		})
 	});
@@ -229,7 +233,7 @@
 						<!-- Tab panes -->
 						<div class="tab-content">
 							<div role="tabpanel" class="tab-pane active" id="loginTab">
-								<form action="login.do" method="post">
+<!-- 								<form action="login.do" method="post"> -->
 									<div class="form-group">
 										<label for="recipient-name" class="col-form-label">이메일</label>
 										<input type="email" class="form-control" id="loginId" name="id">
@@ -239,14 +243,14 @@
 										<input type="password" class="form-control" id="loginPassword">
 									</div>
 									<div>
-										<input type="submit" value="로그인" class="btn btn-primary btn-block login">
+										<input type="submit" value="로그인" class="btn btn-primary btn-block login" id="loginBtn">
 										<br>
 										<a href="#"><img src="images/kakao.jpg" id="kakaoImg"></a>
 									</div>
-								</form>
+<!-- 								</form> -->
 							</div>
 							<div role="tabpanel" class="tab-pane" id="joinTab">
-								<form action="join.do" method="post" id="joinForm">
+<!-- 								<form action="join.do" method="post" id="joinForm"> -->
 									<div class="form-group">
 										<label for="recipient-name" class="col-form-label">이메일</label>
 										<input type="email" class="form-control" id="id" name="id">
@@ -259,16 +263,21 @@
 										<label for="message-text" class="col-form-label">
 											패스워드 확인
 										</label> 
-										<input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm">
+										<input type="password" class="form-control" id="passwordConfirm">
 									</div>
 									<div class="form-group">
 										<label for="recipient-name" class="col-form-label">닉네임</label>
 										<input type="text" class="form-control" id="nickName" name="nickName">
 									</div>
-									<div>
-										<input type="submit" value="회원가입" class="btn btn-primary btn-block join">
+									<div class="form-group">
+										<label for="recipient-name" class="col-form-label">이메일 인증</label><br>
+										<input type="password" class="form-control" style="width: 51%; display: inline;" id="password" placeholder="인증번호를 입력하세요.">
+										<button class="btn btn-primary">인증메일 보내기</button>
 									</div>
-								</form>
+									<div>
+										<button class="btn btn-primary btn-block join">회원가입</button>
+									</div>
+<!-- 								</form> -->
 							</div>
 						</div>
 					</div>
@@ -278,7 +287,7 @@
 	</div>
 <!-- loginModal END -->
 <!-- authModeal START -->
-	<div class="modal modal-mystyle fade" id="authModeal" tabindex="-1" role="dialog"
+	<div class="modal modal-mystyle fade" id="authModal" tabindex="-1" role="dialog"
 		aria-labelledby="authModealLabel" aria-hidden="true">
 		<div class="modal-dialog modal-mystyle">
 			<div class="modal-content modal-mystyle">
@@ -290,7 +299,7 @@
 					<label for="recipient-name" class="col-form-label">이메일 인증</label>
 				</div>
 				<div class="modal-body">
-					<form action="login.do" method="post">
+					<form action="auth.do" method="post">
 						<div class="form-group">
 							<label for="recipient-name" class="col-form-label">이메일</label>
 							<input type="email" class="form-control" id="id" value="blausues@gmail.com" readonly="readonly">

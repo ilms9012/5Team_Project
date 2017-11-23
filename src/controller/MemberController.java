@@ -19,18 +19,13 @@ public class MemberController {
 	@ResponseBody
 	@RequestMapping("joinCheck.do")
 	public String joinCheck(String id, String nickName) {
-		System.out.println(service.joinCheck(id, nickName));
 		return service.joinCheck(id, nickName);
 	}
 	
 	@ResponseBody
 	@RequestMapping("join.do")
 	public String join(MemberVO member) {
-		if(service.join(member)) {
-			return "true";
-		} else {
-			return "false";
-		}
+		return ""+service.join(member);
 	}
 	
 	@RequestMapping("joinAuth.do")
