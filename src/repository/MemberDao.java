@@ -24,4 +24,12 @@ public class MemberDao {
 		MemberMapper mapper = session.getMapper(MemberMapper.class);
 		return mapper.selectId(id);
 	}
+	public MemberVO selectNick(String nickName) {
+		MemberMapper mapper = session.getMapper(MemberMapper.class);
+		return mapper.selectNick(nickName);
+	}
+	public int updateAuth(String id) {
+		MemberMapper mapper = session.getMapper(MemberMapper.class);
+		return mapper.updateAuth(id);
+	}
 }

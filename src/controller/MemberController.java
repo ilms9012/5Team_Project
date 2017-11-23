@@ -16,29 +16,29 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 	
-	@RequestMapping("/joinForm.do")
-	public String joinForm() {
-		return "join_form";
+	@ResponseBody
+	@RequestMapping("joinCheck.do")
+	public String joinCheck(String id, String nickName) {
+		System.out.println(service.joinCheck(id, nickName));
+		return service.joinCheck(id, nickName);
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="idCheck.do")
-	public String idCheck(String id) {
-		return ""+service.idCheck(id);
-	}
-
-	@RequestMapping(value="join.do", method=RequestMethod.POST)
+	@RequestMapping("join.do")
 	public String join(MemberVO member) {
 		if(service.join(member)) {
-			return "join_success";
+			return "true";
 		} else {
-			return "join_fail";
+			return "false";
 		}
 	}
 	
-	@RequestMapping("loginForm.do")
-	public String loginForm() {
-		return "login_form";
+	@RequestMapping("joinAuth.do")
+	public String joinAuth(String id) {
+		if(service.joinAuth(id)) {
+			
+		}
+		return "";
 	}
 	
 	@RequestMapping("login.do")
@@ -50,16 +50,5 @@ public class MemberController {
 			return "login_fail";
 		}
 	}
-	
-	@RequestMapping("logout.do")
-	public String logout(HttpSession session) {
-		String loginId = (String) session.getAttribute("loginId");
-		if(loginId != null && loginId.length() > 0) {
-			session.invalidate();
-			return "logout_success";
-		} else {
-			return "logout_fail";
-		}
-	}
-	
+
 }

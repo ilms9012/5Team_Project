@@ -65,18 +65,62 @@
 		};
 		// Run the show!
 		filterList.init();
+
 		
-		function addImage(pk) {
-		    alert("addImage: " + pk);
-		}
-		
- 		// 회원가입 버튼을 누르는 순간 중복확인하고 새로운 모달창으로 이동하면서 이메일 인증 ㄱㄱ
-		$('#myModal .join').click(function (e) {
-		    e.preventDefault();
-		    addImage(5);
-		    // jquery 충돌나서 여기 에러뜨는 것 같은데 ㅠㅠ 
-		    $('#myModal').modal('hide');
-		    return false;
+ 		// 회원가입 버튼을 누르는 순간 중복확인하고 새로운 모달창으로 이동하면서 이메일 인증
+		$('#loginModal .join').click(function(){
+		    var id = $('#id').val();
+		    var password = $('#password').val();
+		    var nickName = $('#nickName').val();
+		    var check = 0;
+			$.ajax({
+				type:'post',
+				url:'joinCheck.do', 
+				data:'id='+id+'&nickName='+nickName, 
+				dataType:'text',
+				success: function(check){
+					if(check=='idOverlap'){
+						alert('중복된 이메일입니다. 다른 이메일로 가입해주세요.');
+					} else if(check=='nickOverlap'){
+						alert('중복된 닉네임입니다. 다른 닉네임으로 가입해주세요.');
+					} else {
+						check = 1;
+					}
+				},
+				error: function(){
+					alert('중복체크 중 에러가 발생했습니다.');
+				}
+			})
+			
+			if(id==""){
+				alert('이메일을 입력해주세요.');
+			} else if(password==""){
+				alert('패스워드를 입력해주세요.');
+			} else if(password != $('#passwordConfirm').val()){
+				alert('패스워드가 맞지 않습니다.');
+			} else if(nickName==""){
+				alert('닉네임을 입력해주세요.');
+			} else if(check == 1){
+				$.ajax({
+					type:'post',
+					url:'join.do', 
+					data:'id='+id+'&passowrd='+password+'&nickName='+nickName, 
+					dataType:'json',
+					success: function(check){
+						if(check=='true'){
+							$('#loginModal').modal('hide');
+							$('#authModal').modal('show');
+							alert('임시 회원가입 성공');
+						} else {
+							alert('임시 회원가입 실패');
+						}
+					},
+					error: function(){
+						alert('회원가입 중 에러가 발생했습니다.');
+					}
+				})
+			}
+			return false;
 		})
 	});
 </script>
@@ -141,7 +185,7 @@
 				<div class="search-bar">
 					<input type="text" placeholder="search" required /> 
 					<input type="submit" value="" />
-					<a href="#" data-toggle="modal" data-target="#myModal"><b>로그인</b></a>
+					<a href="#" data-toggle="modal" data-target="#loginModal"><b>로그인</b></a>
 				</div>
 				<div class="clearfix"></div>
 				<script>
@@ -156,9 +200,9 @@
 		</div>
 	</div>
 	
-<!-- Modal START -->	
-	<div class="modal modal-mystyle fade" id="myModal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- loginModal START -->	
+	<div class="modal modal-mystyle fade" id="loginModal" tabindex="-1" role="dialog"
+		aria-labelledby="loginModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-mystyle">
 			<div class="modal-content modal-mystyle">
 				<div class="modal-header">
@@ -185,14 +229,14 @@
 						<!-- Tab panes -->
 						<div class="tab-content">
 							<div role="tabpanel" class="tab-pane active" id="loginTab">
-								<form action="#" method="post">
+								<form action="login.do" method="post">
 									<div class="form-group">
 										<label for="recipient-name" class="col-form-label">이메일</label>
-										<input type="email" class="form-control" id="recipient-name">
+										<input type="email" class="form-control" id="loginId" name="id">
 									</div>
 									<div class="form-group">
 										<label for="message-text" class="col-form-label">패스워드</label>
-										<input type="password" class="form-control" id="recipient-name">
+										<input type="password" class="form-control" id="loginPassword">
 									</div>
 									<div>
 										<input type="submit" value="로그인" class="btn btn-primary btn-block login">
@@ -202,24 +246,24 @@
 								</form>
 							</div>
 							<div role="tabpanel" class="tab-pane" id="joinTab">
-								<form action="" method="post">
+								<form action="join.do" method="post" id="joinForm">
 									<div class="form-group">
 										<label for="recipient-name" class="col-form-label">이메일</label>
-										<input type="email" class="form-control" id="recipient-name">
+										<input type="email" class="form-control" id="id" name="id">
 									</div>
 									<div class="form-group">
 										<label for="message-text" class="col-form-label">패스워드</label>
-										<input type="password" class="form-control" id="recipient-name">
+										<input type="password" class="form-control" id="password" name="password">
 									</div>
 									<div class="form-group">
 										<label for="message-text" class="col-form-label">
 											패스워드 확인
 										</label> 
-										<input type="password" class="form-control" id="recipient-name">
+										<input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm">
 									</div>
 									<div class="form-group">
 										<label for="recipient-name" class="col-form-label">닉네임</label>
-										<input type="text" class="form-control" id="recipient-name">
+										<input type="text" class="form-control" id="nickName" name="nickName">
 									</div>
 									<div>
 										<input type="submit" value="회원가입" class="btn btn-primary btn-block join">
@@ -232,6 +276,37 @@
 			</div>
 		</div>
 	</div>
-<!-- Modal END -->
+<!-- loginModal END -->
+<!-- authModeal START -->
+	<div class="modal modal-mystyle fade" id="authModeal" tabindex="-1" role="dialog"
+		aria-labelledby="authModealLabel" aria-hidden="true">
+		<div class="modal-dialog modal-mystyle">
+			<div class="modal-content modal-mystyle">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<label for="recipient-name" class="col-form-label">이메일 인증</label>
+				</div>
+				<div class="modal-body">
+					<form action="login.do" method="post">
+						<div class="form-group">
+							<label for="recipient-name" class="col-form-label">이메일</label>
+							<input type="email" class="form-control" id="id" value="blausues@gmail.com" readonly="readonly">
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="col-form-label">인증번호</label>
+							<input type="password" class="form-control" id="password" placeholder="메일로 온 인증번호를 써주세요.">
+						</div>
+						<div>
+							<input type="submit" value="인증확인" class="btn btn-primary btn-block login">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- authModeal END -->
 </body>
 </html>

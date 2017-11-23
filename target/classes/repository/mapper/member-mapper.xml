@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="repository.mapper.MemberMapper">
 	<insert id="insert" parameterType="MemberVO">
-		INSERT INTO MEMBER(ID, PASSWORD, NAME) VALUES(#{id}, #{password}, #{name})
+		INSERT INTO MEMBER(AUTH, ID, PASSWORD, NICKNAME) VALUES(#{auth}, #{id}, #{password}, #{nickName})
 	</insert>
 	
 	<select id="selectIdPw" parameterType="map" resultType="int">
@@ -12,4 +12,12 @@
 	<select id="selectId" parameterType="String" resultType="MemberVO">
 		SELECT * FROM MEMBER WHERE ID=#{id}
 	</select>
+	
+	<select id="selectNick" parameterType="String" resultType="MemberVO">
+		SELECT * FROM MEMBER WHERE NICKNAME=#{nickName}
+	</select>
+	
+	<update id="updateAuth" parameterType="String">
+		UPDATE MEMBER SET AUTH='true' WHERE ID=#{id}
+	</update>
 </mapper>
