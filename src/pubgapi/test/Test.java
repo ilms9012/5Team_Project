@@ -1,5 +1,9 @@
 package pubgapi.test;
 
+import java.util.List;
+
+import org.springframework.context.annotation.Profile;
+
 import pubgapi.core.JPubg;
 import pubgapi.enums.PUBGMode;
 import pubgapi.enums.PUBGRegion;
@@ -22,9 +26,10 @@ public class Test {
 		criteria.setSeason(PUBGSeason.PRE5_2017);
 
 		Player player = null;
-
+		
 		// Always remember to use try-catch block for error processing!
 		try {
+				
 		      player = jPubg.getByNickname("ABP-532", criteria);
 		} catch (IllegalArgumentException e) {
 		      System.out.println("Player could not be found or validated: " + e.getLocalizedMessage());
@@ -33,9 +38,10 @@ public class Test {
 		if(player != null) {
 		      // We would like to retrieve best rating for player "TheHusar" for season PRE2_2017
 		      Stat stat = jPubg.getPlayerMatchStatByStatName(player, PUBGStat.BEST_RATING);
-
+		      Stat stat2 = jPubg.getPlayerMatchStatByStatName(player, PUBGStat.KILLS);
 		      // You can get season name directly from stat object
 		      System.out.println("Player " + player.getPlayerName() + " best rating in season: " + stat.getSeason().getSeasonName() + " is: " +         stat.getStringValue());
+		      System.out.println();
 		}
 	}
 }
