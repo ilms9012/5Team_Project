@@ -33,7 +33,7 @@ html, body{
 	left:10%;
 }
 .navigation{
-	width:70%;
+	width:75%;
 	float:right;
 }
 ul.navig{
@@ -51,11 +51,14 @@ ul.navig li a{
 	font-size:1em;
 	color:#fff;
 	font-weight:700;
+	margin-right:10px;
+	margin-left:10px;
 }
 ul.navig li a:hover{
 	color:#ff7105;
 }
 .search-bar{
+	padding-top: 10px;
 	width:35%;
 	float:right;
 }
@@ -64,7 +67,7 @@ ul.navig li a:hover{
 	float:center;
 }
 .search-bar input[type="text"]{
-	width:70%;
+	width:60%;
 	padding:10px;
 	border:0;
 /* 	background:#4fbfa8; */
@@ -76,16 +79,34 @@ ul.navig li a:hover{
 	-webkit-appearance: none;
 	vertical-align: -webkit-baseline-middle;
 	color:#fff;
+	float: left;
 }
 .search-bar input[type="submit"]{
-	width:20%;
+	width:16%;
 	padding:10px;
-	background:#ff7105 url(../images/search.png)no-repeat 15px;
+	background:#ff7105 url(../images/search.png)no-repeat 12px;
 	outline:none;
 	-webkit-appearance: none;
 	border:0;
 	display: inline-block;
 	vertical-align: -webkit-baseline-middle;
+	float: left;
+}
+.search-bar a{
+	width:22%;
+	padding:10px;
+	color: white;
+	font-size: 15px;
+	outline:none;
+	-webkit-appearance: none;
+	border:0;
+	display: inline-block;
+	vertical-align: -webkit-baseline-middle;
+	float: right;
+	text-decoration: none;
+}
+.search-bar a:hover{
+	color: #ff7105;
 }
 .search-bar1 input[type="text"]{
 	width:75%;

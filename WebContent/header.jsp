@@ -123,10 +123,10 @@
 </head>
 <body>
 	<div class="header" style="padding-top: 11px; padding-bottom: 11px;">
-		<div class="container">
-			<div class="logo">
+		<div class="container" style="margin-left: 0; margin-right:0;">
+			<div class="logo" style="width: 350px;">
 				<a href="index.jsp">
-					<img src="images/logo.png" width="42%" height="14%" alt="">
+					<img src="images/logo.png" width="54%" height="18%" alt="">
 				</a>
 			</div>
 			<span class="menu"></span>
@@ -141,11 +141,7 @@
 				<div class="search-bar">
 					<input type="text" placeholder="search" required /> 
 					<input type="submit" value="" />
-				</div>
-				<div>
-					<button data-toggle="modal" data-target="#myModal">
-						<font color="black">로그인</font>
-					</button>
+					<a href="#" data-toggle="modal" data-target="#myModal"><b>로그인</b></a>
 				</div>
 				<div class="clearfix"></div>
 				<script>
