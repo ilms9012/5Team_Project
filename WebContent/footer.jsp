@@ -17,11 +17,8 @@
 <script type="text/javascript" src="js/jquery.mixitup.min.js"></script>
 <script type="text/javascript">
 $(function () {
-	
 	var filterList = {
-	
 		init: function () {
-		
 			// MixItUp plugin
 			// http://mixitup.io
 			$('#portfoliolist').mixitup({
@@ -32,11 +29,8 @@ $(function () {
 				// call the hover effect
 				onMixEnd: filterList.hoverEffect()
 			});				
-		
 		},
-		
 		hoverEffect: function () {
-		
 			// Simple parallax effect
 			$('#portfoliolist .portfolio').hover(
 				function () {
@@ -48,15 +42,10 @@ $(function () {
 					$(this).find('img').stop().animate({top: 0}, 300, 'easeOutQuad');								
 				}		
 			);				
-		
 		}
-
 	};
-	
 	// Run the show!
 	filterList.init();
-	
-	
 });	
 </script>
 

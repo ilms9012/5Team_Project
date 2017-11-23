@@ -1531,6 +1531,8 @@ ul.tags_links li a:hover{
 }
 @media(max-width:320px){
 	.logo a img {
+		position: absolute;
+		left: 0px;
 		width: 44%;
 	}
 	.logo {

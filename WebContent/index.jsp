@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Leader Board gg</title>
+<title>LeaderBoard.gg</title>
 <link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all"/>
 					<script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
 <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
@@ -56,7 +56,7 @@ $(function () {
 <%@ include file="header.jsp" %>
 <!-- Header Starts Here -->
 
-<p align="cetner">
+<p>
 	<div class="banner">
 		<div class="search-bar1">
 			<input type="text" placeholder="배틀그라운드 아이디를 입력하세요." required="required"/>
