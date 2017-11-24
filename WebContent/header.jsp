@@ -68,12 +68,6 @@
 		};
 		// Run the show!
 		filterList.init();
-	
-		$('#loginBtn').click(function(){
-			alert('눌림');
-			$('#loginModal .close').click();
-			$('#hiddenModal').click();
-		})
 		
  		// 회원가입 버튼을 누르는 순간 중복확인하고 새로운 모달창으로 이동하면서 이메일 인증
 		$('#loginModal .join').click(function(){
@@ -107,11 +101,10 @@
 								data:'id='+id+'&password='+password+'&nickName='+nickName, 
 								dataType:'text',
 								success: function(join){
-									alert(join);
 									if(join=='true'){
 										alert('임시 회원가입 성공');
-										$('#loginModal').modal('hide');
-										$('#authModal').modal('show');
+										$('#loginModal .close').click();
+										$('#hiddenModal').click();
 									} else {
 										alert('임시 회원가입 실패');
 									}
@@ -127,6 +120,48 @@
 					}
 				})
 			} 
+			
+			$('#authModal .send').click(function(){
+				// 이메일 보내면서 버튼 바꾸기
+				$.ajax({
+					type:'post',
+					url:'sendMail.do', 
+					data:'id='+id, 
+					dataType:'text',
+					success: function(send){
+						if(send=='true'){
+							alert('입력하신 이메일로 인증 메일을 발송했습니다.');
+						} else {
+							alert('인증 메일 발송을 실패했습니다.');
+							}
+						},
+					error: function(){
+						alert('인증 메일 발송 중 에러가 발생했습니다.');
+					}
+				})
+				$('#authModal .send').replaceWith('<input type="submit" value="인증확인" class="btn btn-primary btn-block auth">');
+			})
+			
+			$('#authModal .auth').click(function(){
+				// 인증 코드 체크 후 일치하면 auth == true 로 변경
+				var authNum = $('#authNum').val();
+				$.ajax({
+					type:'post',
+					url:'checkMail.do', 
+					data:'authNum='+authNum, 
+					dataType:'text',
+					success: function(check){
+						if(check=='true'){
+							alert('회원가입이 완료되었습니다.');
+						} else {
+							alert('인증코드가 일치하지 않습니다. 다시 확인해주세요.');
+							}
+						},
+					error: function(){
+						alert('인증 코드 체크 중 에러가 발생했습니다.');
+					}
+				})
+			})
 			return false;
 		})
 	});
@@ -296,19 +331,17 @@
 					<label for="recipient-name" class="col-form-label">이메일 인증</label>
 				</div>
 				<div class="modal-body">
-					<form action="auth.do" method="post">
-						<div class="form-group">
-							<label for="recipient-name" class="col-form-label">이메일</label>
-							<input type="email" class="form-control" id="id" value="blausues@gmail.com" readonly="readonly">
-						</div>
-						<div class="form-group">
-							<label for="message-text" class="col-form-label">인증번호</label>
-							<input type="password" class="form-control" id="authNum" placeholder="메일로 온 인증번호를 써주세요.">
-						</div>
-						<div>
-							<input type="submit" value="인증확인" class="btn btn-primary btn-block auth">
-						</div>
-					</form>
+					<div class="form-group">
+						<label for="recipient-name" class="col-form-label">이메일</label>
+						<input type="email" class="form-control" id="id" value="blausues@gmail.com" readonly="readonly">
+					</div>
+					<div class="form-group">
+						<label for="message-text" class="col-form-label">인증번호</label>
+						<input type="password" class="form-control" id="authNum" placeholder="메일로 온 인증번호를 써주세요.">
+					</div>
+					<div>
+						<input type="button" value="인증 이메일 보내기" class="btn btn-primary btn-block send">
+					</div>
 				</div>
 			</div>
 		</div>
