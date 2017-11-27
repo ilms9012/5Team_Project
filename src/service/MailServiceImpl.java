@@ -8,14 +8,19 @@ import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MailServiceImpl implements MailService {
     // org.springframework.mail.javamail.JavaMailSender
- 
-	@Autowired
+
 	private JavaMailSender javaMailSender;
+	
+	@Autowired
+	public void setJavaMailSender(JavaMailSender javaMailSender) {
+		this.javaMailSender = javaMailSender;
+	}
  
  
     @Override
@@ -38,7 +43,6 @@ public class MailServiceImpl implements MailService {
                     helper.addAttachment(file.getName(), new File(filePath));
                 }
             }
- 
             javaMailSender.send(message);
             return true;
         } catch (MessagingException e) {

@@ -3,7 +3,7 @@
 <html>
 <head>
 
-
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.mixitup.min.js"></script>
@@ -119,51 +119,55 @@
 						alert('중복체크 중 에러가 발생했습니다.');
 					}
 				})
-			} 
+			}
+		}) 
 			
-			$('#authModal .send').click(function(){
-				// 이메일 보내면서 버튼 바꾸기
-				$.ajax({
-					type:'post',
-					url:'sendMail.do', 
-					data:'id='+id, 
-					dataType:'text',
-					success: function(send){
-						if(send=='true'){
-							alert('입력하신 이메일로 인증 메일을 발송했습니다.');
-						} else {
-							alert('인증 메일 발송을 실패했습니다.');
-							}
-						},
-					error: function(){
-						alert('인증 메일 발송 중 에러가 발생했습니다.');
-					}
-				})
-				$('#authModal .send').replaceWith('<input type="submit" value="인증확인" class="btn btn-primary btn-block auth">');
+		$('#authModal .send').click(function(){
+			// 인증 이메일 보내기
+			var id = $('#id').val();
+			$.ajax({
+				type:'post',
+				url:'sendMail.do', 
+				data:'id='+id, 
+				dataType:'text',
+				success: function(send){
+					if(send=='true'){
+						alert('입력하신 이메일로 인증 메일을 발송했습니다.');
+					} else {
+						alert('인증 메일 발송을 실패했습니다.');
+						}
+					},
+				error: function(){
+					alert('인증 메일 발송 중 에러가 발생했습니다.');
+				}
 			})
-			
-			$('#authModal .auth').click(function(){
-				// 인증 코드 체크 후 일치하면 auth == true 로 변경
-				var authNum = $('#authNum').val();
-				$.ajax({
-					type:'post',
-					url:'checkMail.do', 
-					data:'authNum='+authNum, 
-					dataType:'text',
-					success: function(check){
-						if(check=='true'){
-							alert('회원가입이 완료되었습니다.');
-						} else {
-							alert('인증코드가 일치하지 않습니다. 다시 확인해주세요.');
-							}
-						},
-					error: function(){
-						alert('인증 코드 체크 중 에러가 발생했습니다.');
-					}
-				})
-			})
-			return false;
 		})
+			
+		$('#authModal .auth').click(function(){
+			// 인증 코드 체크 후 일치하면 auth == true 로 변경
+			var id = $('#id').val();
+			var authNum = $('#authNum').val();
+			$.ajax({
+				type:'post',
+				url:'checkAuthNum.do', 
+				data:'id='+id+'&authNum='+authNum, 
+				dataType:'text',
+				success: function(check){
+					if(check=='true'){
+						alert('회원가입이 완료되었습니다.');
+						location.href="/";
+					} else {
+						alert('인증코드가 일치하지 않습니다. 다시 확인해주세요.');
+						}
+					},
+				error: function(){
+					alert('인증 코드 체크 중 에러가 발생했습니다.');
+				}
+			})
+		})
+		
+		$('')
+		return false;
 	});
 </script>
 
@@ -198,7 +202,7 @@
 	border-radius: 0;
 }
 
-#kakaoImg {
+#kakaoLogin {
     display: block;
     width: 100%;
     height: auto;
@@ -283,7 +287,7 @@
 									<div>
 										<input type="submit" value="로그인" class="btn btn-primary btn-block login" id="loginBtn">
 										<br>
-										<a href="#"><img src="images/kakao.jpg" id="kakaoImg"></a>
+										<a href="#"><img src="images/kakao.jpg" id="kakaoLogin"></a>
 									</div>
 <!-- 								</form> -->
 							</div>
@@ -341,6 +345,7 @@
 					</div>
 					<div>
 						<input type="button" value="인증 이메일 보내기" class="btn btn-primary btn-block send">
+						<input type="button" value="인증확인" class="btn btn-primary btn-block auth">
 					</div>
 				</div>
 			</div>

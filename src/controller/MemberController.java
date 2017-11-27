@@ -8,12 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import service.MailServiceImpl;
 import service.MemberService;
@@ -37,22 +32,19 @@ public class MemberController {
 	@RequestMapping("/join.do")
 	@ResponseBody
 	public String join(MemberVO member, HttpSession session) {
-		return ""+service.join(member, session);
+		return "" + service.join(member, session);
 	}
 	
-	private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-	
-	@RequestMapping(value="/checkMail.do", produces="application/text; charset=utf8")
+	@RequestMapping(value="/checkAuthNum.do", produces="application/text; charset=utf8")
     @ResponseBody
-	public String checkMail(String email) {
+	public String checkAuthNum(HttpSession session, int authNum, String id) {
 		// 인증 코드 체크하기
-		MemberVO member = dao.selectId(email);
-		return gson.toJson(member);
+		return "" + service.checkAuthNum(session, authNum, id);
 	}
 	
 	@RequestMapping(value="/sendMail.do", method=RequestMethod.POST, produces="application/json")
     @ResponseBody
-    public boolean sendMail(HttpSession session, @RequestParam String email) {
+    public String sendMail(HttpSession session, String id) {
 		// 인증 메일 보내기
         int ran = new Random().nextInt(100000) + 10000; // 10000 ~ 99999
         String joinCode = String.valueOf(ran);
@@ -64,18 +56,10 @@ public class MemberController {
         StringBuilder sb = new StringBuilder();
         
         sb.append("귀하의 인증 코드는 " + joinCode + " 입니다.");
-        return ""+mailService.send(subject, sb.toString(), "아이디@gmail.com", email, null);
+        System.out.println("id : " + id);
+        System.out.println(sb.toString());
+        return ""+mailService.send(subject, sb.toString(), "blausues@gmail.com", id, null);
     }
-	
-	
-	
-	@RequestMapping("/joinAuth.do")
-	public String joinAuth(String id) {
-		if(service.joinAuth(id)) {
-			
-		}
-		return "";
-	}
 	
 	@RequestMapping("/login.do")
 	public String login(HttpSession session, String id, String password) {

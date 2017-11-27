@@ -1,14 +1,9 @@
 package service;
 
-import java.util.Random;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import repository.MemberDao;
 import vo.MemberVO;
@@ -28,15 +23,7 @@ public class MemberService {
 		}
 	}
 	
-	public boolean joinAuth(String id) {
-		if(dao.updateAuth(id) > 0) {
-			return true;
-		} else {
-			return false;
-		}
-			
-	}
-	
+	// 이메일, 닉네임 중복 여부
 	public String joinCheck(String id, String nickName) {
 		if(dao.selectId(id) != null) {
 			return "idOverlap";
@@ -47,6 +34,7 @@ public class MemberService {
 		}
 	}
 	
+	// 이메일, 패스워드 확인
 	public boolean login(String id, String password) {
 		if(dao.selectIdPw(id, password) > 0) {
 			return true;
@@ -55,5 +43,13 @@ public class MemberService {
 		}
 	}
 	
-	
+	// 인증코드 체크 후 이메일 인증 여부 업데이트
+	public boolean checkAuthNum(HttpSession session, int authNum, String id) {
+		int joinCode = (int) session.getAttribute("joinCode");
+		if(joinCode == authNum && dao.updateAuth(id) > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

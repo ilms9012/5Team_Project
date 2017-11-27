@@ -240,8 +240,9 @@
 			<artifactId>spring-context-support</artifactId>
 			<version>4.2.5.RELEASE</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
 		<dependency>
-  			<groupId>javax.mail</groupId>
+			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
 			<version>1.4</version>
 		</dependency>
