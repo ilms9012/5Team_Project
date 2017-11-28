@@ -165,8 +165,6 @@
 				}
 			})
 		})
-		
-		$('')
 		return false;
 	});
 </script>
@@ -287,7 +285,23 @@
 									<div>
 										<input type="submit" value="로그인" class="btn btn-primary btn-block login" id="loginBtn">
 										<br>
-										<a href="#"><img src="images/kakao.jpg" id="kakaoLogin"></a>
+										<a href="javascript:loginWithKakao()">
+											<img src="images/kakao.jpg" id="kakaoLogin">
+										</a>
+										<script type="text/javascript">
+											Kakao.init('331aad78e1d25a226f305f41ebe4b7e2');
+								    		// 로그인 창을 띄웁니다.
+								    		function loginWithKakao() {
+								      			Kakao.Auth.login({
+     												success: function(authObj) {
+      													alert(JSON.stringify(authObj));
+    												},
+     												fail: function(err) {
+         												alert(JSON.stringify(err));
+     												}	
+   												});
+								    		};
+										</script>
 									</div>
 <!-- 								</form> -->
 							</div>
