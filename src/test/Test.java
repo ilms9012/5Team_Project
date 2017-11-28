@@ -14,14 +14,14 @@ public class Test {
 
 	public static void main(String[] args) {
 
-		final String username = "blausues@gmail.com";
-		final String password = "password";
+		final String username = "youhee93";
+		final String password = "dldbgml1215082";
 
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.port", "587");
+		props.put("mail.smtp.host", "smtp.naver.com");
+		props.put("mail.smtp.port", "465");
 
 		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
