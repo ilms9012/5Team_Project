@@ -3,9 +3,11 @@
 <html>
 <head>
 
-<script type="text/javascript" src="js/jquery.mixitup.min.js"></script>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.mixitup.min.js"></script>
+<script src="js/jquery-1.11.0.min.js"></script>
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet"
@@ -15,17 +17,18 @@
 	
 <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="js/jquery-1.11.0.min.js"></script>
+
 <!-- Custom Theme files -->
 <link href="css/style.css" rel='stylesheet' type='text/css' />
 <!-- Custom Theme files -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <script type="application/x-javascript">
 	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
 </script>
+
 <!-- Google Fonts -->
-<link
-	href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700'
+<link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700'
 	rel='stylesheet' type='text/css'>
 
 <script type="text/javascript">
@@ -65,12 +68,6 @@
 		};
 		// Run the show!
 		filterList.init();
-	
-		$('#loginBtn').click(function(){
-			alert('눌림');
-			$('#loginModal').modal('hide');
-			$('#authModal').modal('show');
-		})
 		
  		// 회원가입 버튼을 누르는 순간 중복확인하고 새로운 모달창으로 이동하면서 이메일 인증
 		$('#loginModal .join').click(function(){
@@ -104,11 +101,10 @@
 								data:'id='+id+'&password='+password+'&nickName='+nickName, 
 								dataType:'text',
 								success: function(join){
-									alert(join);
 									if(join=='true'){
 										alert('임시 회원가입 성공');
-										$('#loginModal').modal('hide');
-										$('#authModal').modal('show');
+										$('#loginModal .close').click();
+										$('#hiddenModal').click();
 									} else {
 										alert('임시 회원가입 실패');
 									}
@@ -123,9 +119,53 @@
 						alert('중복체크 중 에러가 발생했습니다.');
 					}
 				})
-			} 
-			return false;
+			}
+		}) 
+			
+		$('#authModal .send').click(function(){
+			// 인증 이메일 보내기
+			var id = $('#id').val();
+			$.ajax({
+				type:'post',
+				url:'sendMail.do', 
+				data:'id='+id, 
+				dataType:'text',
+				success: function(send){
+					if(send=='true'){
+						alert('입력하신 이메일로 인증 메일을 발송했습니다.');
+					} else {
+						alert('인증 메일 발송을 실패했습니다.');
+						}
+					},
+				error: function(){
+					alert('인증 메일 발송 중 에러가 발생했습니다.');
+				}
+			})
 		})
+			
+		$('#authModal .auth').click(function(){
+			// 인증 코드 체크 후 일치하면 auth == true 로 변경
+			var id = $('#id').val();
+			var authNum = $('#authNum').val();
+			$.ajax({
+				type:'post',
+				url:'checkAuthNum.do', 
+				data:'id='+id+'&authNum='+authNum, 
+				dataType:'text',
+				success: function(check){
+					if(check=='true'){
+						alert('회원가입이 완료되었습니다.');
+						location.href="/";
+					} else {
+						alert('인증코드가 일치하지 않습니다. 다시 확인해주세요.');
+						}
+					},
+				error: function(){
+					alert('인증 코드 체크 중 에러가 발생했습니다.');
+				}
+			})
+		})
+		return false;
 	});
 </script>
 
@@ -160,7 +200,7 @@
 	border-radius: 0;
 }
 
-#kakaoImg {
+#kakaoLogin {
     display: block;
     width: 100%;
     height: auto;
@@ -245,39 +285,48 @@
 									<div>
 										<input type="submit" value="로그인" class="btn btn-primary btn-block login" id="loginBtn">
 										<br>
-										<a href="#"><img src="images/kakao.jpg" id="kakaoImg"></a>
+										<a href="javascript:loginWithKakao()">
+											<img src="images/kakao.jpg" id="kakaoLogin">
+										</a>
+										<script type="text/javascript">
+											Kakao.init('331aad78e1d25a226f305f41ebe4b7e2');
+								    		// 로그인 창을 띄웁니다.
+								    		function loginWithKakao() {
+								      			Kakao.Auth.login({
+     												success: function(authObj) {
+      													alert(JSON.stringify(authObj));
+    												},
+     												fail: function(err) {
+         												alert(JSON.stringify(err));
+     												}	
+   												});
+								    		};
+										</script>
 									</div>
 <!-- 								</form> -->
 							</div>
 							<div role="tabpanel" class="tab-pane" id="joinTab">
-<!-- 								<form action="join.do" method="post" id="joinForm"> -->
-									<div class="form-group">
-										<label for="recipient-name" class="col-form-label">이메일</label>
-										<input type="email" class="form-control" id="id" name="id">
-									</div>
-									<div class="form-group">
-										<label for="message-text" class="col-form-label">패스워드</label>
-										<input type="password" class="form-control" id="password" name="password">
-									</div>
-									<div class="form-group">
-										<label for="message-text" class="col-form-label">
-											패스워드 확인
-										</label> 
-										<input type="password" class="form-control" id="passwordConfirm">
-									</div>
-									<div class="form-group">
-										<label for="recipient-name" class="col-form-label">닉네임</label>
-										<input type="text" class="form-control" id="nickName" name="nickName">
-									</div>
-									<div class="form-group">
-										<label for="recipient-name" class="col-form-label">이메일 인증</label><br>
-										<input type="password" class="form-control" style="width: 51%; display: inline;" id="password" placeholder="인증번호를 입력하세요.">
-										<button class="btn btn-primary">인증메일 보내기</button>
-									</div>
-									<div>
-										<button class="btn btn-primary btn-block join">회원가입</button>
-									</div>
-<!-- 								</form> -->
+								<div class="form-group">
+									<label for="recipient-name" class="col-form-label">이메일</label>
+									<input type="email" class="form-control" id="id" name="id">
+								</div>
+								<div class="form-group">
+									<label for="message-text" class="col-form-label">패스워드</label>
+									<input type="password" class="form-control" id="password" name="password">
+								</div>
+								<div class="form-group">
+									<label for="message-text" class="col-form-label">
+										패스워드 확인
+									</label> 
+									<input type="password" class="form-control" id="passwordConfirm">
+								</div>
+								<div class="form-group">
+									<label for="recipient-name" class="col-form-label">닉네임</label>
+									<input type="text" class="form-control" id="nickName" name="nickName">
+								</div>
+								<div>
+									<button class="btn btn-primary btn-block join">회원가입</button>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -286,6 +335,7 @@
 		</div>
 	</div>
 <!-- loginModal END -->
+	<input type="hidden" data-toggle="modal" data-target="#authModal" id="hiddenModal">
 <!-- authModeal START -->
 	<div class="modal modal-mystyle fade" id="authModal" tabindex="-1" role="dialog"
 		aria-labelledby="authModealLabel" aria-hidden="true">
@@ -299,19 +349,18 @@
 					<label for="recipient-name" class="col-form-label">이메일 인증</label>
 				</div>
 				<div class="modal-body">
-					<form action="auth.do" method="post">
-						<div class="form-group">
-							<label for="recipient-name" class="col-form-label">이메일</label>
-							<input type="email" class="form-control" id="id" value="blausues@gmail.com" readonly="readonly">
-						</div>
-						<div class="form-group">
-							<label for="message-text" class="col-form-label">인증번호</label>
-							<input type="password" class="form-control" id="password" placeholder="메일로 온 인증번호를 써주세요.">
-						</div>
-						<div>
-							<input type="submit" value="인증확인" class="btn btn-primary btn-block login">
-						</div>
-					</form>
+					<div class="form-group">
+						<label for="recipient-name" class="col-form-label">이메일</label>
+						<input type="email" class="form-control" id="id" value="blausues@gmail.com" readonly="readonly">
+					</div>
+					<div class="form-group">
+						<label for="message-text" class="col-form-label">인증번호</label>
+						<input type="password" class="form-control" id="authNum" placeholder="메일로 온 인증번호를 써주세요.">
+					</div>
+					<div>
+						<input type="button" value="인증 이메일 보내기" class="btn btn-primary btn-block send">
+						<input type="button" value="인증확인" class="btn btn-primary btn-block auth">
+					</div>
 				</div>
 			</div>
 		</div>
