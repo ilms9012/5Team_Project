@@ -13,13 +13,12 @@ public class MemberService {
 	@Autowired
 	private MemberDao dao;
 	
-	// 임시 회원가입 + 인증 이메일 보내기
-	public boolean join(MemberVO member, HttpSession session) {
-		member.setAuth("false");
-		if(dao.insert(member) > 0) {
-			return true;
+	// 회원가입
+	public String join(MemberVO member) {
+		if (dao.insert(member) > 0) {
+			return "true";
 		} else {
-			return false;
+			return "false";
 		}
 	}
 	
@@ -31,6 +30,16 @@ public class MemberService {
 			return "nickOverlap";
 		} else {
 			return "true";
+		}
+	}
+	
+	// 카카오 로그인 회원가입 여부 
+	public boolean kakaoJoinCheck(String id) {
+		if(dao.selectIdPw(id, "1") > 0) {
+			// 회원가입 되어있음
+			return true;
+		} else {
+			return false;
 		}
 	}
 	

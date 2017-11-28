@@ -77,8 +77,8 @@
 			
 			if(id==""){
 				alert('이메일을 입력해주세요.');
-			} else if(password==""){
-				alert('패스워드를 입력해주세요.');
+			} else if(!/^[a-zA-Z0-9!,@,#,$,%,^,&,*,?,_,~]{10,12}$/.test(password)){
+				alert('패스워드는 10~12자리를 사용해야 합니다.');
 			} else if(password != $('#passwordConfirm').val()){
 				alert('패스워드가 맞지 않습니다.');
 			} else if(nickName==""){
@@ -86,7 +86,39 @@
 			} else {
 				$.ajax({
 					type:'post',
-					url:'joinCheck.do', 
+					url:'join.do', 
+					data:'id='+id+'&password='+password+'&nickName='+nickName, 
+					dataType:'text',
+					success: function(check){
+						if(check=='idOverlap'){
+							alert('중복된 이메일입니다. 다른 이메일로 가입해주세요.');
+						} else if(check=='nickOverlap'){
+							alert('중복된 닉네임입니다. 다른 닉네임으로 가입해주세요.');
+						} else if(check=='true'){
+							alert('임시 회원가입 성공');
+							$('#loginModal .close').click();
+							$('#hiddenModal').click();
+						} else {
+							alert('임시 회원가입 실패');
+						}
+					},
+					error: function(){
+						alert('임시 회원가입 중 에러가 발생했습니다.');
+					}
+				})
+			}
+		}); 
+			
+		$('#kakaoModal .join').click(function(){
+		    var id = $('#kakaoId').val();
+		    var nickName = $('#kakaoNick').val();
+			
+			if(nickName==""){
+				alert('닉네임을 입력해주세요.');
+			} else {
+				$.ajax({
+					type:'post',
+					url:'kakaoJoin.do', 
 					data:'id='+id+'&nickName='+nickName, 
 					dataType:'text',
 					success: function(check){
@@ -94,34 +126,20 @@
 							alert('중복된 이메일입니다. 다른 이메일로 가입해주세요.');
 						} else if(check=='nickOverlap'){
 							alert('중복된 닉네임입니다. 다른 닉네임으로 가입해주세요.');
+						} else if(check=='true'){
+							alert('회원가입 성공');
+							location.href="/";
 						} else {
-							$.ajax({
-								type:'post',
-								url:'join.do', 
-								data:'id='+id+'&password='+password+'&nickName='+nickName, 
-								dataType:'text',
-								success: function(join){
-									if(join=='true'){
-										alert('임시 회원가입 성공');
-										$('#loginModal .close').click();
-										$('#hiddenModal').click();
-									} else {
-										alert('임시 회원가입 실패');
-									}
-								},
-								error: function(){
-									alert('임시 회원가입 중 에러가 발생했습니다.');
-								}
-							})
+							alert('회원가입 실패');
 						}
 					},
 					error: function(){
-						alert('중복체크 중 에러가 발생했습니다.');
+						alert('회원가입 중 에러가 발생했습니다.');
 					}
 				})
 			}
-		}) 
-			
+		}); 
+		
 		$('#authModal .send').click(function(){
 			// 인증 이메일 보내기
 			var id = $('#id').val();
@@ -144,7 +162,7 @@
 		})
 			
 		$('#authModal .auth').click(function(){
-			// 인증 코드 체크 후 일치하면 auth == true 로 변경
+			// 인증 코드 체크 후 일치하면 auth = true 로 변경
 			var id = $('#id').val();
 			var authNum = $('#authNum').val();
 			$.ajax({
@@ -211,10 +229,10 @@
 </head>
 <body>
 	<div class="header" style="padding-top: 11px; padding-bottom: 11px;">
-		<div class="container" style="margin-left: 0; margin-right:0;">
+		<div class="container" style="margin-left: 0; margin-right: 0;">
 			<div class="logo" style="width: 350px;">
-				<a href="index.jsp">
-					<img src="images/logo.png" width="54%" height="18%" alt="">
+				<a href="index.jsp"> <img src="images/logo.png" width="54%"
+					height="18%" alt="">
 				</a>
 			</div>
 			<span class="menu"></span>
@@ -227,9 +245,9 @@
 					<li><a href="#">자유게시판</a></li>
 				</ul>
 				<div class="search-bar">
-					<input type="text" placeholder="search" required /> 
-					<input type="submit" value="" />
-					<a href="#" data-toggle="modal" data-target="#loginModal"><b>로그인</b></a>
+					<input type="text" placeholder="search" required /> <input
+						type="submit" value="" /> <a href="#" data-toggle="modal"
+						data-target="#loginModal"><b>로그인</b></a>
 				</div>
 				<div class="clearfix"></div>
 				<script>
@@ -243,10 +261,10 @@
 			<div class="clearfix"></div>
 		</div>
 	</div>
-	
-<!-- loginModal START -->	
-	<div class="modal modal-mystyle fade" id="loginModal" tabindex="-1" role="dialog"
-		aria-labelledby="loginModalLabel" aria-hidden="true">
+
+	<!-- loginModal START -->
+	<div class="modal modal-mystyle fade" id="loginModal" tabindex="-1"
+		role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-mystyle">
 			<div class="modal-content modal-mystyle">
 				<div class="modal-header">
@@ -256,16 +274,10 @@
 					</button>
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs nav-justified" role="tablist">
-						<li role="presentation" class="active">
-							<a href="#loginTab" aria-controls="loginTab" role="tab" data-toggle="tab">
-								로그인
-							</a>
-						</li>
-						<li role="presentation">
-							<a href="#joinTab" aria-controls="joinTab" role="tab" data-toggle="tab">
-								회원가입
-							</a>
-						</li>
+						<li role="presentation" class="active"><a href="#loginTab"
+							aria-controls="loginTab" role="tab" data-toggle="tab"> 로그인 </a></li>
+						<li role="presentation"><a href="#joinTab"
+							aria-controls="joinTab" role="tab" data-toggle="tab"> 회원가입 </a></li>
 					</ul>
 				</div>
 				<div class="modal-body">
@@ -273,37 +285,63 @@
 						<!-- Tab panes -->
 						<div class="tab-content">
 							<div role="tabpanel" class="tab-pane active" id="loginTab">
-<!-- 								<form action="login.do" method="post"> -->
-									<div class="form-group">
-										<label for="recipient-name" class="col-form-label">이메일</label>
-										<input type="email" class="form-control" id="loginId" name="id">
-									</div>
-									<div class="form-group">
-										<label for="message-text" class="col-form-label">패스워드</label>
-										<input type="password" class="form-control" id="loginPassword">
-									</div>
-									<div>
-										<input type="submit" value="로그인" class="btn btn-primary btn-block login" id="loginBtn">
-										<br>
-										<a href="javascript:loginWithKakao()">
-											<img src="images/kakao.jpg" id="kakaoLogin">
-										</a>
-										<script type="text/javascript">
-											Kakao.init('331aad78e1d25a226f305f41ebe4b7e2');
-								    		// 로그인 창을 띄웁니다.
-								    		function loginWithKakao() {
-								      			Kakao.Auth.login({
-     												success: function(authObj) {
-      													alert(JSON.stringify(authObj));
-    												},
-     												fail: function(err) {
-         												alert(JSON.stringify(err));
-     												}	
-   												});
-								    		};
-										</script>
-									</div>
-<!-- 								</form> -->
+								<div class="form-group">
+									<label for="recipient-name" class="col-form-label">이메일</label>
+									<input type="email" class="form-control" id="loginId" name="id">
+								</div>
+								<div class="form-group">
+									<label for="message-text" class="col-form-label">패스워드</label> <input
+										type="password" class="form-control" id="loginPassword">
+								</div>
+								<div>
+									<input type="submit" value="로그인"
+										class="btn btn-primary btn-block login" id="loginBtn">
+									<br> <a href="javascript:loginWithKakao()"> <img
+										src="images/kakao.jpg" id="kakaoLogin">
+									</a>
+									<script type="text/javascript">
+										Kakao.init('331aad78e1d25a226f305f41ebe4b7e2');
+							    		// 로그인 창을 띄웁니다.
+							    		function loginWithKakao() {
+							      			Kakao.Auth.login({
+     											success: function(authObj) {
+     												Kakao.API.request({
+     													url: '/v1/user/me',
+     											        success: function(res) {
+     											    	   alert(JSON.stringify(res));
+     											    	   $.ajax({
+     	     													type:'post',
+     	     													url:'kakaoLogin.do', 
+     	     													data: 'info='+JSON.stringify(res), 
+     	     													dataType:'json',
+     	     													success: function(result) {
+     	     											    	   	// 회원가입 안 되어 있으면 가입 모달로
+     	     											    	   	alert(JSON.stringify(result));
+     	     											    	    if(result.check!='true') {
+     	     											    	    	$('#loginModal .close').click();
+     	     											    	    	$('#kakaoId').replaceWith('<input type="email" class="form-control" id="kakaoId" value="'+ rs.id +'" readonly="readonly">');
+     	     											    	    	$('#hiddenKakaoModal').click();
+     	     											    	    } else {
+     	     											    	    	location.href="/";
+     	     											    	    }
+     	     											        },
+     	     											        fail: function(error) {
+     	     											        	alert(JSON.stringify(error));
+     	     											        }
+     	     												})
+     											        },
+     											        fail: function(error) {
+     											        	alert(JSON.stringify(error));
+     											        }
+     												});
+     											},
+     											fail: function(err) {
+         											alert(JSON.stringify(err));
+     											}	
+   											});
+							    		};
+									</script>
+								</div>
 							</div>
 							<div role="tabpanel" class="tab-pane" id="joinTab">
 								<div class="form-group">
@@ -311,18 +349,19 @@
 									<input type="email" class="form-control" id="id" name="id">
 								</div>
 								<div class="form-group">
-									<label for="message-text" class="col-form-label">패스워드</label>
-									<input type="password" class="form-control" id="password" name="password">
+									<label for="message-text" class="col-form-label">패스워드</label> <input
+										type="password" class="form-control" id="password"
+										name="password">
 								</div>
 								<div class="form-group">
-									<label for="message-text" class="col-form-label">
-										패스워드 확인
-									</label> 
-									<input type="password" class="form-control" id="passwordConfirm">
+									<label for="message-text" class="col-form-label"> 패스워드
+										확인 </label> <input type="password" class="form-control"
+										id="passwordConfirm">
 								</div>
 								<div class="form-group">
 									<label for="recipient-name" class="col-form-label">닉네임</label>
-									<input type="text" class="form-control" id="nickName" name="nickName">
+									<input type="text" class="form-control" id="nickName"
+										name="nickName">
 								</div>
 								<div>
 									<button class="btn btn-primary btn-block join">회원가입</button>
@@ -334,11 +373,12 @@
 			</div>
 		</div>
 	</div>
-<!-- loginModal END -->
-	<input type="hidden" data-toggle="modal" data-target="#authModal" id="hiddenModal">
-<!-- authModeal START -->
-	<div class="modal modal-mystyle fade" id="authModal" tabindex="-1" role="dialog"
-		aria-labelledby="authModealLabel" aria-hidden="true">
+	<!-- loginModal END -->
+	<input type="hidden" data-toggle="modal" data-target="#authModal"
+		id="hiddenModal">
+	<!-- authModeal START -->
+	<div class="modal modal-mystyle fade" id="authModal" tabindex="-1"
+		role="dialog" aria-labelledby="authModealLabel" aria-hidden="true">
 		<div class="modal-dialog modal-mystyle">
 			<div class="modal-content modal-mystyle">
 				<div class="modal-header">
@@ -350,21 +390,56 @@
 				</div>
 				<div class="modal-body">
 					<div class="form-group">
-						<label for="recipient-name" class="col-form-label">이메일</label>
-						<input type="email" class="form-control" id="id" value="blausues@gmail.com" readonly="readonly">
+						<label for="recipient-name" class="col-form-label">이메일</label> <input
+							type="email" class="form-control" id="id"
+							value="blausues@gmail.com" readonly="readonly">
 					</div>
 					<div class="form-group">
-						<label for="message-text" class="col-form-label">인증번호</label>
-						<input type="password" class="form-control" id="authNum" placeholder="메일로 온 인증번호를 써주세요.">
+						<label for="message-text" class="col-form-label">인증번호</label> <input
+							type="password" class="form-control" id="authNum"
+							placeholder="메일로 온 인증번호를 써주세요.">
 					</div>
 					<div>
-						<input type="button" value="인증 이메일 보내기" class="btn btn-primary btn-block send">
-						<input type="button" value="인증확인" class="btn btn-primary btn-block auth">
+						<input type="button" value="인증 이메일 보내기"
+							class="btn btn-primary btn-block send"> <input
+							type="button" value="인증확인" class="btn btn-primary btn-block auth">
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-<!-- authModeal END -->
+	<!-- authModeal END -->
+	<input type="hidden" data-toggle="modal" data-target="#kakaoModal"
+		id="hiddenKakaoModal">	
+	<!-- kakaoModal START -->
+	<div class="modal modal-mystyle fade" id="kakaoModal" tabindex="-1"
+		role="dialog" aria-labelledby="kakaoModealLabel" aria-hidden="true">
+		<div class="modal-dialog modal-mystyle">
+			<div class="modal-content modal-mystyle">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<label for="recipient-name" class="col-form-label">카카오 회원가입</label>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="recipient-name" class="col-form-label">이메일</label> 
+						<input type="email" class="form-control" id="kakaoId"
+							value="${tempId}" readonly="readonly">
+					</div>
+					<div class="form-group">
+						<label for="recipient-name" class="col-form-label">닉네임</label> 
+						<input type="text" class="form-control" id="kakaoNick">
+					</div>
+					<div>
+						<button class="btn btn-primary btn-block join">회원가입</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- kakaoModal END -->
 </body>
 </html>

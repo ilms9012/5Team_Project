@@ -16,4 +16,5 @@
 	<mvc:view-resolvers>
 		<mvc:jsp prefix="/WEB-INF/views/" suffix=".jsp"></mvc:jsp>
 	</mvc:view-resolvers>
+	
 </beans>
