@@ -1,9 +1,11 @@
 package controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -43,12 +46,13 @@ public class MemberController {
 	@RequestMapping(value="/kakaoJoin.do")
 	@ResponseBody
 	public String kakaoJoin(MemberVO member) {
+		System.out.println(member.getAuth());
 		String joinCheck = service.joinCheck
 				(member.getId(), member.getNickName());
 		if(joinCheck.equals("true")) {
 			// 비밀번호가 1이면 카카오 로그인을 통한 회원가입
 			member.setPassword("1");
-//			member.setAuth(auth);
+			member.setAuth(member.getAuth());
 			return service.join(member);
 		} else {
 			return joinCheck;
@@ -93,7 +97,7 @@ public class MemberController {
 	
 	@RequestMapping(value="/kakaoLogin.do", method=RequestMethod.POST)
 	@ResponseBody
-	public HashMap<String, Object> kakaoLogin(HttpSession session, @RequestParam("info") String info) {
+	public void kakaoLogin(HttpSession session, @RequestParam("info") String info, HttpServletResponse resp) {
 		JsonParser jsonParser = new JsonParser();
 		JsonObject jsonObj = (JsonObject) jsonParser.parse(info);
 		
@@ -101,6 +105,9 @@ public class MemberController {
 		String auth = jsonObj.get("kaccount_email_verified").getAsString();
 		
 		HashMap<String, Object> rs = new HashMap<String, Object>();
+		
+		Gson gson = new Gson();
+		
 		if(service.kakaoJoinCheck(id)) {
 			// 만약 같은 id가 있고 비밀번호가 1이라면 회원가입한거니까 바로 로그인
 			rs.put("check", "true");
@@ -110,13 +117,17 @@ public class MemberController {
 			rs.put("id", id);
 			rs.put("auth", auth);
 		}
-		return rs;
+		
+		try {
+			resp.getWriter().write(gson.toJson(rs));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
-
-	
-
-
-
-
+	@RequestMapping("/logout.do")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "logout";
+	}
 }
