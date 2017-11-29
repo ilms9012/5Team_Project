@@ -24,47 +24,94 @@ public class SearchService {
 	private SearchDao dao;
 	public static final String API_KEY = "47fc2c55-b8d9-411a-8ddc-63cd678e4dec";
 
-	public StatVO statSearch(String nickname) {
+	public List<StatVO> statSearch(String nickname) {
+		List<StatVO> statList = new ArrayList<StatVO>();
+		statList = dao.selectList(nickname);
+		
 		JPubg jPubg = JPubgFactory.getWrapper(API_KEY);
-
-		FilterCriteria criteria = new FilterCriteria();
-		criteria.setMode(PUBGMode.squad);
-		criteria.setRegion(PUBGRegion.as);
-		criteria.setSeason(PUBGSeason.PRE5_2017);
-
-		Player player = null;
-
+		
+		FilterCriteria asSoloCriteria = new FilterCriteria(PUBGMode.solo, PUBGRegion.as, PUBGSeason.PRE5_2017);   //1
+		FilterCriteria asDuoCriteria = new FilterCriteria(PUBGMode.duo, PUBGRegion.as, PUBGSeason.PRE5_2017); 	//2
+		FilterCriteria asSquadCriteria = new FilterCriteria(PUBGMode.squad, PUBGRegion.as, PUBGSeason.PRE5_2017);	//3
+		FilterCriteria krjpSoloCriteria = new FilterCriteria(PUBGMode.solo, PUBGRegion.krjp, PUBGSeason.PRE5_2017);	//4
+		FilterCriteria krjpDuoCriteria = new FilterCriteria(PUBGMode.duo, PUBGRegion.krjp, PUBGSeason.PRE5_2017);	//5
+		FilterCriteria krjpSquadCriteria = new FilterCriteria(PUBGMode.squad, PUBGRegion.krjp, PUBGSeason.PRE5_2017);	//6
+		
+		
+		Player asSolo = null;    //1
+		Player asDuo = null;	//2
+		Player asSquad = null;	//3	
+		Player krjpSolo = null;	//4
+		Player krjpDuo = null;	//5
+		Player krjpSquad = null;	//6
+		
 		try {
-
-			player = jPubg.getByNickname(nickname, criteria);
-		} catch (IllegalArgumentException e) {
-			System.out.println("Player could not be found or validated: " + e.getLocalizedMessage());
-		}
-
-		if (player != null) {
-			List<Stat> stat = new ArrayList<Stat>();
-			stat.add(0, jPubg.getPlayerMatchStatByStatName(player, PUBGStat.RATING));
-			stat.add(1, jPubg.getPlayerMatchStatByStatName(player, PUBGStat.WIN_RATIO));
-			stat.add(2, jPubg.getPlayerMatchStatByStatName(player, PUBGStat.KILL_DEATH_RATIO));
-			stat.add(3, jPubg.getPlayerMatchStatByStatName(player, PUBGStat.DAMAGE_PER_GAME));
-			stat.add(4, jPubg.getPlayerMatchStatByStatName(player, PUBGStat.TOP_10_RATIO));
-			stat.add(5, jPubg.getPlayerMatchStatByStatName(player, PUBGStat.TIME_SURVIVED_PER_GAME));
-			stat.add(6, jPubg.getPlayerMatchStatByStatName(player, PUBGStat.ROUND_MOST_KILLS));
-
-			StatVO vo = new StatVO();
-			vo.setNickname(nickname);
-			vo.setRating(stat.get(0).getIntegerValue());
-			vo.setWin_Ratio(stat.get(1).getDecimalValue());
-			vo.setKill_Death_Ratio(stat.get(2).getDecimalValue());
-			vo.setDamage_Per_Game(stat.get(3).getDecimalValue());
-			vo.setTop10_Ratio(stat.get(4).getDecimalValue());
-			vo.setTime_Survived_Per_Game(stat.get(5).getIntegerValue());
-			vo.setRound_Most_Kill(stat.get(6).getIntegerValue());
+			System.out.println(nickname);
+			asSolo = jPubg.getByNickname(nickname, asSoloCriteria);
+			asDuo = jPubg.getByNickname(nickname, asDuoCriteria);
+			asSquad = jPubg.getByNickname(nickname, asSquadCriteria);
+			krjpSolo = jPubg.getByNickname(nickname, krjpSoloCriteria);
+			krjpDuo = jPubg.getByNickname(nickname, krjpDuoCriteria);
+			krjpSquad = jPubg.getByNickname(nickname, krjpSquadCriteria);
 			
-			dao.Insert(vo);
-			return vo;
-		} else {
+		} catch (IllegalArgumentException e) {
+			System.out.println("플레이어를 찾을 수 없습니다." + e.getLocalizedMessage());
 			return null;
 		}
+
+		if (asSolo != null) {
+			List<Stat> stat = new ArrayList<Stat>();
+			stat.add(0, jPubg.getPlayerMatchStatByStatName(asSolo, PUBGStat.RATING));
+			stat.add(1, jPubg.getPlayerMatchStatByStatName(asSolo, PUBGStat.WIN_RATIO));
+			stat.add(2, jPubg.getPlayerMatchStatByStatName(asSolo, PUBGStat.KILL_DEATH_RATIO));
+			stat.add(3, jPubg.getPlayerMatchStatByStatName(asSolo, PUBGStat.DAMAGE_PER_GAME));
+			stat.add(4, jPubg.getPlayerMatchStatByStatName(asSolo, PUBGStat.TOP_10_RATIO));
+			stat.add(5, jPubg.getPlayerMatchStatByStatName(asSolo, PUBGStat.TIME_SURVIVED_PER_GAME));
+			stat.add(6, jPubg.getPlayerMatchStatByStatName(asSolo, PUBGStat.ROUND_MOST_KILLS));
+			stat.add(7, jPubg.getPlayerMatchStatByStatName(asSolo, PUBGStat.HEADSHOT_KILL_RATIO));
+			stat.add(8, jPubg.getPlayerMatchStatByStatName(asSolo, PUBGStat.WINS));
+			stat.add(9, jPubg.getPlayerMatchStatByStatName(asSolo, PUBGStat.TOP_10));
+			stat.add(10, jPubg.getPlayerMatchStatByStatName(asSolo, PUBGStat.LOSSES));
+			
+
+			StatVO asSoloVO = new StatVO();
+			asSoloVO.setNickname(nickname);
+			asSoloVO.setRating(Integer.parseInt(stat.get(0).getStringValue()));
+			asSoloVO.setWin_Ratio(stat.get(1).getDecimalValue());
+			asSoloVO.setKill_Death_Ratio(stat.get(2).getDecimalValue());
+			asSoloVO.setDamage_Per_Game(stat.get(3).getDecimalValue());
+			asSoloVO.setTop10_Ratio(stat.get(4).getDecimalValue());
+			asSoloVO.setTime_Survived_Per_Game(stat.get(5).getDecimalValue());
+			asSoloVO.setRound_Most_Kill(stat.get(6).getIntegerValue());
+
+			dao.insert(asSoloVO);
+			statList.add(0, asSoloVO);
+
+		}
+		if(asDuo !=null) {
+			List<Stat> stat = new ArrayList<Stat>();
+			stat.add(0, jPubg.getPlayerMatchStatByStatName(asDuo, PUBGStat.RATING));
+			stat.add(1, jPubg.getPlayerMatchStatByStatName(asDuo, PUBGStat.WIN_RATIO));
+			stat.add(2, jPubg.getPlayerMatchStatByStatName(asDuo, PUBGStat.KILL_DEATH_RATIO));
+			stat.add(3, jPubg.getPlayerMatchStatByStatName(asDuo, PUBGStat.DAMAGE_PER_GAME));
+			stat.add(4, jPubg.getPlayerMatchStatByStatName(asDuo, PUBGStat.TOP_10_RATIO));
+			stat.add(5, jPubg.getPlayerMatchStatByStatName(asDuo, PUBGStat.TIME_SURVIVED_PER_GAME));
+			stat.add(6, jPubg.getPlayerMatchStatByStatName(asDuo, PUBGStat.ROUND_MOST_KILLS));
+
+			StatVO asDuoVO = new StatVO();
+			asDuoVO.setNickname(nickname);
+			asDuoVO.setRating(Integer.parseInt(stat.get(0).getStringValue()));
+			asDuoVO.setWin_Ratio(stat.get(1).getDecimalValue());
+			asDuoVO.setKill_Death_Ratio(stat.get(2).getDecimalValue());
+			asDuoVO.setDamage_Per_Game(stat.get(3).getDecimalValue());
+			asDuoVO.setTop10_Ratio(stat.get(4).getDecimalValue());
+			asDuoVO.setTime_Survived_Per_Game(stat.get(5).getDecimalValue());
+			asDuoVO.setRound_Most_Kill(stat.get(6).getIntegerValue());
+
+			dao.insert(asDuoVO);
+			statList.add(0, asDuoVO);
+		}
+		return statList;
 	}
+
 }

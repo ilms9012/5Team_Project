@@ -8,7 +8,6 @@
 </head>
 <body>
 <h2>°á°ú</h2>
-	${statInfo.nickname}
 	${statInfo.rating}
 </body>
 </html>

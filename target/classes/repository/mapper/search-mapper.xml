@@ -2,25 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="repository.mapper.SearchMapper">
 	<insert id="insert" parameterType="StatVO">
-		INSERT INTO AS_STAT(NICKNAME,AS_RATING,AS_WIN_RATIO,AS_KILL_DEATH_RATIO,AS_DAMAGE_PER_GAME,AS_TOP10_RATIO,AS_TIME_SURVIVED_PER_GAME,AS_ROUND_MOST_KILL) VALUES(#{nickname},#{rating},#{win_Ratio},#{kill_Death_Ratio},#{damage_Per_Game},#{top10_Ratio},#{time_Survived_Per_Game},#{round_Most_Kill})
+		INSERT INTO STAT(NICKNAME,GAME_MODE,RATING,WIN_RATIO,KILL_DEATH_RATIO,DAMAGE_PER_GAME,TOP10_RATIO,TIME_SURVIVED_PER_GAME,ROUND_MOST_KILL,HEADSHOT_KILL_RATIO,WINS,TOP_10,LOSSES) VALUES(#{nickname},#{game_mode},#{rating},#{win_Ratio},#{kill_Death_Ratio},#{damage_Per_Game},#{top10_Ratio},#{time_Survived_Per_Game},#{round_Most_Kill},#{headshot_Kill_Ratio},#{wins},#{top_10},#{losses})
 	</insert>
-	<select id="select" parameterType="String" resultMap="statResultMap">
-		SELECT *FROM AS_STAT WHERE NICKNAME=#{nickname}
-	</select>
 	<update id="update" parameterType="StatVO">
-		UPDATE AS_STAT SET NICKNAME=#{nickname},AS_RATING=#{rating},AS_WIN_RATIO=#{win_Ratio},AS_KILL_DEATH_RATIO=#{kill_Death_Ratio},AS_DAMAGE_PER_GAME=#{damage_Per_Game},AS_TOP10_RATIO=#{top10_Ratio},AS_TIME_SURVIVED_PER_GAME=#{time_Survived_Per_Game},AS_ROUND_MOST_KILL=#{as_Round_Most_Kill}
+		UPDATE STAT SET RATING=#{rating},WIN_RATIO=#{win_Ratio},KILL_DEATH_RATIO=#{kill_Death_Ratio},DAMAGE_PER_GAME=#{damage_Per_Game},TOP10_RATIO=#{top10_Ratio},TIME_SURVIVED_PER_GAME=#{time_Survived_Per_Game},ROUND_MOST_KILL=#{round_Most_Kill},HEADSHOT_KILL_RATIO=#{headshot_Kill_Ratio},WINS=#{wins},TOP_10=#{top_10},LOSSES=#{losses} WHERE NICKNAME=#{nickname} AND GAME_MODE=#{game_mode}
 	</update>
+	<select id="selectList" parameterType="String" resultMap="statResultMap">
+		SELECT *FROM STAT WHERE NICKNAME=#{nickname} ORDER BY GAME_MODE ASC
+	</select>
 	
 	
 	
 	<resultMap type="StatVO" id="statResultMap">
 		<result property="nickname" column="NICKNAME"/>
-		<result property="rating" column="AS_RATING"/>
-		<result property="win_Ratio" column="AS_WIN_RATIO"/>
-		<result property="kill_Death_Ratio" column="AS_KILL_DEATH_RATIO"/>
-		<result property="damage_Per_Game" column="AS_DAMAGE_PER_GAME"/>
-		<result property="top10_Ratio" column="AS_TOP10_RATIO"/>
-		<result property="time_Survived_Per_Game" column="AS_TIME_SURVIVED_PER_GAME"/>
-		<result property="round_Most_Kill" column="AS_ROUND_MOST_KILL"/>
+		<result property="game_mode" column="GAME_MODE"/>
+		<result property="rating" column="RATING"/>
+		<result property="win_Ratio" column="WIN_RATIO"/>
+		<result property="kill_Death_Ratio" column="KILL_DEATH_RATIO"/>
+		<result property="damage_Per_Game" column="DAMAGE_PER_GAME"/>
+		<result property="top10_Ratio" column="TOP10_RATIO"/>
+		<result property="time_Survived_Per_Game" column="TIME_SURVIVED_PER_GAME"/>
+		<result property="round_Most_Kill" column="ROUND_MOST_KILL"/>
+		<result property="headshot_Kill_Ratio" column="HEADSHOT_KILL_RATIO"/>
+		<result property="wins" column="WINS"/>
+		<result property="top_10" column="TOP_10"/>
+		<result property="losses" column="LOSSES"/>
+		
 	</resultMap>
 </mapper>

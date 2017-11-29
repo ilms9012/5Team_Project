@@ -59,8 +59,10 @@ $(function () {
 <p>
 	<div class="banner">
 		<div class="search-bar1">
-			<input type="text" placeholder="배틀그라운드 아이디를 입력하세요." required="required"/>
+			<form action="search.do">
+			<input type="text" name="nickname" placeholder="배틀그라운드 아이디를 입력하세요." required="required"/>
 			<input type="submit" value="" />
+			</form>
 		</div>
 	</div>
 </p>

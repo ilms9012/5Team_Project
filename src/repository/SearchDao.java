@@ -1,5 +1,7 @@
 package repository;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,9 +13,19 @@ import vo.StatVO;
 public class SearchDao {
 	@Autowired
 	public SqlSessionTemplate session;
-	
-	public int Insert(StatVO stat) {
+
+	public List<StatVO> selectList(String nickname) {
+		SearchMapper mapper = session.getMapper(SearchMapper.class);
+		return mapper.selectList(nickname);
+	}
+
+	public int insert(StatVO stat) {
 		SearchMapper mapper = session.getMapper(SearchMapper.class);
 		return mapper.insert(stat);
+	}
+
+	public int update(StatVO stat) {
+		SearchMapper mapper = session.getMapper(SearchMapper.class);
+		return mapper.update(stat);
 	}
 }
