@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
 <html>
 <head>
-
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
@@ -70,6 +70,8 @@
 		};
 		// Run the show!
 		filterList.init();
+		
+		Kakao.init('331aad78e1d25a226f305f41ebe4b7e2');
 		
  		// 회원가입 버튼을 누르는 순간 중복확인하고 새로운 모달창으로 이동하면서 이메일 인증
 		$('#loginModal .join').click(function(){
@@ -256,9 +258,18 @@
 					</c:if>
 					<c:if test="${not empty loginId}">
 						<b style="color: white;">${loginId} 님</b>
-						<a href="logout.do">
+						<a href="javascript:logoutWithKakao()">
 							<b>로그아웃</b>
 						</a>
+						<script type="text/javascript">
+							function logoutWithKakao() {
+								Kakao.Auth.logout(function() {
+									setTimeout(function() {
+										location.href="logout.do";
+									}, 100);
+								});
+							}
+						</script>
 					</c:if>
 				</div>
 				<div class="clearfix"></div>
@@ -312,15 +323,19 @@
 										<img src="images/kakao.jpg" id="kakaoLogin">
 									</a>
 									<script type="text/javascript">
-										Kakao.init('331aad78e1d25a226f305f41ebe4b7e2');
 							    		// 로그인 창을 띄웁니다.
 							    		function loginWithKakao() {
 							      			Kakao.Auth.login({
      											success: function(authObj) {
+     												$('#kakaoLogin').replaceWith
+     												('<button class="btn btn-lg" style="background: rgb(255, 235, 0); '+
+     												'border-color: rgb(255, 235, 0); '+
+     												'color: rgb(60, 30, 30); display: block; width: 100%;">'+
+     												'<i class="fa fa-spinner fa-spin"></i> <b>Loading<b></button>');
      												Kakao.API.request({
      													url: '/v1/user/me',
      											        success: function(res) {
-     											    	   $.ajax({
+     											    	   	$.ajax({
      	     													type:'post',
      	     													url:'kakaoLogin.do', 
      	     													data: 'info='+JSON.stringify(res), 
@@ -331,7 +346,9 @@
      	     											    	    if(rs.check=='false') {
      	     											    	    	$('#loginModal .close').click();
      	     											    	    	$('#hiddenKakaoModal').click();
-     	     											    	    	$('#kakaoId').replaceWith('<input type="email" class="form-control" id="kakaoId" value="'+ rs.id +'" readonly="readonly">');
+     	     											    	    	$('#kakaoId').replaceWith
+     	     											    	    	('<input type="email" class="form-control" '+
+     	     											    	    	'id="kakaoId" value="'+ rs.id +'" readonly="readonly">');
      	     											    	    } else {
      	     											    	    	location.href="/";
      	     											    	    }
