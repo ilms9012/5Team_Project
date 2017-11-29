@@ -78,7 +78,7 @@ ul.navig li a:hover{
 	outline: none;
 	-webkit-appearance: none;
 	vertical-align: -webkit-baseline-middle;
-	color:#fff;
+	color:#000000;
 	float: left;
 }
 .search-bar input[type="submit"]{
@@ -113,14 +113,14 @@ ul.navig li a:hover{
 	padding:15px;
 	border:0;
 /* 	background:#4fbfa8; */
-	background:#ffffff;
+	background:#000000;
 	background-color: rgba( 255, 255, 255, 0.5 );
 	margin: 300px -4px 0px 400px;
 	display: inline-block;
 	outline: none;
 	-webkit-appearance: none;
 	vertical-align: -webkit-baseline-middle;
-	color:#fff;
+	color:#000000;
 }
 .search-bar1 input[type="submit"]{
 	width:20%;
