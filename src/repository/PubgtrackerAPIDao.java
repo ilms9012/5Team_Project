@@ -53,17 +53,21 @@ public class PubgtrackerAPIDao {
 
 		if (player != null) {
 			List<Stat> stat = new ArrayList<Stat>();
-			stat.add(0, jPubg.getPlayerMatchStatByStatName(player, PUBGStat.RATING));
-			stat.add(1, jPubg.getPlayerMatchStatByStatName(player, PUBGStat.WIN_RATIO));
-			stat.add(2, jPubg.getPlayerMatchStatByStatName(player, PUBGStat.KILL_DEATH_RATIO));
-			stat.add(3, jPubg.getPlayerMatchStatByStatName(player, PUBGStat.DAMAGE_PER_GAME));
-			stat.add(4, jPubg.getPlayerMatchStatByStatName(player, PUBGStat.TOP_10_RATIO));
-			stat.add(5, jPubg.getPlayerMatchStatByStatName(player, PUBGStat.TIME_SURVIVED_PER_GAME));
-			stat.add(6, jPubg.getPlayerMatchStatByStatName(player, PUBGStat.ROUND_MOST_KILLS));
-			stat.add(7, jPubg.getPlayerMatchStatByStatName(player, PUBGStat.HEADSHOT_KILL_RATIO));
-			stat.add(8, jPubg.getPlayerMatchStatByStatName(player, PUBGStat.WINS));
-			stat.add(9, jPubg.getPlayerMatchStatByStatName(player, PUBGStat.TOP_10));
-			stat.add(10, jPubg.getPlayerMatchStatByStatName(player, PUBGStat.LOSSES));
+			try {
+				stat.add(0, jPubg.getPlayerMatchStatByStatName(player, PUBGStat.RATING));
+				stat.add(1, jPubg.getPlayerMatchStatByStatName(player, PUBGStat.WIN_RATIO));
+				stat.add(2, jPubg.getPlayerMatchStatByStatName(player, PUBGStat.KILL_DEATH_RATIO));
+				stat.add(3, jPubg.getPlayerMatchStatByStatName(player, PUBGStat.DAMAGE_PER_GAME));
+				stat.add(4, jPubg.getPlayerMatchStatByStatName(player, PUBGStat.TOP_10_RATIO));
+				stat.add(5, jPubg.getPlayerMatchStatByStatName(player, PUBGStat.TIME_SURVIVED_PER_GAME));
+				stat.add(6, jPubg.getPlayerMatchStatByStatName(player, PUBGStat.ROUND_MOST_KILLS));
+				stat.add(7, jPubg.getPlayerMatchStatByStatName(player, PUBGStat.HEADSHOT_KILL_RATIO));
+				stat.add(8, jPubg.getPlayerMatchStatByStatName(player, PUBGStat.WINS));
+				stat.add(9, jPubg.getPlayerMatchStatByStatName(player, PUBGStat.TOP_10));
+				stat.add(10, jPubg.getPlayerMatchStatByStatName(player, PUBGStat.LOSSES));
+			} catch (Exception e) {
+				return null;
+			}
 
 			StatVO playerVO = new StatVO();
 			playerVO.setNickname(nickname);
