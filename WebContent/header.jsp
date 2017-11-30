@@ -244,7 +244,7 @@
 				<ul class="navig cl-effect-3">
 					<li><a href="#">통계</a></li>
 					<li><a href="#">랭킹</a></li>
-					<li><a href="compare.do">전적비교</a></li>
+					<li><a href="compareForm.do">전적비교</a></li>
 					<li><a href="#">공략/팁</a></li>
 					<li><a href="#">자유게시판</a></li>
 				</ul>
