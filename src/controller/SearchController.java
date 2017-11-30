@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import service.SearchService;
@@ -29,6 +30,18 @@ public class SearchController {
 		}
 		return mv;
 	}
+	
+	@RequestMapping("/compareForm.do")
+	public String compareForm() {
+		return "compare_form";
+	}
+	
+	@RequestMapping("/searchAvatar.do")
+	@ResponseBody
+	public String searchAvatar(String nickname) {
+		return service.searchAvatar(nickname);
+	}
+	
 	@RequestMapping("/compare.do")
 	public ModelAndView compare(String nickname,String nickname2) {
 		ModelAndView mv = new ModelAndView();

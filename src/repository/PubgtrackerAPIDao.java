@@ -6,6 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import pubgapi.core.JPubg;
 import pubgapi.enums.PUBGMode;
 import pubgapi.enums.PUBGRegion;
@@ -88,6 +91,24 @@ public class PubgtrackerAPIDao {
 			return playerVO;
 		} else {
 			return null;
+		}
+	}
+	
+	public String selectAvatar(String nickname) {
+		JPubg jPubg = JPubgFactory.getWrapper(API_KEY);
+		String avatar = "null";
+		String player = jPubg.getByNickname(nickname);
+		System.out.println(player);
+		JsonParser jsonParser = new JsonParser();
+		JsonObject jsonObj = (JsonObject) jsonParser.parse(player);
+		
+		try {
+			avatar = jsonObj.get("Avatar").getAsString();
+			System.out.println(avatar);
+			return avatar;
+		} catch (Exception e) {
+			System.out.println("플레이어를 찾을 수 없습니다.");
+			return "null";
 		}
 	}
 

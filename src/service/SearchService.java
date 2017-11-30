@@ -37,10 +37,14 @@ public class SearchService {
 				StatVO stat = apiDao.selectStat(nickname, i);
 				dao.insert(stat);
 				statList.add(i - 1, stat);
-
 			}
 		}
 		return statList;
+	}
+	
+	// 프로필 사진 꺼내오기
+	public String searchAvatar(String nickname) {
+		return apiDao.selectAvatar(nickname);
 	}
 
 }
