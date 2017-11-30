@@ -56,7 +56,6 @@ $(function () {
 <%@ include file="header.jsp" %>
 <!-- Header Starts Here -->
 
-<p>
 	<div class="banner">
 		<div class="search-bar1">
 			<form action="search.do">
@@ -65,7 +64,6 @@ $(function () {
 			</form>
 		</div>
 	</div>
-</p>
 <!-- What New Part starts Here -->
 <div class="what-new">
 	<div class="container">

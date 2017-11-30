@@ -10,6 +10,9 @@
 	<select id="selectList" parameterType="String" resultMap="statResultMap">
 		SELECT *FROM STAT WHERE NICKNAME=#{nickname} ORDER BY GAME_MODE ASC
 	</select>
+	<select id="selectMode" resultType="int">
+		SELECT COUNT(NICKNAME) FROM STAT WHERE NICKNAME=#{nickname} AND GAME_MODE=#{modeNum}
+	</select>
 	
 	
 	

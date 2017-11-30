@@ -2,7 +2,7 @@ package vo;
 
 public class StatVO {
 	private String nickname;
-	private String game_mode;
+	private int game_Mode;
 	private int rating;
 	private double win_Ratio;
 	private double kill_Death_Ratio;
@@ -15,11 +15,11 @@ public class StatVO {
 	private int top_10;
 	private int losses;
 
-	public StatVO(String nickname, String game_mode, int rating, double win_Ratio, double kill_Death_Ratio,
+	public StatVO(String nickname, int game_Mode, int rating, double win_Ratio, double kill_Death_Ratio,
 			double damage_Per_Game, double top10_Ratio, double time_Survived_Per_Game, int round_Most_Kill,
 			double headshot_Kill_Ratio, int wins, int top_10, int losses) {
 		this.nickname = nickname;
-		this.game_mode = game_mode;
+		this.game_Mode = game_Mode;
 		this.rating = rating;
 		this.win_Ratio = win_Ratio;
 		this.kill_Death_Ratio = kill_Death_Ratio;
@@ -45,12 +45,12 @@ public class StatVO {
 		this.nickname = nickname;
 	}
 
-	public String getGame_mode() {
-		return game_mode;
+	public int getGame_mode() {
+		return game_Mode;
 	}
 
-	public void setGame_mode(String game_mode) {
-		this.game_mode = game_mode;
+	public void setGame_mode(int game_Mode) {
+		this.game_Mode = game_Mode;
 	}
 
 	public int getRating() {
@@ -143,7 +143,7 @@ public class StatVO {
 
 	@Override
 	public String toString() {
-		return "StatVO [nickname=" + nickname + ", game_mode=" + game_mode + ", rating=" + rating + ", win_Ratio="
+		return "StatVO [nickname=" + nickname + ", game_mode=" + game_Mode + ", rating=" + rating + ", win_Ratio="
 				+ win_Ratio + ", kill_Death_Ratio=" + kill_Death_Ratio + ", damage_Per_Game=" + damage_Per_Game
 				+ ", top10_Ratio=" + top10_Ratio + ", time_Survived_Per_Game=" + time_Survived_Per_Game
 				+ ", round_Most_Kill=" + round_Most_Kill + ", headshot_Kill_Ratio=" + headshot_Kill_Ratio + ", wins="

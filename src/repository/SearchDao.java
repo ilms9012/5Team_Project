@@ -28,4 +28,8 @@ public class SearchDao {
 		SearchMapper mapper = session.getMapper(SearchMapper.class);
 		return mapper.update(stat);
 	}
+	public int selectMode(int modeNum,String nickname) {
+		SearchMapper mapper = session.getMapper(SearchMapper.class);
+		return mapper.selectMode(modeNum,nickname);
+	}
 }
