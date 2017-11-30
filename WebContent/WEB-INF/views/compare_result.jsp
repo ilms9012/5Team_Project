@@ -56,81 +56,84 @@
 
 </head>
 <body>
+	<h1 align="center">전적비교</h1>
+	<br>
+	<br>
+	<div id="top" class="row">
+		<div class="col-md-5" align="right">
+			ABP-532<img src="Penguins.jpg" width="80" height="80"><br>
+			2100
+		</div>
+		<div class="col-md-2" align="center">VS</div>
+		<div class="col-md-5" align="left">
+			<img src="Penguins.jpg" width="80" height="80"> BUDUU<br>
+			2000
+		</div>
+	</div>
+	<br>
+	<hr>
+	<div id="body" align="center">
+		<div id="chart"></div>
+	</div>
+	<script type="text/javascript" src="js/script.js"></script>
+	<br>
+	<br>
+	<hr>
+	<br>
+	<br>
+	<div id="table" align="center">
 
-<h1 align="center">전적비교</h1><br><br>
-<div id="top" class="row">
-<div class="col-md-5" align="right">
-	ABP-532<img src="Penguins.jpg" width="80" height="80"><br>
-	2100
-</div>
-<div class="col-md-2" align="center">VS</div>
-<div class="col-md-5" align="left">
-	<img src="Penguins.jpg" width="80" height="80">
-	BUDUU<br>
-	2000	
-</div>
-</div>
-<br><hr>
-<div id="body" align="center">
-      <div id="chart"></div>
-</div>
-<script type="text/javascript" src="js/script.js"></script>
-<br><br><hr><br><br>
-
-<div id="table" align="center">
-
-<table class="table table-hover table-bordered" style="width: 50%;">
-  <thead class="thead-dark">
-    <tr>
-      <th id="rightRow">ABP-532</th>
-      <th id="centerRow">VS</th>
-      <th>BUDUU</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td id="rightRow">2100</td>
-      <td id="centerRow">레이팅</td>
-      <td id="leftRow">2000</td>
-    </tr>
-    <tr>
-      <td id="rightRow">10%</td>
-      <td id="centerRow">승률</td>
-      <td id="leftRow">8%</td>
-    </tr>
-    <tr>
-      <td id="rightRow">33%</td>
-      <td id="centerRow">TOP10 ratio</td>
-      <td id="leftRow">47%</td>
-    </tr>
-    <tr>
-      <td id="rightRow">3.5</td>
-      <td id="centerRow">K/D</td>
-      <td id="leftRow">2.0</td>
-    </tr>
-    <tr>
-      <td id="rightRow">350</td>
-      <td id="centerRow">평균딜</td>
-      <td id="leftRow">200</td>
-    </tr>
-    <tr>
-      <td id="rightRow">10%</td>
-      <td id="centerRow">헤드샷</td>
-      <td id="leftRow">15%</td>
-    </tr>
-    <tr>
-      <td id="rightRow">14분 22초</td>
-      <td id="centerRow">생존시간</td>
-      <td id="leftRow">16분 30초</td>
-    </tr>
-    <tr>
-      <td id="rightRow">11</td>
-      <td id="centerRow">최다킬</td>
-      <td id="leftRow">8</td>
-    </tr>
-  </tbody>
-</table> 
-
-</div>
+		<table class="table table-hover table-bordered" style="width: 50%;">
+			<thead class="thead-dark">
+				<tr>
+					<th id="rightRow">ABP-532</th>
+					<th id="centerRow">VS</th>
+					<th>BUDUU</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td id="rightRow">2100</td>
+					<td id="centerRow">레이팅</td>
+					<td id="leftRow">2000</td>
+				</tr>
+				<tr>
+					<td id="rightRow">10%</td>
+					<td id="centerRow">승률</td>
+					<td id="leftRow">8%</td>
+				</tr>
+				<tr>
+					<td id="rightRow">33%</td>
+					<td id="centerRow">TOP10 ratio</td>
+					<td id="leftRow">47%</td>
+				</tr>
+				<tr>
+					<td id="rightRow">3.5</td>
+					<td id="centerRow">K/D</td>
+					<td id="leftRow">2.0</td>
+				</tr>
+				<tr>
+					<td id="rightRow">350</td>
+					<td id="centerRow">평균딜</td>
+					<td id="leftRow">200</td>
+				</tr>
+				<tr>
+					<td id="rightRow">10%</td>
+					<td id="centerRow">헤드샷</td>
+					<td id="leftRow">15%</td>
+				</tr>
+				<tr>
+					<td id="rightRow">14분 22초</td>
+					<td id="centerRow">생존시간</td>
+					<td id="leftRow">16분 30초</td>
+				</tr>
+				<tr>
+					<td id="rightRow">11</td>
+					<td id="centerRow">최다킬</td>
+					<td id="leftRow">8</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </body>
 </html>
