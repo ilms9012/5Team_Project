@@ -29,5 +29,21 @@ public class SearchController {
 		}
 		return mv;
 	}
-	
+	@RequestMapping("/compare.do")
+	public ModelAndView compare(String nickname,String nickname2) {
+		ModelAndView mv = new ModelAndView();
+		List<StatVO> result = service.statSearch(nickname);
+		List<StatVO> result2 = service.statSearch(nickname2);
+		
+		if(result==null||result2!=null) {
+			mv.addObject("statInfo","");
+			mv.setViewName("compare_result");
+		}else {
+			mv.addObject("statInfo",result);
+			mv.addObject("statInfo2",result2);
+			mv.setViewName("compare_result");
+		}
+		return mv;
+	}
+		
 }

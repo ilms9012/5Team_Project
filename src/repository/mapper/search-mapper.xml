@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="repository.mapper.SearchMapper">
 	<insert id="insert" parameterType="StatVO">
-		INSERT INTO STAT(NICKNAME,GAME_MODE,RATING,WIN_RATIO,KILL_DEATH_RATIO,DAMAGE_PER_GAME,TOP10_RATIO,TIME_SURVIVED_PER_GAME,ROUND_MOST_KILL,HEADSHOT_KILL_RATIO,WINS,TOP_10,LOSSES) VALUES(#{nickname},#{game_mode},#{rating},#{win_Ratio},#{kill_Death_Ratio},#{damage_Per_Game},#{top10_Ratio},#{time_Survived_Per_Game},#{round_Most_Kill},#{headshot_Kill_Ratio},#{wins},#{top_10},#{losses})
+		INSERT INTO STAT(NICKNAME,AVARTAR,GAME_MODE,RATING,WIN_RATIO,KILL_DEATH_RATIO,DAMAGE_PER_GAME,TOP10_RATIO,TIME_SURVIVED_PER_GAME,ROUND_MOST_KILL,HEADSHOT_KILL_RATIO,WINS,TOP_10,LOSSES) VALUES(#{nickname},#{avartar},#{game_mode},#{rating},#{win_Ratio},#{kill_Death_Ratio},#{damage_Per_Game},#{top10_Ratio},#{time_Survived_Per_Game},#{round_Most_Kill},#{headshot_Kill_Ratio},#{wins},#{top_10},#{losses})
 	</insert>
 	<update id="update" parameterType="StatVO">
-		UPDATE STAT SET RATING=#{rating},WIN_RATIO=#{win_Ratio},KILL_DEATH_RATIO=#{kill_Death_Ratio},DAMAGE_PER_GAME=#{damage_Per_Game},TOP10_RATIO=#{top10_Ratio},TIME_SURVIVED_PER_GAME=#{time_Survived_Per_Game},ROUND_MOST_KILL=#{round_Most_Kill},HEADSHOT_KILL_RATIO=#{headshot_Kill_Ratio},WINS=#{wins},TOP_10=#{top_10},LOSSES=#{losses} WHERE NICKNAME=#{nickname} AND GAME_MODE=#{game_mode}
+		UPDATE STAT SET AVARTAR=#{avartar},RATING=#{rating},WIN_RATIO=#{win_Ratio},KILL_DEATH_RATIO=#{kill_Death_Ratio},DAMAGE_PER_GAME=#{damage_Per_Game},TOP10_RATIO=#{top10_Ratio},TIME_SURVIVED_PER_GAME=#{time_Survived_Per_Game},ROUND_MOST_KILL=#{round_Most_Kill},HEADSHOT_KILL_RATIO=#{headshot_Kill_Ratio},WINS=#{wins},TOP_10=#{top_10},LOSSES=#{losses} WHERE NICKNAME=#{nickname} AND GAME_MODE=#{game_mode}
 	</update>
 	<select id="selectList" parameterType="String" resultMap="statResultMap">
 		SELECT *FROM STAT WHERE NICKNAME=#{nickname} ORDER BY GAME_MODE ASC
@@ -18,7 +18,8 @@
 	
 	<resultMap type="StatVO" id="statResultMap">
 		<result property="nickname" column="NICKNAME"/>
-		<result property="game_mode" column="GAME_MODE"/>
+		<result property="avartar" column="AVARTAR"/>
+		<result property="game_Mode" column="GAME_MODE"/>
 		<result property="rating" column="RATING"/>
 		<result property="win_Ratio" column="WIN_RATIO"/>
 		<result property="kill_Death_Ratio" column="KILL_DEATH_RATIO"/>

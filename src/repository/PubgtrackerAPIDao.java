@@ -67,7 +67,8 @@ public class PubgtrackerAPIDao {
 
 			StatVO playerVO = new StatVO();
 			playerVO.setNickname(nickname);
-			playerVO.setGame_mode(game_Mode);
+			playerVO.setAvartar(player.getAvatar());
+			playerVO.setGame_Mode(game_Mode);
 			playerVO.setRating(Integer.parseInt(stat.get(0).getStringValue()));
 			playerVO.setWin_Ratio(stat.get(1).getDecimalValue());
 			playerVO.setKill_Death_Ratio(stat.get(2).getDecimalValue());
