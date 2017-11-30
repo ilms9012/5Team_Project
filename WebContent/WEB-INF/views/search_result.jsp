@@ -11,6 +11,7 @@
 <h2>°á°ú</h2>
 	<c:forEach items="${statInfo}" begin="0" end="2" var="statInfo">
 		${statInfo.rating}
+		<img src="${statInfo.avartar}">
 	</c:forEach>	
 </body>
 </html>
