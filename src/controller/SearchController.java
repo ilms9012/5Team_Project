@@ -49,15 +49,15 @@ public class SearchController {
 		List<StatVO> result1 = service.statSearch(nickname1);
 		List<StatVO> result2 = service.statSearch(nickname2);
 		
-		if(result1 == null || result2 == null) {
-			// 같이 비교할 모드가 없으면
-			mv.setViewName("compare_result_fail");
+		List<Integer> compareMode = service.compareMode(result1, result2);
+		if(compareMode.size() == 0) {
+			// 같이 비교할 모드가 없으면 비교 불가능
+			mv.setViewName("compare_fail");
 		}else {
-			mv.addObject("statInfo1",result1);
-			mv.addObject("statInfo2",result2);
-			mv.setViewName("compare_result_success");
+			mv.addObject("statInfo1", result1);
+			mv.addObject("statInfo2", result2);
+			mv.setViewName("compare_success");
 		}
 		return mv;
 	}
-		
 }

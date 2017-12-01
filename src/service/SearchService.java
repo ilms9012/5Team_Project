@@ -44,4 +44,14 @@ public class SearchService {
 		return apiDao.selectAvatar(nickname);
 	}
 
+	// 비교할 게임모드 있는지 검색하기
+	public List<Integer> compareMode(List<StatVO> result1, List<StatVO> result2) {
+		List<Integer> compareMode = new ArrayList<>();
+		for(int i=0; i<result1.size(); i++) {
+			if(result1.get(i).getRating() != 0 && result2.get(i).getRating() != 0) {
+				compareMode.add(i+1);
+			}
+		}
+		return compareMode;
+	}
 }
