@@ -19,13 +19,20 @@
 	margin: auto;
 }
 
-
-
+#avatar-div {
+	margin-left: 47%;
+}
+#avatar {
+	width: 80px;
+	height: 80px;
+}
 </style>
 </head>
 <body>
-
-</div>
+	<div id="avatar-div">
+		<img id="avatar" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/1c/1c2e2c11bd0bdf34f21a213febf046d283ad62cc.jpg">
+	</div>
+<p style="text-align: center; font-size: 40px;" "text-primary">ABP-532</p>
 	<div id="buttons" class="btn-group" data-toggle="buttons">
 		<button type="button" class="btn btn-success">Asia</button>
 		<button type="button" class="btn btn-info">KR/JP</button>
@@ -36,13 +43,13 @@
 			<tr>
 				<c:forEach begin="0" end="2" var="i">
 					<c:if test="${i eq 0}">
-					<th colspan="3">Solo ½Â ÆÐ</th>
+						<th colspan="3">Solo ½Â ÆÐ</th>
 					</c:if>
 					<c:if test="${i eq 1}">
-					<th colspan="3">Duo ½Â ÆÐ</th>
+						<th colspan="3">Duo ½Â ÆÐ</th>
 					</c:if>
 					<c:if test="${i eq 2}">
-					<th colspan="3">Squad ½Â ÆÐ</th>
+						<th colspan="3">Squad ½Â ÆÐ</th>
 					</c:if>
 				</c:forEach>
 			</tr>
