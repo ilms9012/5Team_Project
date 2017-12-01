@@ -157,8 +157,8 @@
 <h1 align="center">전적비교</h1>
 	<br>
 	<form action="compare.do" method="post">
-		<input type="hidden" id="nickname1" value="${statInfo1[0].nickname}">
-		<input type="hidden" id="nickname2" value="${statInfo2[0].nickname}">
+		<input type="hidden" name="nickname1" value="${statInfo1[0].nickname}">
+		<input type="hidden" name="nickname2" value="${statInfo2[0].nickname}">
 		<input type="hidden" name="gameServer" id="gameServer">
 		<label class="btn btn-primary"> 
 			<button id="asiaBtn">ASIA</button>
@@ -187,7 +187,7 @@
 	<c:if test="${gameServer eq 1}">
 		<h1>한국/일본 서버</h1>
 	</c:if>
-	<c:forEach begin="${gameServer * 3}" end="${gameServer * 3 + 2}" var="i" >
+	<c:forEach begin="0" end="2" var="i" >
 		<div class="col-md-4">
 			<c:if test="${i%3 eq 0}">
 				<h1>솔로</h1>

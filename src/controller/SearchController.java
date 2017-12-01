@@ -50,6 +50,10 @@ public class SearchController {
 		List<StatVO> result1 = service.searchServerStat(gameServer, nickname1);
 		List<StatVO> result2 = service.searchServerStat(gameServer, nickname2);
 		
+		for(StatVO a : result1) {
+			System.out.println(a);
+		}
+		
 		mv.addObject("gameServer", gameServer);
 		mv.addObject("statInfo1", result1);
 		mv.addObject("statInfo2", result2);
