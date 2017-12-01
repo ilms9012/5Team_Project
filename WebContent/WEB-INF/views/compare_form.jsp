@@ -78,12 +78,16 @@ img:hover{
 		});
 		// 비교하기 버튼 눌렀을 때
 		$('#compareBtn').click(function(){
-			var nickname1 = $('#player1').children().text();
-			var nickname2 = $('#player2').children().text();
-			$('#nickname1').attr('value', nickname1);
-			$('#nickname2').attr('value', nickname2);
+			if(playerNum == 3){
+				var nickname1 = $('#player1').children().text();
+				var nickname2 = $('#player2').children().text();
+				$('#nickname1').attr('value', nickname1);
+				$('#nickname2').attr('value', nickname2);
 			
-			form.submit();
+				form.submit();
+			} else {
+				alert('아이디를 선택해주세요!');
+			}
 		});
 	});
 </script>
