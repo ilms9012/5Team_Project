@@ -81,9 +81,10 @@ img:hover{
 			if(playerNum == 3){
 				var nickname1 = $('#player1').children().text();
 				var nickname2 = $('#player2').children().text();
+				var gameServer = $('#gameServer').children().text();
 				$('#nickname1').attr('value', nickname1);
 				$('#nickname2').attr('value', nickname2);
-			
+				$('#gameServer').attr('value', 0);
 				form.submit();
 			} else {
 				alert('아이디를 선택해주세요!');
@@ -113,6 +114,7 @@ img:hover{
 	<form action="compare.do" method="post">
 		<input type="hidden" name="nickname1" id="nickname1">
 		<input type="hidden" name="nickname2" id="nickname2">
+		<input type="hidden" name="gameServer" id="gameServer">
 		<button id="compareBtn">비교하기</button>
 	</form>
 </body>

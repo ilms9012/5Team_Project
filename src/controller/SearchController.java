@@ -44,11 +44,13 @@ public class SearchController {
 	}
 	
 	@RequestMapping("/compare.do")
-	public ModelAndView compare(String nickname1, String nickname2) {
+	public ModelAndView compare(int gameServer, String nickname1, String nickname2) {
 		ModelAndView mv = new ModelAndView();
-		List<StatVO> result1 = service.statSearch(nickname1);
-		List<StatVO> result2 = service.statSearch(nickname2);
 		
+		List<StatVO> result1 = service.searchServerStat(gameServer, nickname1);
+		List<StatVO> result2 = service.searchServerStat(gameServer, nickname2);
+		
+		mv.addObject("gameServer", gameServer);
 		mv.addObject("statInfo1", result1);
 		mv.addObject("statInfo2", result2);
 		mv.setViewName("compare_result");
