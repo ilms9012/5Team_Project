@@ -22,7 +22,7 @@ public class Test2 {
 
 		// We're filtering by mode, region and season here
 		FilterCriteria criteria = new FilterCriteria();
-		criteria.setMode(PUBGMode.solo_fpp);
+		criteria.setMode(PUBGMode.solo);
 		criteria.setRegion(PUBGRegion.as);
 		criteria.setSeason(PUBGSeason.PRE5_2017);
 
@@ -38,11 +38,14 @@ public class Test2 {
 		System.out.println("1");
 		if (player != null) {
 			System.out.println("2");
+		
 			// We would like to retrieve best rating for player "TheHusar" for season
 			// PRE2_2017
 			Stat stat = jPubg.getPlayerMatchStatByStatName(player, PUBGStat.RATING);
 			System.out.println(stat.getStringValue());
+			System.out.println(player.getAvatar());
 			// You can get season name directly from stat object
+	
 		}
 	}
 }
