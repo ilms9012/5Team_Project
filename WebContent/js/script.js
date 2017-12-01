@@ -4,12 +4,12 @@ var w = 300;
 var colorscale = d3.scale.category10();
 
 //Legend titles
-var LegendOptions = ['ABP-532','BUDUU'];
+var LegendOptions = ['${nickname1}','${nickname2}'];
 
 //Data
 var d = [
 		  [
-			{axis:"½Â·ü",value:0.59},
+			{axis:"½Â·ü",value:'${statInfo1[compareMode[0]].win_Ratio}'},
 			{axis:"K/D",value:0.56},
 			{axis:"Æò±Õµô",value:0.42},
 			{axis:"Çìµå¼¦",value:0.34},
