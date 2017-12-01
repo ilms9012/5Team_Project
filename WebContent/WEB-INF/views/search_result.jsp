@@ -13,7 +13,6 @@
 		<div class="card-body">
 			<blockquote class="card-blockquote">
 				      <p>${statInfo[0].nickname}</p>
-				      <p>${statInfo[0].rating}
 			</blockquote>
 		</div>
 	</div>
