@@ -32,28 +32,34 @@ img:hover{
 		$('#searchBtn').click(function() {
 			// 아이디 검색 버튼을 누르면 ajax로 프로필사진하고 아이디 존재여부 가져오기 
 			// 존재하면 넣고 이미 꽉 차있다면(아이디 2개 검색 다 해서 찼으면) 검색 못하게
+			
 			var searchNick = $('#searchNick').val();
-			// 같은 아이디 입력하면.....못하게??? 할까???
-			if (playerNum < 3 && searchNick != null) {
-				$.ajax({
-					type : 'post',
-					url : 'searchAvatar.do',
-					data : 'nickname=' + searchNick,
-					dataType : 'text',
-					success : function(avatar) {
-						if (avatar != 'null') {
-							// 프로필 사진 + 아이디 넣기
-							$('#avatar'+playerNum).append('<img src="'+avatar+'" width="60" height="60">');
-							$('#player'+playerNum).append('<label>'+searchNick+'</label>');
-							playerNum++;
-						} else {
-							alert('아이디가 존재하지 않습니다. 다시 검색해주세요.');
+			
+			if(playerNum < 3 && searchNick != null) {
+				// 같은 아이디 두 번 입력 못하게
+				if(playerNum == 2 && searchNick == $('#player1').children().text()) {
+					alert('비교할 다른 아이디를 입력해주세요!');
+				} else {
+					$.ajax({
+						type : 'post',
+						url : 'searchAvatar.do',
+						data : 'nickname=' + searchNick,
+						dataType : 'text',
+						success : function(avatar) {
+							if (avatar != 'null') {
+								// 프로필 사진 + 아이디 넣기
+								$('#avatar'+playerNum).append('<img src="'+avatar+'" width="60" height="60">');
+								$('#player'+playerNum).append('<label>'+searchNick+'</label>');
+								playerNum++;
+							} else {
+								alert('아이디가 존재하지 않습니다. 다시 검색해주세요.');
+							}
+						},
+						error : function() {
+							alert('배틀그라운드 아이디 검색 중 에러가 발생했습니다.');
 						}
-					},
-					error : function() {
-						alert('배틀그라운드 아이디 검색 중 에러가 발생했습니다.');
-					}
-				});
+					});
+				}
 			} else {
 				alert('아이디 이미 2개 선택하셨습니다. 비교하기 버튼을 눌러주세요!');
 			}
