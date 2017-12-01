@@ -56,6 +56,7 @@
 
 </head>
 <body>
+<%@ include file="header.jsp" %>
 <!-- 서버, 모드 선택!!!!!!!! ajax로 안해도 될듯? -->
 	<h1 align="center">전적비교</h1>
 	<br>
