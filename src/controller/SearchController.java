@@ -44,18 +44,18 @@ public class SearchController {
 	}
 	
 	@RequestMapping("/compare.do")
-	public ModelAndView compare(String nickname,String nickname2) {
+	public ModelAndView compare(String nickname1, String nickname2) {
 		ModelAndView mv = new ModelAndView();
-		List<StatVO> result = service.statSearch(nickname);
+		List<StatVO> result1 = service.statSearch(nickname1);
 		List<StatVO> result2 = service.statSearch(nickname2);
 		
-		if(result==null||result2!=null) {
-			mv.addObject("statInfo","");
-			mv.setViewName("compare_result");
+		if(result1 == null || result2 == null) {
+			// 같이 비교할 모드가 없으면
+			mv.setViewName("compare_result_fail");
 		}else {
-			mv.addObject("statInfo",result);
+			mv.addObject("statInfo1",result1);
 			mv.addObject("statInfo2",result2);
-			mv.setViewName("compare_result");
+			mv.setViewName("compare_result_success");
 		}
 		return mv;
 	}
