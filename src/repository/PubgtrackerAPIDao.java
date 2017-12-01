@@ -36,11 +36,11 @@ public class PubgtrackerAPIDao {
 		} else if (game_Mode == 3) {
 			Criteria = new FilterCriteria(PUBGMode.squad, PUBGRegion.as, PUBGSeason.PRE5_2017); 
 		} else if (game_Mode == 4) {
-			Criteria = new FilterCriteria(PUBGMode.solo_fpp, PUBGRegion.krjp, PUBGSeason.PRE5_2017); 
+			Criteria = new FilterCriteria(PUBGMode.solo, PUBGRegion.krjp, PUBGSeason.PRE5_2017); 
 		} else if (game_Mode == 5) {
-			Criteria = new FilterCriteria(PUBGMode.duo_fpp, PUBGRegion.krjp, PUBGSeason.PRE5_2017); 
+			Criteria = new FilterCriteria(PUBGMode.duo, PUBGRegion.krjp, PUBGSeason.PRE5_2017); 
 		} else {
-			Criteria = new FilterCriteria(PUBGMode.squad_fpp, PUBGRegion.krjp, PUBGSeason.PRE5_2017); 
+			Criteria = new FilterCriteria(PUBGMode.squad, PUBGRegion.krjp, PUBGSeason.PRE5_2017); 
 		}
 
 		Player player = null; 
