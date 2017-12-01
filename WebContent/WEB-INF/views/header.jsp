@@ -335,6 +335,7 @@
      												Kakao.API.request({
      													url: '/v1/user/me',
      											        success: function(res) {
+     											        	alert(JSON.stringify(res));
      											    	   	$.ajax({
      	     													type:'post',
      	     													url:'kakaoLogin.do', 

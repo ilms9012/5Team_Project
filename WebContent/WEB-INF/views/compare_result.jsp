@@ -17,7 +17,7 @@
         }
 
         #chart {
-          position: relative;
+          position: static;
           top: 50px;
           left: 100px;
         }   
@@ -37,12 +37,12 @@
 <script type="text/javascript">
 	$(function(){
 		// 값이 더 높으면 색칠색칠~
-		for(var i=1; i<23; i+=3){
+		for(var i=1; i<71; i+=3){
 			var left = $('td:eq('+(i-1)+')').text();
 			var right = $('td:eq('+(i+1)+')').text();
 			if(left > right) {
 				$('td:eq('+(i-1)+')').css('background', 'mistyrose');
-			} else {
+			} else if(left < right) {
 				$('td:eq('+(i+1)+')').css('background', 'mistyrose');
 			}
 		}
@@ -144,23 +144,23 @@
 <body>
 <%@ include file="header.jsp" %>
 <!-- 게임서버 0이면 아시아서버, 1이면 한국/일본서버 -->
-<c:set var="gameServer" value="1"/>
+<c:set var="gameServer" value="0"/>
 <!-- 서버, 모드 선택!!!!!!!! ajax로 안해도 될듯? -->
 <h1 align="center">전적비교</h1>
 	<br>
-	<div class="btn-group" data-toggle="buttons">
+	<div class="btn-group" data-toggle="buttons" align="right">
 		<label class="btn btn-primary"> 
-			<input type="radio" name="options" id="option1">AS
+			<a href="compare.do?gameServer=0"><button>ASIA</button></a>
 		</label> 
 		<label class="btn btn-primary"> 
-			<input type="radio" name="options" id="option2">KR/JP
+			<a href="compare.do?gameServer=1"><button>KR/JP</button></a>
 		</label>
 	</div>
 	<br>
 	<div id="top" class="row">
 		<div class="col-md-5" align="right">
-			<img src="${statInfo1[0].avatar}" width="60" height="60">
 			${statInfo1[0].nickname}
+			<img src="${statInfo1[0].avatar}" width="60" height="60">
 		</div>
 		<div class="col-md-2" align="center">VS</div>
 		<div class="col-md-5" align="left">
