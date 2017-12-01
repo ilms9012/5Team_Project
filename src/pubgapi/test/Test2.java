@@ -22,7 +22,7 @@ public class Test2 {
 
 		// We're filtering by mode, region and season here
 		FilterCriteria criteria = new FilterCriteria();
-		criteria.setMode(PUBGMode.solo);
+		criteria.setMode(PUBGMode.solo_fpp);
 		criteria.setRegion(PUBGRegion.as);
 		criteria.setSeason(PUBGSeason.PRE5_2017);
 
@@ -30,7 +30,7 @@ public class Test2 {
 
 		// Always remember to use try-catch block for error processing!
 		try {
-			player = jPubg.getByNickname("BUDUU", criteria);
+			player = jPubg.getByNickname("ABP-532", criteria);
 		} catch (IllegalArgumentException e) {
 			System.out.println("Player could not be found or validated: " + e.getLocalizedMessage());
 		}
@@ -40,21 +40,9 @@ public class Test2 {
 			System.out.println("2");
 			// We would like to retrieve best rating for player "TheHusar" for season
 			// PRE2_2017
-			Stat stat = jPubg.getPlayerMatchStatByStatName(player, PUBGStat.AVERAGE_SURVIVAL_TIME);
-			System.out.println("3");
-			// You can get season name directly from stat object
-			System.out.println(player.getDefaultSeason());
-			System.out.println(player.getLastUpdated());
-			System.out.println(player.getMatches());
-			System.out.println(player.getPlayerName());
-			System.out.println(player.getAccountId());
+			Stat stat = jPubg.getPlayerMatchStatByStatName(player, PUBGStat.RATING);
 			System.out.println(stat.getStringValue());
-			List<Match> match = new ArrayList<>();
-			Iterator<Match> iterator = player.getMatches().iterator();
-			while (iterator.hasNext()) {
-				Match element = iterator.next();
-				System.out.println(element);
-			}
+			// You can get season name directly from stat object
 		}
 	}
 }

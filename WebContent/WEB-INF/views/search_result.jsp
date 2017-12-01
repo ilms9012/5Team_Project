@@ -4,21 +4,31 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link href="css/bootstrap2.min.css" rel='stylesheet' type='text/css' />
+<link href="css/skechybootstrap.min.css" rel='stylesheet' type='text/css' />
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>전적검색 결과</title>
 </head>
 <body>
-	<div class="card text-white bg-dark">
-		<div class="card-body">
-			<blockquote class="card-blockquote">
-				      <p>${statInfo[0].nickname}</p>
-			</blockquote>
-		</div>
-	</div>
-	<h2>결과</h2>
-	<c:forEach items="${statInfo}" begin="0" end="2" var="statInfo">
-			${statInfo.rating}
-	</c:forEach>
+<table class="table table-striped table-hover table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th>#</th>
+      <th>Column heading</th>
+      	<td></td>
+      	<td></td>
+      	<td></td>
+      <th>Column heading</th>
+      <th>Column heading</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="table-active">
+      <td>7</td>
+      <td>Column content</td>
+      <td>Column content</td>
+      <td>Column content</td>
+    </tr>
+  </tbody>
+</table> 
 </body>
 </html>
