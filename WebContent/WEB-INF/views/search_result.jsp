@@ -56,19 +56,19 @@
 			</thead>
 			<tbody>
 				<tr class="table-active">
-					<td>${statVO.kill_Death_Ratio}<br>K/D
+					<td>${statInfo[i].kill_Death_Ratio}<br>K/D
 					</td>
-					<td>${statVO.damage_Per_Game}<br>평균딜량
+					<td>${statInfo[i].damage_Per_Game}<br>평균딜량
 					</td>
-					<td>${statVO.headshot_Kill_Ratio}<br>헤드샷 비율
+					<td>${statInfo[i].headshot_Kill_Ratio}<br>헤드샷 비율
 					</td>
 				</tr>
 				<tr class="table-active">
-					<td>${statVO.time_Survived_Per_Game}<br>생존시간
+					<td>${statInfo[i].time_Survived_Per_Game}<br>생존시간
 					</td>
-					<td>${statVO.round_Most_Kill}<br>최다킬
+					<td>${statInfo[i].round_Most_Kill}<br>최다킬
 					</td>
-					<td>${statVO.top10_Ratio}<br>TOP10 rate
+					<td>${statInfo[i].top10_Ratio}<br>TOP10 rate
 					</td>
 				</tr>
 			</tbody>
