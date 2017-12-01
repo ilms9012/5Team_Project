@@ -25,6 +25,7 @@ public class SearchController {
 			mv.addObject("statInfo","사용자 정보가 없습니다.");
 			mv.setViewName("search_result");
 		}else {
+			
 			mv.addObject("statInfo",result);
 			mv.setViewName("search_result");
 		}

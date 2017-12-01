@@ -6,15 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import pubgapi.core.JPubg;
-import pubgapi.enums.PUBGMode;
-import pubgapi.enums.PUBGRegion;
-import pubgapi.enums.PUBGSeason;
-import pubgapi.enums.PUBGStat;
-import pubgapi.factory.JPubgFactory;
-import pubgapi.vo.FilterCriteria;
-import pubgapi.vo.Player;
-import pubgapi.vo.Stat;
+
 import repository.PubgtrackerAPIDao;
 import repository.SearchDao;
 import vo.StatVO;
@@ -28,6 +20,7 @@ public class SearchService {
 
 	public List<StatVO> statSearch(String nickname) {
 		List<StatVO> statList = new ArrayList<>();
+		StatVO nullVO = new StatVO(nickname, "null", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 		for (int i = 1; i < 7; i++) {
 			if (dao.selectMode(i, nickname) != 0) {
 				StatVO stat = apiDao.selectStat(nickname, i);
@@ -35,8 +28,12 @@ public class SearchService {
 				statList.add(i - 1, stat);
 			} else {
 				StatVO stat = apiDao.selectStat(nickname, i);
-				dao.insert(stat);
-				statList.add(i - 1, stat);
+				if(stat!=null) {
+					dao.insert(stat);
+					statList.add(i - 1, stat);
+				}else {
+					statList.add(i - 1, nullVO);
+				}
 			}
 		}
 		return statList;
