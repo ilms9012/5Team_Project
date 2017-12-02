@@ -37,9 +37,9 @@
 			</props>
 		</property>
 	</bean>
-	
-	<bean id="mailService" class="service.MailServiceImpl"/>
 
+	<bean id="mailService" class="service.MailServiceImpl"/>
+	
 	<context:annotation-config />
 	<context:component-scan base-package="repository" />
 	<context:component-scan base-package="service" />

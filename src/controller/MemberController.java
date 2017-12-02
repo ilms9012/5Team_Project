@@ -1,24 +1,23 @@
 package controller;
 
-import java.util.Properties;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import service.MailServiceImpl;
 import service.MemberService;
@@ -31,18 +30,33 @@ public class MemberController {
 	@Autowired
 	private MailServiceImpl mailService;
 	
-	
-	@RequestMapping("/joinCheck.do")
-	@ResponseBody
-	public String joinCheck(String id, String nickName) {
-		// 이메일, 닉네임 중복여부 확인
-		return service.joinCheck(id, nickName);
-	}
-	
 	@RequestMapping("/join.do")
 	@ResponseBody
-	public String join(MemberVO member, HttpSession session) {
-		return "" + service.join(member, session);
+	public String join(MemberVO member) {
+		String joinCheck = service.joinCheck
+				(member.getId(), member.getNickName());
+		if(joinCheck.equals("true")) {
+			member.setAuth("false");
+			return service.join(member);
+		} else {
+			return joinCheck;
+		}
+	}
+	
+	@RequestMapping(value="/kakaoJoin.do")
+	@ResponseBody
+	public String kakaoJoin(MemberVO member) {
+		System.out.println(member.getAuth());
+		String joinCheck = service.joinCheck
+				(member.getId(), member.getNickName());
+		if(joinCheck.equals("true")) {
+			// 비밀번호가 1이면 카카오 로그인을 통한 회원가입
+			member.setPassword("1");
+			member.setAuth(member.getAuth());
+			return service.join(member);
+		} else {
+			return joinCheck;
+		}
 	}
 	
 	@RequestMapping(value="/checkAuthNum.do", produces="application/text; charset=utf8")
@@ -81,6 +95,39 @@ public class MemberController {
 		}
 	}
 	
-
-
+	@RequestMapping(value="/kakaoLogin.do", method=RequestMethod.POST)
+	@ResponseBody
+	public void kakaoLogin(HttpSession session, @RequestParam("info") String info, HttpServletResponse resp) {
+		JsonParser jsonParser = new JsonParser();
+		JsonObject jsonObj = (JsonObject) jsonParser.parse(info);
+		
+		String id = jsonObj.get("kaccount_email").getAsString();
+		String auth = jsonObj.get("kaccount_email_verified").getAsString();
+		
+		HashMap<String, Object> rs = new HashMap<String, Object>();
+		
+		Gson gson = new Gson();
+		
+		if(service.kakaoJoinCheck(id)) {
+			// 만약 같은 id가 있고 비밀번호가 1이라면 회원가입한거니까 바로 로그인
+			rs.put("check", "true");
+			session.setAttribute("loginId", id);
+		} else {
+			rs.put("check", "false");
+			rs.put("id", id);
+			rs.put("auth", auth);
+		}
+		
+		try {
+			resp.getWriter().write(gson.toJson(rs));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("/logout.do")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "logout";
+	}
 }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="repository.mapper.SearchMapper">
+	<insert id="insert" parameterType="StatVO">
+		INSERT INTO STAT(NICKNAME,AVATAR,GAME_MODE,RATING,WIN_RATIO,KILL_DEATH_RATIO,DAMAGE_PER_GAME,TOP10_RATIO,TIME_SURVIVED_PER_GAME,ROUND_MOST_KILL,HEADSHOT_KILL_RATIO,WINS,TOP_10,LOSSES) VALUES(#{nickname},#{avatar},#{game_Mode},#{rating},#{win_Ratio},#{kill_Death_Ratio},#{damage_Per_Game},#{top10_Ratio},#{time_Survived_Per_Game},#{round_Most_Kill},#{headshot_Kill_Ratio},#{wins},#{top_10},#{losses})
+	</insert>
+	<update id="update" parameterType="StatVO">
+		UPDATE STAT SET AVATAR=#{avatar},RATING=#{rating},WIN_RATIO=#{win_Ratio},KILL_DEATH_RATIO=#{kill_Death_Ratio},DAMAGE_PER_GAME=#{damage_Per_Game},TOP10_RATIO=#{top10_Ratio},TIME_SURVIVED_PER_GAME=#{time_Survived_Per_Game},ROUND_MOST_KILL=#{round_Most_Kill},HEADSHOT_KILL_RATIO=#{headshot_Kill_Ratio},WINS=#{wins},TOP_10=#{top_10},LOSSES=#{losses} WHERE NICKNAME=#{nickname} AND GAME_MODE=#{game_Mode}
+	</update>
+	<select id="selectList" parameterType="String" resultMap="statResultMap">
+		SELECT *FROM STAT WHERE NICKNAME=#{nickname} ORDER BY GAME_MODE ASC
+	</select>
+	<select id="selectMode" resultType="int">
+		SELECT COUNT(NICKNAME) FROM STAT WHERE NICKNAME=#{nickname} AND GAME_MODE=#{modeNum}
+	</select>
+	
+	
+	
+	<resultMap type="StatVO" id="statResultMap">
+		<result property="nickname" column="NICKNAME"/>
+		<result property="avatar" column="AVATAR"/>
+		<result property="game_Mode" column="GAME_MODE"/>
+		<result property="rating" column="RATING"/>
+		<result property="win_Ratio" column="WIN_RATIO"/>
+		<result property="kill_Death_Ratio" column="KILL_DEATH_RATIO"/>
+		<result property="damage_Per_Game" column="DAMAGE_PER_GAME"/>
+		<result property="top10_Ratio" column="TOP10_RATIO"/>
+		<result property="time_Survived_Per_Game" column="TIME_SURVIVED_PER_GAME"/>
+		<result property="round_Most_Kill" column="ROUND_MOST_KILL"/>
+		<result property="headshot_Kill_Ratio" column="HEADSHOT_KILL_RATIO"/>
+		<result property="wins" column="WINS"/>
+		<result property="top_10" column="TOP_10"/>
+		<result property="losses" column="LOSSES"/>
+		
+	</resultMap>
+</mapper>

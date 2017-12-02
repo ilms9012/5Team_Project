@@ -20,8 +20,8 @@ public class Test1 {
 	public void mailSender(HttpServletRequest request, ModelMap mo) throws AddressException, MessagingException {
 		String host = "smtp.naver.com";
 		
-		final String username = "youhee93";
-		final String password = "dldbgml1215082";
+		final String username = "id";
+		final String password = "pw";
 		int port = 465;
 		
 		String recipient = "blausues@gmail.com";

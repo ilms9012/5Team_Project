@@ -14,8 +14,8 @@ public class Test {
 
 	public static void main(String[] args) {
 
-		final String username = "youhee93";
-		final String password = "dldbgml1215082";
+		final String username = "id";
+		final String password = "pw";
 
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
