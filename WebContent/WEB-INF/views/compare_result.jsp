@@ -136,6 +136,16 @@
 		  .attr("fill", "#737373")
 		  .text(function(d) { return d; })
 		  ;	
+		
+		////////////////////////////////////////////////////
+		$('#asiaBtn').click(function(){
+			$('#gameServer').attr('value', 0);
+			form.submit();
+		});
+		$('#kJBtn').click(function(){
+			$('#gameServer').attr('value', 1);
+			form.submit();
+		});
 	});
 
 </script>
@@ -144,18 +154,19 @@
 <body>
 <%@ include file="header.jsp" %>
 <!-- 게임서버 0이면 아시아서버, 1이면 한국/일본서버 -->
-<c:set var="gameServer" value="0"/>
-<!-- 서버, 모드 선택!!!!!!!! ajax로 안해도 될듯? -->
 <h1 align="center">전적비교</h1>
 	<br>
-	<div class="btn-group" data-toggle="buttons" align="right">
+	<form action="compare.do" method="post">
+		<input type="hidden" name="nickname1" value="${statInfo1[0].nickname}">
+		<input type="hidden" name="nickname2" value="${statInfo2[0].nickname}">
+		<input type="hidden" name="gameServer" id="gameServer">
 		<label class="btn btn-primary"> 
-			<a href="compare.do?gameServer=0"><button>ASIA</button></a>
+			<button id="asiaBtn">ASIA</button>
 		</label> 
 		<label class="btn btn-primary"> 
-			<a href="compare.do?gameServer=1"><button>KR/JP</button></a>
+			<button id="kJBtn">KR/JP</button>
 		</label>
-	</div>
+	</form>
 	<br>
 	<div id="top" class="row">
 		<div class="col-md-5" align="right">
@@ -176,7 +187,7 @@
 	<c:if test="${gameServer eq 1}">
 		<h1>한국/일본 서버</h1>
 	</c:if>
-	<c:forEach begin="${gameServer * 3}" end="${gameServer * 3 + 2}" var="i" >
+	<c:forEach begin="0" end="2" var="i" >
 		<div class="col-md-4">
 			<c:if test="${i%3 eq 0}">
 				<h1>솔로</h1>
