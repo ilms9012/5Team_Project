@@ -45,12 +45,12 @@ public class SearchService {
 		List<StatVO> statList = new ArrayList<>();
 		StatVO nullVO = new StatVO(nickname, "null", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 		for (int i = gameServer*3+1; i < gameServer*3+4; i++) {
+			StatVO stat = apiDao.selectStat(nickname, i);
 			if (dao.selectMode(i, nickname) != 0) {
-				StatVO stat = apiDao.selectStat(nickname, i);
 				dao.update(stat);
 				statList.add(stat);
 			} else {
-				StatVO stat = apiDao.selectStat(nickname, i);
+//				StatVO stat = apiDao.selectStat(nickname, i);
 				if(stat!=null) {
 					dao.insert(stat);
 					statList.add(stat);
