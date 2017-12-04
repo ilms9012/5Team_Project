@@ -11,7 +11,8 @@
     <style>
         body {
           overflow: auto;
-          margin: 0;
+          margin-left: 20px;
+          margin-right: 20px;
           font-size: 14px;
           font-family: "Helvetica Neue", Helvetica;
         }
@@ -36,10 +37,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
 	$(function(){
-		// 값이 더 높으면 색칠색칠~
+		// 값이 더 높으면 색칠색칠
 		for(var i=1; i<71; i+=3){
 			var left = $('td:eq('+(i-1)+')').text();
 			var right = $('td:eq('+(i+1)+')').text();
+// 			alert(left + '/' + right)
 			if(left > right) {
 				$('td:eq('+(i-1)+')').css('background', 'mistyrose');
 			} else if(left < right) {
@@ -47,30 +49,37 @@
 			}
 		}
 	//////////////////////////////////////////////////////////////////	
+	
+	for(var i=0; i<3; i++){
+
+// 	alert('${statInfo1[0].rating}');
+// 	alert(i);
+// 	alert('${statInfo1[i].rating}');
+	
 	var w = 200;
 		h = 200;
 
 	var colorscale = d3.scale.category10();
 
 	//Legend titles
-	var LegendOptions = ['${statInfo1[compareMode[0]].nickname}','${statInfo2[compareMode[0]].nickname}'];
+	var LegendOptions = ['${statInfo1[0].nickname}','${statInfo2[0].nickname}'];
 
 	//Data
 	var d = [
 			  [
-				{axis:"승률",value:'${statInfo1[2].win_Ratio}'},
-				{axis:"K/D",value:'${statInfo1[2].kill_Death_Ratio}'},
-				{axis:"평균딜",value:'${statInfo1[2].damage_Per_Game}'},
-				{axis:"헤드샷",value:'${statInfo1[2].headshot_Kill_Ratio}'},
-				{axis:"생존시간",value:'${statInfo1[2].time_Survived_Per_Game}'},
-				{axis:"최다킬",value:'${statInfo1[2].round_Most_Kill}'}
+				{axis:"승률",value:'${statInfo1[i].win_Ratio}'},
+				{axis:"K/D",value:'${statInfo1[i].kill_Death_Ratio}'},
+				{axis:"평균딜",value:'${statInfo1[i].damage_Per_Game}'},
+				{axis:"헤드샷",value:'${statInfo1[i].headshot_Kill_Ratio}'},
+				{axis:"생존시간",value:'${statInfo1[i].time_Survived_Per_Game}'},
+				{axis:"최다킬",value:'${statInfo1[i].round_Most_Kill}'}
 			  ],[
-				{axis:"승률",value:'${statInfo2[2].win_Ratio}'},
-				{axis:"K/D",value:'${statInfo2[2].kill_Death_Ratio}'},
-				{axis:"평균딜",value:'${statInfo2[2].damage_Per_Game}'},
-				{axis:"헤드샷",value:'${statInfo2[2].headshot_Kill_Ratio}'},
-				{axis:"생존시간",value:'${statInfo2[2].time_Survived_Per_Game}'},
-				{axis:"최다킬",value:'${statInfo2[2].round_Most_Kill}'}
+				{axis:"승률",value:'${statInfo2[i].win_Ratio}'},
+				{axis:"K/D",value:'${statInfo2[i].kill_Death_Ratio}'},
+				{axis:"평균딜",value:'${statInfo2[i].damage_Per_Game}'},
+				{axis:"헤드샷",value:'${statInfo2[i].headshot_Kill_Ratio}'},
+				{axis:"생존시간",value:'${statInfo2[i].time_Survived_Per_Game}'},
+				{axis:"최다킬",value:'${statInfo2[i].round_Most_Kill}'}
 			  ]
 			];
 
@@ -85,7 +94,7 @@
 
 	//Call function to draw the Radar chart
 	//Will expect that data is in %'s
-	RadarChart.draw("#chart", d, mycfg);
+	RadarChart.draw("#chart"+(i+1), d, mycfg);
 
 	////////////////////////////////////////////
 	/////////// Initiate legend ////////////////
@@ -146,6 +155,7 @@
 			$('#gameServer').attr('value', 1);
 			form.submit();
 		});
+	}
 	});
 
 </script>
@@ -154,28 +164,35 @@
 <body>
 <%@ include file="header.jsp" %>
 <!-- 게임서버 0이면 아시아서버, 1이면 한국/일본서버 -->
+<c:forEach items="${statInfo1}" var="s1">
+	<c:if test="${not empty s1.avatar}">
+		<c:set var="avatar1" value="${s1.avatar}"/>
+	</c:if>
+</c:forEach>
+<c:forEach items="${statInfo2}" var="s2">
+	<c:if test="${not empty s2.avatar}">
+		<c:set var="avatar2" value="${s2.avatar}"/>
+	</c:if>
+</c:forEach>
 <h1 align="center">전적비교</h1>
 	<br>
 	<form action="compare.do" method="post">
 		<input type="hidden" name="nickname1" value="${statInfo1[0].nickname}">
 		<input type="hidden" name="nickname2" value="${statInfo2[0].nickname}">
 		<input type="hidden" name="gameServer" id="gameServer">
-		<label class="btn btn-primary"> 
-			<button id="asiaBtn">ASIA</button>
-		</label> 
-		<label class="btn btn-primary"> 
-			<button id="kJBtn">KR/JP</button>
-		</label>
+		
+		<button id="asiaBtn" class="btn btn-primary">ASIA</button>
+		<button id="kJBtn" class="btn btn-primary">KR/JP</button>
 	</form>
 	<br>
 	<div id="top" class="row">
 		<div class="col-md-5" align="right">
 			${statInfo1[0].nickname}
-			<img src="${statInfo1[0].avatar}" width="60" height="60">
+			<img src="${avatar1}" width="60" height="60">
 		</div>
 		<div class="col-md-2" align="center">VS</div>
 		<div class="col-md-5" align="left">
-			<img src="${statInfo2[0].avatar}" width="60" height="60">
+			<img src="${avatar2}" width="60" height="60">
 			${statInfo2[0].nickname}
 		</div>
 	</div>
@@ -188,7 +205,7 @@
 		<h1>한국/일본 서버</h1>
 	</c:if>
 	<c:forEach begin="0" end="2" var="i" >
-		<div class="col-md-4">
+		<div class="col-md-3" style="margin-left: 5px; margin-right: 5px;">
 			<c:if test="${i%3 eq 0}">
 				<h1>솔로</h1>
 			</c:if>
@@ -198,15 +215,14 @@
 			<c:if test="${i%3 eq 2}">
 				<h1>스쿼드</h1>
 			</c:if>
-			<div id="chart"></div>
+			<div id="chart${i+1}" align="center"></div>
 			<br>
 			<br>
 			<hr>
 			<br>
 			<br>
 			<div id="table" align="center">
-
-				<table class="table table-hover table-bordered" style="width: 90%;">
+				<table class="table table-hover table-bordered">
 					<thead class="thead-dark">
 						<tr>
 							<th id="rightRow">${statInfo1[0].nickname}</th>
