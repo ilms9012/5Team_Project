@@ -32,7 +32,6 @@ img:hover{
 		$('#searchBtn').click(function() {
 			// 아이디 검색 버튼을 누르면 ajax로 프로필사진하고 아이디 존재여부 가져오기 
 			// 존재하면 넣고 이미 꽉 차있다면(아이디 2개 검색 다 해서 찼으면) 검색 못하게
-			
 			var searchNick = $('#searchNick').val();
 			
 			if(playerNum < 3 && searchNick != null) {
@@ -94,10 +93,9 @@ img:hover{
 </script>
 </head>
 <body>
-	<h1 align="center">전적비교</h1>
+<%@ include file="header.jsp"%>
 	<br>
 	<br>
-	<input type="text" id="searchNick"><button id="searchBtn">검색</button>
 	<div id="top" class="row">
 		<div class="col-md-5" align="right">
 			<div id="avatar1"></div>
@@ -111,6 +109,8 @@ img:hover{
 			<br>
 		</div>
 	</div>
+	<br><br><br>
+	<input type="text" id="searchNick"><button id="searchBtn">검색</button>
 	<form action="compare.do" method="post">
 		<input type="hidden" name="nickname1" id="nickname1">
 		<input type="hidden" name="nickname2" id="nickname2">
