@@ -11,7 +11,8 @@
 <style type="text/css">
 #buttons {
 	position: relative;
-	left: 1000px;
+	left: 1100px;
+	padding: 2px;
 }
 
 #stat-table {
@@ -33,46 +34,51 @@
 	<div id="avatar-div">
 		<img id="avatar" src="${statInfo[0].avatar}">
 	</div>
-	<p style="text-align: center; font-size: 40px;" "text-primary">${statInfo[0].nickname}</p>
-	<div id="buttons" class="btn-group" data-toggle="buttons">
+	<p style="text-align: center; font-size: 40px;""text-primary">${statInfo[0].nickname}</p>
+	<div id="buttons" class="btn-group" data-toggle="buttons" >
 		<button type="button" class="btn btn-success">Asia</button>
 		<button type="button" class="btn btn-info">KR/JP</button>
 	</div>
+	<div></div>
 	<c:forEach begin="0" end="2" var="i">
-		<table id="stat-table"
-			class="table table-striped table-hover table-bordered">
-			<thead class="thead-dark">
-				<tr>
-					<c:if test="${i eq 0}">
-						<th colspan="3">Solo ½Â ÆÐ</th>
-					</c:if>
-					<c:if test="${i eq 1}">
-						<th colspan="3">Duo ½Â ÆÐ</th>
-					</c:if>
-					<c:if test="${i eq 2}">
-						<th colspan="3">Squad ½Â ÆÐ</th>
-					</c:if>
-				</tr>
-			</thead>
-			<tbody>
-				<tr class="table-active">
-					<td>${statInfo[i].kill_Death_Ratio}<br>K/D
-					</td>
-					<td>${statInfo[i].damage_Per_Game}<br>Æò±Õµô·®
-					</td>
-					<td>${statInfo[i].headshot_Kill_Ratio}<br>Çìµå¼¦ ºñÀ²
-					</td>
-				</tr>
-				<tr class="table-active">
-					<td>${statInfo[i].time_Survived_Per_Game}<br>»ýÁ¸½Ã°£
-					</td>
-					<td>${statInfo[i].round_Most_Kill}<br>ÃÖ´ÙÅ³
-					</td>
-					<td>${statInfo[i].top10_Ratio}<br>TOP10 rate
-					</td>
-				</tr>
-			</tbody>
-		</table>
+		<div
+			style="float: left; width: 33%; padding: 2px;">
+			<table id="stat-table"
+				class="table table-striped table-hover table-bordered">
+				<thead class="thead-dark">
+					<tr>
+						<c:if test="${i eq 0}">
+							<th colspan="3">Solo ${statInfo[i+serverMode].wins}½Â ${statInfo[i+serverMode].losses}ÆÐ ½Â·ü${statInfo[i+serverMode].win_Ratio}</th>
+						</c:if>
+						<c:if test="${i eq 1}">
+							<th colspan="3">Duo ${statInfo[i+serverMode].wins}½Â ${statInfo[i+serverMode].losses}ÆÐ ½Â·ü${statInfo[i+serverMode].win_Ratio}</th>
+						</c:if>
+						<c:if test="${i eq 2}">
+							<th colspan="3">Squad ${statInfo[i+serverMode].wins}½Â ${statInfo[i+serverMode].losses}ÆÐ ½Â·ü${statInfo[i+serverMode].win_Ratio}</th>
+						</c:if>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="table-active">
+						<td>${statInfo[i+serverMode].kill_Death_Ratio}<br>K/D
+						</td>
+						<td>${statInfo[i+serverMode].damage_Per_Game}<br>Æò±Õµô·®
+						</td>
+						<td>${statInfo[i+serverMode].headshot_Kill_Ratio}<br>Çìµå¼¦
+							ºñÀ²
+						</td>
+					</tr>
+					<tr class="table-active">
+						<td>${statInfo[i+serverMode].time_Survived_Per_Game}<br>»ýÁ¸½Ã°£
+						</td>
+						<td>${statInfo[i+serverMode].round_Most_Kill}<br>ÃÖ´ÙÅ³
+						</td>
+						<td>${statInfo[i+serverMode].top10_Ratio}<br>TOP10 rate
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</c:forEach>
 </body>
 </html>
