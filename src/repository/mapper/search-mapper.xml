@@ -14,8 +14,6 @@
 		SELECT COUNT(NICKNAME) FROM STAT WHERE NICKNAME=#{nickname} AND GAME_MODE=#{modeNum}
 	</select>
 	
-	
-	
 	<resultMap type="StatVO" id="statResultMap">
 		<result property="nickname" column="NICKNAME"/>
 		<result property="avatar" column="AVATAR"/>

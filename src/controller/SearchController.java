@@ -49,6 +49,12 @@ public class SearchController {
 		return mv;
 	}
 	
+	// 전적갱신
+	@RequestMapping("/update.do")
+	public ModelAndView update(String nickname) {
+		int result = service.update(nickname);
+	}
+	
 	@RequestMapping("/compareForm.do")
 	public String compareForm() {
 		return "compare_form";
@@ -81,6 +87,13 @@ public class SearchController {
 	@RequestMapping("/DBSearch.do")
 	public ModelAndView DBSearch(String nickname,int serverMode) {
 		ModelAndView mv = new ModelAndView();
-		List<StatVO> result = service.DBSearch(nickname,serverMode);
+		List<StatVO> result = service.DBSearch(nickname);
+		mv.addObject("statInfo",result);
+		mv.addObject("serverMode",serverMode);
+		System.out.println(result.get(0).getDamage_Per_Game());
+		System.out.println(result.get(4).getDamage_Per_Game());
+		mv.setViewName("search_result");
+		
+		return mv;
 	}
 }

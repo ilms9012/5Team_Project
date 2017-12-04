@@ -11,5 +11,4 @@ public interface SearchMapper {
 	public int insert(StatVO stat);
 	public int update(StatVO stat);
 	public int selectMode(@Param("modeNum")int modeNum,@Param("nickname")String nickname);
-	
 }

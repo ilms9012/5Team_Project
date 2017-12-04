@@ -42,8 +42,9 @@ public class Test2 {
 			// We would like to retrieve best rating for player "TheHusar" for season
 			// PRE2_2017
 			Stat stat = jPubg.getPlayerMatchStatByStatName(player, PUBGStat.RATING);
-			System.out.println(stat.getStringValue());
-			System.out.println(player.getAvatar());
+			for(int i = 0;i<player.getMatches().get(0).getStats().size();i++) {
+				System.out.println(player.getMatches().get(0).getStats().get(i).getLabel());
+			}
 			// You can get season name directly from stat object
 	
 		}

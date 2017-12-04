@@ -66,4 +66,31 @@ public class SearchService {
 	public String searchAvatar(String nickname) {
 		return apiDao.selectAvatar(nickname);
 	}
+	
+	//DB에서만 서치
+	public List<StatVO> DBSearch(String nickname) {
+		List<StatVO> statList = dao.selectList(nickname);
+		return statList;
+	}
+
+	public  List<StatVO>update(String nickname) {
+		List<StatVO> statList = new ArrayList<>();
+		StatVO nullVO = new StatVO(nickname, "null", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		for (int i = 1; i < 7; i++) {
+			if (dao.selectMode(i, nickname) != 0) {
+				StatVO stat = apiDao.selectStat(nickname, i);
+				dao.update(stat);
+				statList.add(i - 1, stat);
+			} else {
+				StatVO stat = apiDao.selectStat(nickname, i);
+				if(stat!=null) {
+					dao.insert(stat);
+					statList.add(i - 1, stat);
+				}else {
+					statList.add(i - 1, nullVO);
+				}
+			}
+		}
+		return statList;
+	}
 }
