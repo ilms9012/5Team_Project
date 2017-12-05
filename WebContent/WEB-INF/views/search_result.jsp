@@ -79,17 +79,17 @@
 				<thead>
 					<tr>
 						<c:if test="${i eq 0}" >
-							<th colspan="3" style="background-color: #F29661;text-align: center;">Solo ${statInfo[i+serverMode].wins}½Â
+							<th colspan="3" style="background-color: #F34A53;text-align: center;">Solo ${statInfo[i+serverMode].wins}½Â
 								${statInfo[i+serverMode].losses}ÆÐ
 								½Â·ü${statInfo[i+serverMode].win_Ratio}%</th>
 						</c:if>
 						<c:if test="${i eq 1}">
-							<th colspan="3" style="background-color: #3DB7CC;text-align: center;">Duo ${statInfo[i+serverMode].wins}½Â
+							<th colspan="3" style="background-color: #FAE3B4;text-align: center;">Duo ${statInfo[i+serverMode].wins}½Â
 								${statInfo[i+serverMode].losses}ÆÐ
 								½Â·ü${statInfo[i+serverMode].win_Ratio}%</th>
 						</c:if>
 						<c:if test="${i eq 2}">
-							<th colspan="3" style="background-color: #FFA7A7;text-align: center;">Squad ${statInfo[i+serverMode].wins}½Â
+							<th colspan="3" style="background-color: #AAC789;text-align: center;">Squad ${statInfo[i+serverMode].wins}½Â
 								${statInfo[i+serverMode].losses}ÆÐ
 								½Â·ü${statInfo[i+serverMode].win_Ratio}%</th>
 						</c:if>
