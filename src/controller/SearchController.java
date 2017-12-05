@@ -124,6 +124,7 @@ public class SearchController {
 	@RequestMapping("/searchAvatar.do")
 	@ResponseBody
 	public String searchAvatar(String nickname) {
+		System.out.println(nickname);
 		return service.searchAvatar(nickname);
 	}
 

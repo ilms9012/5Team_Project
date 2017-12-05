@@ -31,7 +31,6 @@
 <!-- Google Fonts -->
 <link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700'
 	rel='stylesheet' type='text/css'>
-
 <script type="text/javascript">
 	var kakaoAuth;
 	$(function() {
@@ -236,8 +235,8 @@
 	<div class="header" style="padding-top: 11px; padding-bottom: 11px;">
 		<div class="container" style="margin-left: 0; margin-right: 0;">
 			<div class="logo" style="width: 350px;">
-				<a href="index.jsp"> <img src="images/logo.png" width="54%"
-					height="18%" alt="">
+				<a href="index.jsp"> <img id="logoimg" src="images/logo.png" width="150px"
+					height="80px" alt="">
 				</a>
 			</div>
 			<span class="menu"></span>
