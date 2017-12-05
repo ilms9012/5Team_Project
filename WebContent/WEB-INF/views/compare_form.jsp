@@ -11,8 +11,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <style>
 body {
-	overflow: auto;
-	margin: 0 auto;
 	font-size: 14px;
 	font-family: "Helvetica Neue", Helvetica;
 }
@@ -103,7 +101,7 @@ img:hover{
 			<span id="avatar1"></span>
 			<br>
 		</div>
-		<div class="col-md-2" align="center" style="align-items: center;">
+		<div class="col-md-2" align="center">
 			<label class="control-label" style="font-size: 35px;">VS</label>
 		</div>
 		<div class="col-md-5" align="left">
