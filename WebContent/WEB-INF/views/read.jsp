@@ -31,7 +31,7 @@
 	margin: 0 auto;
 }
 
-#container {
+#readcontainer {
 	width: 60%;
 	margin: 0 auto; /* 가로로 중앙에 배치 */
 	padding-top: 10%; 
@@ -84,7 +84,7 @@
 </head>
 <body>
 <%@ include file="header.jsp" %>
-	<div id="container">
+	<div id="readcontainer">
 		<table border="1"
 			class="table table-striped table-bordered table-hover">
 			<thead>
