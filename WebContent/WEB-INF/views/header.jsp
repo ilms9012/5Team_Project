@@ -257,32 +257,33 @@
 <body>
 
 	<div class="header" style="padding-top: 11px; padding-bottom: 11px;">
-		<div class="container" id="container" style="margin-left: 0; margin-right: 0;">
-			<div class="logo" style="width: 350px;">
+		<div class="container" id="container" style="margin-left: 0px; margin-right: 0;">
+			<div class="logo" style="width: 150px; margin-left: -100px;">
 				<a href="index.jsp"> <img id="logoimg" src="images/logo.png" width="150px"
 					height="80px" alt="">
 				</a>
 			</div>
 			<span class="menu"></span>
-			<div class="navigation">
-				<ul class="navig cl-effect-3">
+			<div class="navigation" style="margin-left: -100px;">
+				<ul class="navig cl-effect-3" style="margin-left: -100px;">
 					<li><a href="#">통계</a></li>
 					<li><a href="test.do">랭킹</a></li>
 					<li><a href="compareForm.do">전적비교</a></li>
 					<li><a href="board.do">공략/팁</a></li>
 					<li><a href="#">자유게시판</a></li>
 				</ul>
-				<div class="search-bar">
-					<input type="text" placeholder="search" required /> 
-					<input type="submit" value="" /> 
+				<div class="search-bar" style="margin-left: -100px;">
+					<input type="text" style="margin-left: -100px;" placeholder="search" required /> 
+					<input type="submit" value="" style="margin-left: 0px;"/> 
 					<c:if test="${empty loginId}">
 						<a href="#" data-toggle="modal" data-target="#loginModal">
 							<b>로그인</b>
 						</a>
 					</c:if>
+					
 					<c:if test="${not empty loginId}">
-						<a href="javascript:logoutWithKakao()">
-							<b style="font-size: 11px;">로그아웃</b>
+						<a href="javascript:logoutWithKakao()" style="margin-left: -200px;">
+							<b style="margin-left: -100px;">&nbsp;&nbsp;로그아웃</b>
 						</a>
 						<script type="text/javascript">
 							function logoutWithKakao() {
