@@ -5,8 +5,15 @@
 <html>
 <head>
 <title>게시판 목록</title>
-<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap.css">
 <style>
+	#container {
+  		padding-right: 15px;
+		padding-left: 15px;
+ 		margin-right: auto;
+ 		margin-left: auto;
+	}
+
     #boardcontainer {
       width: 70%;
       margin: 0 auto;     /* 가로로 중앙에 배치 */
@@ -75,6 +82,7 @@
 </head>
 <body>
 <%@ include file="header.jsp" %>
+<div id="contatiner">
 <div id="boardcontainer">
 	<table class="table table-striped table-bordered table-hover">
 		<tr align="center">
@@ -125,6 +133,7 @@
 	</div>
 	<div id="write">
 	<a href="writeForm.do"><button type="button" class="btn btn-info">글쓰기</button></a>
+	</div>
 	</div>
 	</div>
 	<br>
