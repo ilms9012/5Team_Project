@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
 <title>전적비교</title>
@@ -33,7 +34,12 @@ body {
 
 #centerRow {
 	text-align: center;
-	width: 23%
+	width: 23%;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+svg {
+	width: 400;
 }
 </style>
 <script
@@ -41,8 +47,6 @@ body {
 <script type="text/javascript">
 	$(function() {
 		// 값이 더 높으면 색칠색칠
-// 		10 == '10' // true;
-// 		10 === '10' // false
 		for (var i = 1; i < 71; i += 3) {
 			var left = $('td:eq(' + (i - 1) + ')').text();
 			var right = $('td:eq(' + (i + 1) + ')').text();
@@ -50,17 +54,19 @@ body {
 			right = parseFloat(right);
 			if (left > right) {
 				$('td:eq(' + (i - 1) + ')').css('background', 'mistyrose');
+				$('td:eq(' + (i - 1) + ')').css('font-weight', 'bold');
 			} else if (left < right) {
 				$('td:eq(' + (i + 1) + ')').css('background', 'mistyrose');
+				$('td:eq(' + (i + 1) + ')').css('font-weight', 'bold');
 			}
 		}
-		//////////////////////////////////////////////////////////////////	
 	});
 </script>
 
 </head>
 <body>
 <%@ include file="header.jsp"%>
+<div class="container">
 	<c:forEach items="${statInfo1}" var="s1">
 		<c:if test="${not empty s1.avatar}">
 			<c:set var="avatar1" value="${s1.avatar}" />
@@ -72,14 +78,14 @@ body {
 		</c:if>
 	</c:forEach>
 	
-	<div style="margin-left: 50px; margin-right: 50px;">
+	<div style="margin-left: 30px; margin-right: 30px;">
 		<br>
 		<form action="compare.do" method="post">
 			<input type="hidden" name="nickname1" value="${statInfo1[0].nickname}"> 
 			<input type="hidden" name="nickname2" value="${statInfo2[0].nickname}"> 
 
-			<button type="submit" name="gameServer" value="0" class="btn btn-primary">AS</button>
-			<button type="submit" name="gameServer" value="1" class="btn btn-primary">KR/JP</button>
+			<button type="submit" name="gameServer" value="0" class="btn btn-success">AS</button>
+			<button type="submit" name="gameServer" value="1" class="btn btn-info">KR/JP</button>
 		</form>
 		<br><hr>
 		<div id="top" class="row">
@@ -117,7 +123,6 @@ body {
 				<br>
 				<div id="chart${i+1}" align="center">
 					<script type="text/javascript">
-						
 						var w = 200;
 						h = 200;
 
@@ -239,14 +244,14 @@ body {
 								<td id="leftRow">${statInfo2[i].rating}</td>
 							</tr>
 							<tr>
-								<td id="rightRow">${statInfo1[i].win_Ratio}</td>
+								<td id="rightRow">${statInfo1[i].win_Ratio} %</td>
 								<td id="centerRow">승률</td>
-								<td id="leftRow">${statInfo2[i].win_Ratio}</td>
+								<td id="leftRow">${statInfo2[i].win_Ratio} %</td>
 							</tr>
 							<tr>
-								<td id="rightRow">${statInfo1[i].top10_Ratio}</td>
-								<td id="centerRow">TOP10 ratio</td>
-								<td id="leftRow">${statInfo2[i].top10_Ratio}</td>
+								<td id="rightRow">${statInfo1[i].top10_Ratio} %</td>
+								<td id="centerRow">TOP10</td>
+								<td id="leftRow">${statInfo2[i].top10_Ratio} %</td>
 							</tr>
 							<tr>
 								<td id="rightRow">${statInfo1[i].kill_Death_Ratio}</td>
@@ -259,14 +264,26 @@ body {
 								<td id="leftRow">${statInfo2[i].damage_Per_Game}</td>
 							</tr>
 							<tr>
-								<td id="rightRow">${statInfo1[i].headshot_Kill_Ratio}</td>
+								<td id="rightRow">
+									<fmt:formatNumber value="${statInfo1[i].headshot_Kill_Ratio*100}" pattern=".0"/>
+									 %
+								</td>
 								<td id="centerRow">헤드샷</td>
-								<td id="leftRow">${statInfo2[i].headshot_Kill_Ratio}</td>
+								<td id="leftRow">
+									<fmt:formatNumber value="${statInfo2[i].headshot_Kill_Ratio*100}" pattern=".0"/>
+									 %
+								</td>
 							</tr>
 							<tr>
-								<td id="rightRow">${statInfo1[i].time_Survived_Per_Game}</td>
-								<td id="centerRow">생존시간</td>
-								<td id="leftRow">${statInfo2[i].time_Survived_Per_Game}</td>
+								<td id="rightRow">
+									<fmt:parseNumber value="${statInfo1[i].time_Survived_Per_Game/60}" integerOnly="true"/>분 
+									<fmt:parseNumber value="${statInfo1[i].time_Survived_Per_Game%60}" integerOnly="true"/>초
+								</td>
+								<td id="centerRow">생존</td>
+								<td id="leftRow">
+									<fmt:parseNumber value="${statInfo2[i].time_Survived_Per_Game/60}" integerOnly="true"/>분 
+									<fmt:parseNumber value="${statInfo2[i].time_Survived_Per_Game%60}" integerOnly="true"/>초
+								</td>
 							</tr>
 							<tr>
 								<td id="rightRow">${statInfo1[i].round_Most_Kill}</td>
@@ -279,5 +296,6 @@ body {
 			</div>
 		</c:forEach>
 	</div>
+</div>
 </body>
 </html>

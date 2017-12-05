@@ -17,7 +17,6 @@
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	
 <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 
 <!-- Custom Theme files -->
 <link href="css/style.css" rel='stylesheet' type='text/css' />
@@ -99,8 +98,9 @@
 							alert('중복된 닉네임입니다. 다른 닉네임으로 가입해주세요.');
 						} else if(check=='true'){
 							alert('임시 회원가입 성공');
-							$('#loginModal .close').click();
-							$('#hiddenModal').click();
+							location.href="/";
+// 							$('#loginModal .close').click();
+// 							$('#hiddenModal').click();
 						} else {
 							alert('임시 회원가입 실패');
 						}
@@ -111,11 +111,10 @@
 				})
 			}
 		}); 
-			
-		$('#kakaoModal .join').click(function(){
+
+ 		$('#kakaoModal .join').click(function(){
 		    var id = $('#kakaoId').val();
 		    var nickName = $('#kakaoNick').val();
-			alert(auth);
 			if(nickName==""){
 				alert('닉네임을 입력해주세요.');
 			} else {
@@ -185,7 +184,28 @@
 					alert('인증 코드 체크 중 에러가 발생했습니다.');
 				}
 			})
-		})
+		});
+		
+		$('#loginModal .login').click(function(){
+			var id = $('#loginId').val();
+			var password = $('#loginPassword').val();
+			$.ajax({
+				type:'post',
+				url:'login.do', 
+				data:'id='+id+'&password='+password, 
+				dataType:'text',
+				success: function(check){
+					if(check=='true'){
+						location.href="/";
+					} else {
+						alert('아이디와 패스워드를 확인해주세요.');
+						}
+					},
+				error: function(){
+					alert('로그인 중 에러가 발생했습니다.');
+				}
+			})
+		});
 		return false;
 	});
 </script>
@@ -227,39 +247,43 @@
     height: auto;
 }
 
+#container {
+	width: 100%;
+}
+
 </style>
 
 </head>
 <body>
 
 	<div class="header" style="padding-top: 11px; padding-bottom: 11px;">
-		<div class="container" style="margin-left: 0; margin-right: 0;">
-			<div class="logo" style="width: 350px;">
+		<div class="container" id="container" style="margin-left: 0px; margin-right: 0;">
+			<div class="logo" style="width: 150px; margin-left: -100px;">
 				<a href="index.jsp"> <img id="logoimg" src="images/logo.png" width="150px"
 					height="80px" alt="">
 				</a>
 			</div>
 			<span class="menu"></span>
-			<div class="navigation">
-				<ul class="navig cl-effect-3">
+			<div class="navigation" style="margin-left: -100px;">
+				<ul class="navig cl-effect-3" style="margin-left: -100px;">
 					<li><a href="#">통계</a></li>
 					<li><a href="test.do">랭킹</a></li>
 					<li><a href="compareForm.do">전적비교</a></li>
-					<li><a href="#">공략/팁</a></li>
+					<li><a href="board.do">공략/팁</a></li>
 					<li><a href="#">자유게시판</a></li>
 				</ul>
-				<div class="search-bar">
-					<input type="text" placeholder="search" required /> 
-					<input type="submit" value="" /> 
+				<div class="search-bar" style="margin-left: -100px;">
+					<input type="text" style="margin-left: -100px;" placeholder="search" required /> 
+					<input type="submit" value="" style="margin-left: 0px;"/> 
 					<c:if test="${empty loginId}">
 						<a href="#" data-toggle="modal" data-target="#loginModal">
 							<b>로그인</b>
 						</a>
 					</c:if>
+					
 					<c:if test="${not empty loginId}">
-						<b style="color: white;">${loginId} 님</b>
-						<a href="javascript:logoutWithKakao()">
-							<b>로그아웃</b>
+						<a href="javascript:logoutWithKakao()" style="margin-left: -200px;">
+							<b style="margin-left: -100px;">&nbsp;&nbsp;로그아웃</b>
 						</a>
 						<script type="text/javascript">
 							function logoutWithKakao() {
@@ -317,7 +341,7 @@
 										type="password" class="form-control" id="loginPassword">
 								</div>
 								<div>
-									<input type="submit" value="로그인" class="btn btn-primary btn-block login" id="loginBtn">
+									<input type="button" value="로그인" class="btn btn-primary btn-block login">
 									<br> 
 									<a href="javascript:loginWithKakao()"> 
 										<img src="images/kakao.jpg" id="kakaoLogin">
@@ -461,7 +485,7 @@
 						<input type="text" class="form-control" id="kakaoNick">
 					</div>
 					<div>
-						<button class="btn btn-primary btn-block join">회원가입</button>
+						<button type="button" class="btn btn-primary btn-block join">회원가입</button>
 					</div>
 				</div>
 			</div>

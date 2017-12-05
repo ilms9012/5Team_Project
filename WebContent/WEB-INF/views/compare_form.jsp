@@ -14,7 +14,6 @@ body {
 	font-size: 14px;
 	font-family: "Helvetica Neue", Helvetica;
 }
-
 #top {
 	font: bold;
 	font-size: 20px;
@@ -95,35 +94,37 @@ img:hover{
 <body>
 <%@ include file="header.jsp"%>
 	<br><br><br><br><br>
-	<div id="top" class="row">
-		<div class="col-md-5" align="right">
-			<span id="player1"></span>&nbsp;&nbsp;
-			<span id="avatar1"></span>
-			<br>
-		</div>
-		<div class="col-md-2" align="center">
-			<label class="control-label" style="font-size: 35px;">VS</label>
-		</div>
-		<div class="col-md-5" align="left">
-			<span id="avatar2"></span>&nbsp;&nbsp;
-			<span id="player2"></span>
-			<br>
-		</div>
-	</div>
-	<br><br><br>
-	<hr>
-	<div align="center">
-		<form action="compare.do" method="post" class="form-inline">
-			<input type="hidden" name="nickname1" id="nickname1"> 
-			<input type="hidden" name="nickname2" id="nickname2"> 
-			<input type="hidden" name="gameServer" id="gameServer">
-			<div class="form-group">
-				<input type="text" id="searchNick" class="form-control"
-					placeholder="배틀그라운드 닉네임을 입력하세요." size="40px;">
+	<div class="container"> 
+		<div id="top" class="row">
+			<div class="col-md-5" align="right">
+				<span id="player1"></span>&nbsp;&nbsp;
+				<span id="avatar1"></span>
+				<br>
 			</div>
-			<button type="button" id="searchBtn" class="btn btn-primary">검색</button>
-			<button id="compareBtn" class="btn btn-primary">비교</button>
-		</form>
+			<div class="col-md-2" align="center" style="padding: 0;">
+				<label class="control-label" style="font-size: 35px;">VS</label>
+			</div>
+			<div class="col-md-5" align="left">
+				<span id="avatar2"></span>&nbsp;&nbsp;
+				<span id="player2"></span>
+				<br>
+			</div>
+		</div>
+		<br><br><br>
+		<hr>
+		<div align="center">
+			<form action="compare.do" method="post" class="form-inline">
+				<input type="hidden" name="nickname1" id="nickname1"> 
+				<input type="hidden" name="nickname2" id="nickname2"> 
+				<input type="hidden" name="gameServer" id="gameServer">
+				<div class="form-group">
+					<input type="text" id="searchNick" class="form-control"
+						placeholder="배틀그라운드 닉네임을 입력하세요." size="40px;">
+				</div>
+				<button type="button" id="searchBtn" class="btn btn-primary">검색</button>
+				<button id="compareBtn" class="btn btn-primary">비교</button>
+			</form>
+		</div>
 	</div>
 </body>
 </html>

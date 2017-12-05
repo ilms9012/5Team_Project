@@ -86,13 +86,13 @@ public class MemberController {
     }
 	
 	@RequestMapping("/login.do")
+	@ResponseBody
 	public String login(HttpSession session, String id, String password) {
 		if(service.login(id, password)) {
 			session.setAttribute("loginId", id);
-//			session.setAttribute("loginNick", );
-			return "login_success";
+			return "true";
 		} else {
-			return "login_fail";
+			return "false";
 		}
 	}
 	
