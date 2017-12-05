@@ -52,7 +52,8 @@ public class SearchController {
 	// 전적갱신
 	@RequestMapping("/update.do")
 	public ModelAndView update(String nickname) {
-		int result = service.update(nickname);
+		ModelAndView mv = new ModelAndView();
+		return mv;
 	}
 	
 	@RequestMapping("/compareForm.do")
