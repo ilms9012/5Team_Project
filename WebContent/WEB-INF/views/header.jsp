@@ -232,6 +232,7 @@
 
 </head>
 <body>
+
 	<div class="header" style="padding-top: 11px; padding-bottom: 11px;">
 		<div class="container" style="margin-left: 0; margin-right: 0;">
 			<div class="logo" style="width: 350px;">
@@ -243,7 +244,7 @@
 			<div class="navigation">
 				<ul class="navig cl-effect-3">
 					<li><a href="#">통계</a></li>
-					<li><a href="#">랭킹</a></li>
+					<li><a href="test.do">랭킹</a></li>
 					<li><a href="compareForm.do">전적비교</a></li>
 					<li><a href="#">공략/팁</a></li>
 					<li><a href="#">자유게시판</a></li>
