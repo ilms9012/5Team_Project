@@ -111,11 +111,10 @@
 				})
 			}
 		}); 
-			
-		$('#kakaoModal .join').click(function(){
+
+ 		$('#kakaoModal .join').click(function(){
 		    var id = $('#kakaoId').val();
 		    var nickName = $('#kakaoNick').val();
-			alert(auth);
 			if(nickName==""){
 				alert('닉네임을 입력해주세요.');
 			} else {
@@ -187,7 +186,7 @@
 			})
 		});
 		
-		$('#loginBtn').click(function(){
+		$('#loginModal .login').click(function(){
 			var id = $('#loginId').val();
 			var password = $('#loginPassword').val();
 			$.ajax({
@@ -338,7 +337,7 @@
 										type="password" class="form-control" id="loginPassword">
 								</div>
 								<div>
-									<input type="button" value="로그인" class="btn btn-primary btn-block login" id="loginBtn">
+									<input type="button" value="로그인" class="btn btn-primary btn-block login">
 									<br> 
 									<a href="javascript:loginWithKakao()"> 
 										<img src="images/kakao.jpg" id="kakaoLogin">
@@ -482,7 +481,7 @@
 						<input type="text" class="form-control" id="kakaoNick">
 					</div>
 					<div>
-						<button class="btn btn-primary btn-block join">회원가입</button>
+						<button type="button" class="btn btn-primary btn-block join">회원가입</button>
 					</div>
 				</div>
 			</div>
