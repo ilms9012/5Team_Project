@@ -31,6 +31,7 @@ public class SearchService {
 					dao.insert(stat);
 					statList.add(i - 1, stat);
 				} else {
+					System.out.println("asdasd");
 					statList.add(i - 1, nullVO);
 				}
 			}
@@ -71,8 +72,8 @@ public class SearchService {
 		StatVO nullVO = new StatVO(nickname, "null", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 		List<StatVO> statList = dao.selectList(nickname);
 		for (int i = 1; i < 7; i++) {
-			if (dao.selectMode(1, nickname) == 0) {
-				statList.add(nullVO);
+			if (dao.selectMode(i, nickname) == 0) {
+				statList.add(i-1,nullVO);
 			}
 		}
 		return statList;
