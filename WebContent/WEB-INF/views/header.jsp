@@ -273,7 +273,7 @@
 					<li><a href="#">자유게시판</a></li>
 				</ul>
 				<div class="search-bar" style="margin-left: -100px;">
-					<form action="search.do">
+					<form action="search.do" style="margin-bottom: 0em;">
 						<input type="text" name="nickname" style="margin-left: -100px;" placeholder="search" required /> 
 						<input type="submit" value="" style="margin-left: 0px;"/>
 					</form> 
