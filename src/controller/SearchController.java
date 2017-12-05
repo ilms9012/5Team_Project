@@ -23,7 +23,7 @@ public class SearchController {
 		System.out.println(nickname);
 		List<StatVO> result = new ArrayList<StatVO>();
 		List<StatVO> result2 = service.DBSearch(nickname);
-		if (result2 != null) {
+		if (result2 == null) {
 			int asMatches = 0;
 			int krjpMatches = 0;
 			int serverMode1 = 0;
@@ -51,6 +51,7 @@ public class SearchController {
 			}
 		} else {
 			result = service.statSearch(nickname);
+			System.out.println(result);
 			int asMatches = 0;
 			int krjpMatches = 0;
 			int serverMode1 = 0;

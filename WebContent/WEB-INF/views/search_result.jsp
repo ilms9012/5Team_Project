@@ -55,6 +55,7 @@
 </script>
 </head>
 <body>
+<%@ include file="header.jsp"%>
 	<div id="avatar-div">
 		<img id="avatar" src="${statInfo[0].avatar}">
 	</div>
