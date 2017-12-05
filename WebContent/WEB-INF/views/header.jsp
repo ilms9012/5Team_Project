@@ -235,7 +235,7 @@
 	<div class="header" style="padding-top: 11px; padding-bottom: 11px;">
 		<div class="container" style="margin-left: 0; margin-right: 0;">
 			<div class="logo" style="width: 350px;">
-				<a href="index.jsp"> <img src="images/logo.png" width="54%"
+				<a href="index.jsp"> <img src="images/logo.png" width="30%"
 					height="18%" alt="">
 				</a>
 			</div>

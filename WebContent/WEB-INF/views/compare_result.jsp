@@ -33,7 +33,7 @@ body {
 
 #centerRow {
 	text-align: center;
-	width: 20%
+	width: 23%
 }
 </style>
 <script
@@ -41,10 +41,13 @@ body {
 <script type="text/javascript">
 	$(function() {
 		// 값이 더 높으면 색칠색칠
+// 		10 == '10' // true;
+// 		10 === '10' // false
 		for (var i = 1; i < 71; i += 3) {
 			var left = $('td:eq(' + (i - 1) + ')').text();
 			var right = $('td:eq(' + (i + 1) + ')').text();
-			// 			alert(left + '/' + right)
+			left = parseFloat(left);
+			right = parseFloat(right);
 			if (left > right) {
 				$('td:eq(' + (i - 1) + ')').css('background', 'mistyrose');
 			} else if (left < right) {
@@ -52,14 +55,6 @@ body {
 			}
 		}
 		//////////////////////////////////////////////////////////////////	
-		$('#asiaBtn').click(function() {
-			$('#gameServer').attr('value', 0);
-			form.submit();
-		});
-		$('#kJBtn').click(function() {
-			$('#gameServer').attr('value', 1);
-			form.submit();
-		});
 	});
 </script>
 
@@ -82,18 +77,19 @@ body {
 		<form action="compare.do" method="post">
 			<input type="hidden" name="nickname1" value="${statInfo1[0].nickname}"> 
 			<input type="hidden" name="nickname2" value="${statInfo2[0].nickname}"> 
-			<input type="hidden" name="gameServer" id="gameServer">
 
-			<button id="asiaBtn" class="btn btn-primary">ASIA</button>
-			<button id="kJBtn" class="btn btn-primary">KR/JP</button>
+			<button type="submit" name="gameServer" value="0" class="btn btn-primary">AS</button>
+			<button type="submit" name="gameServer" value="1" class="btn btn-primary">KR/JP</button>
 		</form>
-		<br>
+		<br><hr>
 		<div id="top" class="row">
 			<div class="col-md-5" align="right" style="color: rgb(45, 121, 172);">
 				<b>${statInfo1[0].nickname}</b>&nbsp;&nbsp;
 				<img src="${avatar1}" width="60" height="60">
 			</div>
-			<div class="col-md-2" align="center">VS</div>
+			<div class="col-md-2" align="center">
+				<label class="control-label" style="font-size: 35px;">VS</label>
+			</div>
 			<div class="col-md-5" align="left" style="color: rgb(225, 107, 0);">
 				<img src="${avatar2}" width="60" height="60">
 				&nbsp;&nbsp;<b>${statInfo2[0].nickname}</b>
@@ -102,23 +98,23 @@ body {
 		<br>
 		<hr>
 		<c:if test="${gameServer eq 0}">
-			<h1>아시아 서버</h1>
+			<h1>AS</h1>
 		</c:if>
 		<c:if test="${gameServer eq 1}">
-			<h1>한국/일본 서버</h1>
+			<h1>KR/JP</h1>
 		</c:if>
 		<c:forEach begin="0" end="2" var="i">
 			<div class="col-md-4">
 				<c:if test="${i%3 eq 0}">
-					<h1>솔로</h1>
+					<h3>SOLO</h3>
 				</c:if>
 				<c:if test="${i%3 eq 1}">
-					<h1>듀오</h1>
+					<h3>DUO</h3>
 				</c:if>
 				<c:if test="${i%3 eq 2}">
-					<h1>스쿼드</h1>
+					<h3>SQUAD</h3>
 				</c:if>
-				
+				<br>
 				<div id="chart${i+1}" align="center">
 					<script type="text/javascript">
 						
@@ -222,14 +218,20 @@ body {
 				<hr>
 				<br> <br>
 				<div id="table" align="center">
-					<table class="table table-hover table-bordered">
-						<thead class="thead-dark">
-							<tr>
+					<table class="table table-bordered">
+						<c:if test="${i%3 eq 0}">
+							<tr style="background-color: #9FC93C">
+						</c:if>
+						<c:if test="${i%3 eq 1}">
+							<tr style="background-color: #2BA5BA">
+						</c:if>
+						<c:if test="${i%3 eq 2}">
+							<tr style="background-color: #4641D9">
+						</c:if>
 								<th id="rightRow">${statInfo1[0].nickname}</th>
 								<th id="centerRow">VS</th>
 								<th>${statInfo2[0].nickname}</th>
 							</tr>
-						</thead>
 						<tbody>
 							<tr>
 								<td id="rightRow">${statInfo1[i].rating}</td>

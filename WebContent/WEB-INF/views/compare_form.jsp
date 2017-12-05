@@ -8,6 +8,9 @@
 
 <!-- 부가적인 테마 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <style>
 body {
@@ -20,6 +23,7 @@ body {
 #top {
 	font: bold;
 	font-size: 20px;
+	height: 100px;
 }
 img:hover{
 	opacity: 0.3;
@@ -87,35 +91,44 @@ img:hover{
 				form.submit();
 			} else {
 				alert('아이디를 선택해주세요!');
+				return false;
 			}
 		});
 	});
 </script>
 </head>
 <body>
-<%-- <%@ include file="header.jsp"%> --%>
-	<br>
-	<br>
+<%@ include file="header.jsp"%>
+	<br><br><br><br><br>
 	<div id="top" class="row">
 		<div class="col-md-5" align="right">
-			<div id="avatar1"></div>
-			<div id="player1"></div>
+			<span id="player1"></span>&nbsp;&nbsp;
+			<span id="avatar1"></span>
 			<br>
 		</div>
-		<div class="col-md-2" align="center">VS</div>
+		<div class="col-md-2" align="center" style="align-items: center;">
+			<label class="control-label" style="font-size: 35px;">VS</label>
+		</div>
 		<div class="col-md-5" align="left">
-			<div id="avatar2"></div>
-			<div id="player2"></div>
+			<span id="avatar2"></span>&nbsp;&nbsp;
+			<span id="player2"></span>
 			<br>
 		</div>
 	</div>
 	<br><br><br>
-	<input type="text" id="searchNick"><button id="searchBtn">검색</button>
-	<form action="compare.do" method="post">
-		<input type="hidden" name="nickname1" id="nickname1">
-		<input type="hidden" name="nickname2" id="nickname2">
-		<input type="hidden" name="gameServer" id="gameServer">
-		<button id="compareBtn">비교하기</button>
-	</form>
+	<hr>
+	<div align="center">
+		<form action="compare.do" method="post" class="form-inline">
+			<input type="hidden" name="nickname1" id="nickname1"> 
+			<input type="hidden" name="nickname2" id="nickname2"> 
+			<input type="hidden" name="gameServer" id="gameServer">
+			<div class="form-group">
+				<input type="text" id="searchNick" class="form-control"
+					placeholder="배틀그라운드 닉네임을 입력하세요." size="40px;">
+			</div>
+			<button type="button" id="searchBtn" class="btn btn-primary">검색</button>
+			<button id="compareBtn" class="btn btn-primary">비교</button>
+		</form>
+	</div>
 </body>
 </html>
