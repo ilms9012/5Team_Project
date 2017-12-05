@@ -2,14 +2,15 @@ package vo;
  
 import java.util.List;
  
-public class BoardPageVO {
-    private List<BoardVO> boardList;
+public class ReplyPageVO {
+    private List<ReplyVO> boardList;
     private int currentPage;
     private int startPage;
     private int endPage;
     private int totalPage;
+    private int boardNum;
 /////////////////////////////////////////////////////   
-    public BoardPageVO(List<BoardVO> boardList, int currentPage, int startPage, int endPage, int totalPage) {
+    public ReplyPageVO(int boardNum, List<ReplyVO> boardList, int currentPage, int startPage, int endPage, int totalPage) {
         this.boardList = boardList;
         this.currentPage = currentPage;
         this.startPage = startPage;
@@ -17,16 +18,23 @@ public class BoardPageVO {
         this.totalPage = totalPage;
     }
     
-    public BoardPageVO(List<BoardVO> boardList) {
+    public ReplyPageVO(List<ReplyVO> boardList) {
     	this.boardList = boardList;
     }
     
-    public BoardPageVO() {}
+    public ReplyPageVO() {}
 /////////////////////////////////////////////////////   
-    public List<BoardVO> getBoardList() {
+    public int getBoardNum() {
+		return boardNum;
+	}
+    public void setBoardNum(int boardNum) {
+		this.boardNum = boardNum;
+	}
+    
+    public List<ReplyVO> getBoardList() {
         return boardList;
     }
-    public void setBoardList(List<BoardVO> boardList) {
+    public void setBoardList(List<ReplyVO> boardList) {
         this.boardList = boardList;
     }
     public int getCurrentPage() {
@@ -55,7 +63,7 @@ public class BoardPageVO {
     }
     @Override
     public String toString() {
-        return "BoardPageVO [boardList=" + boardList + ", currentPage=" + currentPage + ", startPage=" + startPage
+        return "ReplyPageVO [replyList=" + boardList + ", currentPage=" + currentPage + ", startPage=" + startPage
                 + ", endPage=" + endPage + ", totalPage=" + totalPage + "]";
     }
      

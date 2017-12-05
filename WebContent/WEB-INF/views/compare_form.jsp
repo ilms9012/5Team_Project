@@ -3,10 +3,7 @@
 <html>
 <head>
 <title>전적비교</title>
-<!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-
-<!-- 부가적인 테마 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
@@ -14,8 +11,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <style>
 body {
-	overflow: auto;
-	margin: 0 auto;
 	font-size: 14px;
 	font-family: "Helvetica Neue", Helvetica;
 }
@@ -106,7 +101,7 @@ img:hover{
 			<span id="avatar1"></span>
 			<br>
 		</div>
-		<div class="col-md-2" align="center" style="align-items: center;">
+		<div class="col-md-2" align="center">
 			<label class="control-label" style="font-size: 35px;">VS</label>
 		</div>
 		<div class="col-md-5" align="left">

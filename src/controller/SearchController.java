@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,87 +16,145 @@ import vo.StatVO;
 public class SearchController {
 	@Autowired
 	private SearchService service;
-	
+
 	@RequestMapping("/search.do")
 	public ModelAndView search(String nickname) {
 		ModelAndView mv = new ModelAndView();
 		System.out.println(nickname);
-		List<StatVO> result = service.statSearch(nickname);
-		int asMatches = 0;
-		int krjpMatches = 0;
-		int serverMode1 = 0;
-		int serverMode2 = 3;
-		for(int i = 0; i<3 ; i++) {
-			int sum = result.get(i).getWins()+result.get(i).getLosses();
-			int sum2 = result.get(i+3).getWins()+result.get(i+3).getLosses();
-			asMatches = asMatches+sum;
-			krjpMatches = krjpMatches+sum2;
+		List<StatVO> result = new ArrayList<StatVO>();
+		List<StatVO> result2 = service.DBSearch(nickname);
+		if (result2 != null) {
+			int asMatches = 0;
+			int krjpMatches = 0;
+			int serverMode1 = 0;
+			int serverMode2 = 3;
+			for (int i = 0; i < 3; i++) {
+				int sum = result2.get(i).getWins() + result2.get(i).getLosses();
+				int sum2 = result2.get(i + 3).getWins() + result2.get(i + 3).getLosses();
+				asMatches = asMatches + sum;
+				krjpMatches = krjpMatches + sum2;
+			}
+			if (asMatches + krjpMatches == 0) {
+				mv.addObject("statInfo", "사용자 정보가 없습니다.");
+				mv.setViewName("search_result_fail");
+			} else if (asMatches > krjpMatches) {
+				mv.addObject("statInfo", result2);
+				mv.addObject("serverMode", serverMode1);
+				mv.setViewName("search_result");
+			} else if (asMatches < krjpMatches) {
+				mv.addObject("statInfo", result2);
+				mv.addObject("serverMode", serverMode2);
+			} else {
+				mv.addObject("statInfo", result2);
+				mv.addObject("serverMode", serverMode1);
+				mv.setViewName("search_result");
+			}
+		} else {
+			result = service.statSearch(nickname);
+			int asMatches = 0;
+			int krjpMatches = 0;
+			int serverMode1 = 0;
+			int serverMode2 = 3;
+			for (int i = 0; i < 3; i++) {
+				int sum = result.get(i).getWins() + result.get(i).getLosses();
+				int sum2 = result.get(i + 3).getWins() + result.get(i + 3).getLosses();
+				asMatches = asMatches + sum;
+				krjpMatches = krjpMatches + sum2;
+			}
+			if (asMatches + krjpMatches == 0) {
+				mv.addObject("statInfo", "사용자 정보가 없습니다.");
+				mv.setViewName("search_result_fail");
+			} else if (asMatches > krjpMatches) {
+				mv.addObject("statInfo", result);
+				mv.addObject("serverMode", serverMode1);
+				mv.setViewName("search_result");
+			} else if (asMatches < krjpMatches) {
+				mv.addObject("statInfo", result);
+				mv.addObject("serverMode", serverMode2);
+			} else {
+				mv.addObject("statInfo", result);
+				mv.addObject("serverMode", serverMode1);
+				mv.setViewName("search_result");
+			}
 		}
-		if(asMatches+krjpMatches==0) {
-			mv.addObject("statInfo","사용자 정보가 없습니다.");
-			mv.setViewName("search_result_fail");
-		}else if(asMatches>krjpMatches){
-			mv.addObject("statInfo",result);
-			mv.addObject("serverMode",serverMode1);
-			mv.setViewName("search_result");
-		}else if(asMatches<krjpMatches) {
-			mv.addObject("statInfo",result);
-			mv.addObject("serverMode",serverMode2);
-		}else {
-			mv.addObject("statInfo",result);
-			mv.addObject("serverMode",serverMode1);
-			mv.setViewName("search_result");
-		}
+
 		return mv;
 	}
-	
+
 	// 전적갱신
 	@RequestMapping("/update.do")
 	public ModelAndView update(String nickname) {
 		ModelAndView mv = new ModelAndView();
+		List<StatVO> result = new ArrayList<>();
+		result = service.update(nickname);
+		int asMatches = 0;
+		int krjpMatches = 0;
+		int serverMode1 = 0;
+		int serverMode2 = 3;
+		for (int i = 0; i < 3; i++) {
+			int sum = result.get(i).getWins() + result.get(i).getLosses();
+			int sum2 = result.get(i + 3).getWins() + result.get(i + 3).getLosses();
+			asMatches = asMatches + sum;
+			krjpMatches = krjpMatches + sum2;
+		}
+		if (asMatches + krjpMatches == 0) {
+			mv.addObject("statInfo", "사용자 정보가 없습니다.");
+			mv.setViewName("search_result_fail");
+		} else if (asMatches > krjpMatches) {
+			mv.addObject("statInfo", result);
+			mv.addObject("serverMode", serverMode1);
+			mv.setViewName("search_result");
+		} else if (asMatches < krjpMatches) {
+			mv.addObject("statInfo", result);
+			mv.addObject("serverMode", serverMode2);
+		} else {
+			mv.addObject("statInfo", result);
+			mv.addObject("serverMode", serverMode1);
+			mv.setViewName("search_result");
+		}
+		mv.setViewName("search_result");
 		return mv;
 	}
-	
+
 	@RequestMapping("/compareForm.do")
 	public String compareForm() {
 		return "compare_form";
 	}
-	
+
 	@RequestMapping("/searchAvatar.do")
 	@ResponseBody
 	public String searchAvatar(String nickname) {
 		System.out.println(nickname);
 		return service.searchAvatar(nickname);
 	}
-	
+
 	@RequestMapping("/compare.do")
 	public ModelAndView compare(int gameServer, String nickname1, String nickname2) {
 		ModelAndView mv = new ModelAndView();
-		
+
 		List<StatVO> result1 = service.searchServerStat(gameServer, nickname1);
 		List<StatVO> result2 = service.searchServerStat(gameServer, nickname2);
-		
-		for(StatVO a : result1) {
+
+		for (StatVO a : result1) {
 			System.out.println(a);
 		}
-		
+
 		mv.addObject("gameServer", gameServer);
 		mv.addObject("statInfo1", result1);
 		mv.addObject("statInfo2", result2);
 		mv.setViewName("compare_result");
-		
+
 		return mv;
 	}
+
 	@RequestMapping("/DBSearch.do")
-	public ModelAndView DBSearch(String nickname,int serverMode) {
+	public ModelAndView DBSearch(String nickname, int serverMode) {
 		ModelAndView mv = new ModelAndView();
 		List<StatVO> result = service.DBSearch(nickname);
-		mv.addObject("statInfo",result);
-		mv.addObject("serverMode",serverMode);
-		System.out.println(result.get(0).getDamage_Per_Game());
-		System.out.println(result.get(4).getDamage_Per_Game());
+		mv.addObject("statInfo", result);
+		mv.addObject("serverMode", serverMode);
 		mv.setViewName("search_result");
-		
+
 		return mv;
 	}
 }
