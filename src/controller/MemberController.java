@@ -90,7 +90,6 @@ public class MemberController {
 	public String login(HttpSession session, String id, String password) {
 		if(service.login(id, password)) {
 			session.setAttribute("loginId", id);
-//			session.setAttribute("loginNick", );
 			return "true";
 		} else {
 			return "false";
