@@ -7,7 +7,7 @@
 <title>게시판 목록</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <style>
-    #container {
+    #boardcontainer {
       width: 70%;
       margin: 0 auto;     /* 가로로 중앙에 배치 */
       padding-top: 10%;   /* 테두리와 내용 사이의 패딩 여백 */
@@ -75,7 +75,7 @@
 </head>
 <body>
 <%@ include file="header.jsp" %>
-<div id="container">
+<div id="boardcontainer">
 	<table class="table table-striped table-bordered table-hover">
 		<tr align="center">
 				<td colspan="6" id="view"><b>공략/팁 목록</b></td>
