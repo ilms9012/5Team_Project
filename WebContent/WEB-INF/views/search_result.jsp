@@ -47,7 +47,7 @@
 <script type="text/javascript">
 	$(function() {
 		$("#update-button").click(function(){
-			$("#update-button").replacewith("#update-button-change");
+			$("#update-button").();
 			
 		});
 	})
