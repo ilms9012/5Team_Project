@@ -6,13 +6,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-<<<<<<< HEAD
-=======
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
->>>>>>> 2bdfff207253dbdd9120de28a0502cd210c0b720
 
 import service.BoardService;
 import vo.BoardVO;
@@ -22,9 +19,7 @@ import vo.ReplyVO;
 public class BoardController {
 	@Autowired
 	private BoardService service;
-<<<<<<< HEAD
 
-=======
 	
 	@RequestMapping("/board.do")
 	public ModelAndView board(@RequestParam(defaultValue = "1") int page) {
@@ -149,7 +144,6 @@ public class BoardController {
 		mv.setViewName("recommend_result");
 		return mv;
 	}
->>>>>>> 2bdfff207253dbdd9120de28a0502cd210c0b720
 	
 }
 
