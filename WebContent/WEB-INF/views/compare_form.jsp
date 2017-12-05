@@ -30,7 +30,7 @@ img:hover {
 	$(function() {
 		var playerNum = 1;
 		// 0이면 player1에 넣기. 1이면 player2에 넣기. 2이면 꽉 찬 것
-		$('#searchBtn').click(function() {
+		$(document).on('click','#searchBtn', function(){
 			// 아이디 검색 버튼을 누르면 ajax로 프로필사진하고 아이디 존재여부 가져오기 
 			// 존재하면 넣고 이미 꽉 차있다면(아이디 2개 검색 다 해서 찼으면) 검색 못하게
 			var searchNick = $('#searchNick').val();
@@ -40,6 +40,9 @@ img:hover {
 				if(playerNum == 2 && searchNick == $('#player1').children().text()) {
 					alert('비교할 다른 아이디를 입력해주세요!');
 				} else {
+					$('#searchBtn').empty();
+					$('#searchBtn').append('<i class="fa fa-spinner fa-spin"></i>'+
+							' <b>Loading<b></button>');
 					$.ajax({
 						type : 'post',
 						url : 'searchAvatar.do',
@@ -48,7 +51,8 @@ img:hover {
 						success : function(avatar) {
 							if (avatar != 'null') {
 								// 프로필 사진 + 아이디 넣기
-								$('#avatar'+playerNum).append('<a href="#"><img src="'+avatar+'" width="60" height="60" title="누르면 삭제됩니다."></a>');
+								$('#avatar'+playerNum).append('<a href="#"><img src="'+avatar+
+										'" width="60" height="60" title="누르면 삭제됩니다."></a>');
 								$('#player'+playerNum).append('<label>'+searchNick+'</label>');
 								playerNum++;
 							} else {
@@ -57,6 +61,10 @@ img:hover {
 						},
 						error : function() {
 							alert('배틀그라운드 아이디 검색 중 에러가 발생했습니다.');
+						},
+						complete : function() {
+							$('#searchBtn').empty();
+							$('#searchBtn').append('검색');
 						}
 					});
 				}
@@ -86,6 +94,10 @@ img:hover {
 				$('#nickname1').attr('value', nickname1);
 				$('#nickname2').attr('value', nickname2);
 				$('#gameServer').attr('value', 0);
+				
+				$('#compareBtn').empty();
+				$('#compareBtn').append('<i class="fa fa-spinner fa-spin"></i> <b>Loading<b></button>');
+				
 				form.submit();
 			} else {
 				alert('아이디를 선택해주세요!');
