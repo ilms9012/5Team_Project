@@ -17,7 +17,6 @@
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	
 <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 
 <!-- Custom Theme files -->
 <link href="css/style.css" rel='stylesheet' type='text/css' />
@@ -99,8 +98,9 @@
 							alert('중복된 닉네임입니다. 다른 닉네임으로 가입해주세요.');
 						} else if(check=='true'){
 							alert('임시 회원가입 성공');
-							$('#loginModal .close').click();
-							$('#hiddenModal').click();
+							location.href="/";
+// 							$('#loginModal .close').click();
+// 							$('#hiddenModal').click();
 						} else {
 							alert('임시 회원가입 실패');
 						}
@@ -185,7 +185,28 @@
 					alert('인증 코드 체크 중 에러가 발생했습니다.');
 				}
 			})
-		})
+		});
+		
+		$('#loginBtn').click(function(){
+			var id = $('#loginId').val();
+			var password = $('#loginPassword').val();
+			$.ajax({
+				type:'post',
+				url:'login.do', 
+				data:'id='+id+'&password='+password, 
+				dataType:'text',
+				success: function(check){
+					if(check=='true'){
+						location.href="/";
+					} else {
+						alert('아이디와 패스워드를 확인해주세요.');
+						}
+					},
+				error: function(){
+					alert('로그인 중 에러가 발생했습니다.');
+				}
+			})
+		});
 		return false;
 	});
 </script>
@@ -317,7 +338,7 @@
 										type="password" class="form-control" id="loginPassword">
 								</div>
 								<div>
-									<input type="submit" value="로그인" class="btn btn-primary btn-block login" id="loginBtn">
+									<input type="button" value="로그인" class="btn btn-primary btn-block login" id="loginBtn">
 									<br> 
 									<a href="javascript:loginWithKakao()"> 
 										<img src="images/kakao.jpg" id="kakaoLogin">
