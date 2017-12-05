@@ -30,6 +30,11 @@ body {
 
 #rightRow {
 	text-align: right;
+	width: 30%;
+}
+
+#leftRow {
+	width: 30%;
 }
 
 #centerRow {
@@ -234,7 +239,7 @@ svg {
 						</c:if>
 								<th id="rightRow">${statInfo1[0].nickname}</th>
 								<th id="centerRow">VS</th>
-								<th>${statInfo2[0].nickname}</th>
+								<th id="leftRow">${statInfo2[0].nickname}</th>
 							</tr>
 						<tbody>
 							<tr>
