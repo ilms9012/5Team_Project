@@ -272,9 +272,6 @@
 					<li><a href="board.do">공략/팁</a></li>
 					<li><a href="#">자유게시판</a></li>
 				</ul>
-				<div class="search-bar">
-					<input type="text" style="margin-left: -100px;" placeholder="search" required /> 
-					<input type="submit" value="" style="margin-left: 0px;"/> 
 				<div class="search-bar" style="margin-left: -100px;">
 					<form action="search.do">
 						<input type="text" name="nickname" style="margin-left: -100px;" placeholder="search" required /> 
