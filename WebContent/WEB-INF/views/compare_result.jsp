@@ -5,7 +5,7 @@
 <html>
 <head>
 <title>전적비교</title>
-<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap.css">
 
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="js/RadarChart.js"></script>
@@ -106,7 +106,7 @@ svg {
 				&nbsp;&nbsp;<b>${statInfo2[0].nickname}</b>
 			</div>
 		</div>
-		<br>
+		<br><br><br>
 		<hr>
 		<c:forEach begin="0" end="2" var="i">
 			<div class="col-md-4">
