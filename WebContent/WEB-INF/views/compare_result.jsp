@@ -224,13 +224,13 @@ svg {
 				<div id="table" align="center">
 					<table class="table table-bordered">
 						<c:if test="${i%3 eq 0}">
-							<tr style="background-color: #9FC93C">
+							<tr style="background-color: #F34A53">
 						</c:if>
 						<c:if test="${i%3 eq 1}">
-							<tr style="background-color: #2BA5BA">
+							<tr style="background-color: #FAE3B4">
 						</c:if>
 						<c:if test="${i%3 eq 2}">
-							<tr style="background-color: #4641D9">
+							<tr style="background-color: #AAC789">
 						</c:if>
 								<th id="rightRow">${statInfo1[0].nickname}</th>
 								<th id="centerRow">VS</th>
