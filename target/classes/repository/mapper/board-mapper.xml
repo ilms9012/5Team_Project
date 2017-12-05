@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="repository.mapper.BoardMapper">
+	<insert id="insert" parameterType="BoardVO">
+	INSERT INTO TIP_BOARD
+		(BOARD_NUM,TITLE,WRITER,CONTENT,READ_COUNT,WRITE_DATE,HIT)
+	VALUES
+		(TIP_NUM.NEXTVAL,#{title}, #{writer}, #{content}, #{readCount},
+			#{writeDate}, #{hit})
+	</insert>
+	
+	<select id="selectTotalCount" resultType="int">
+	SELECT COUNT(*) FROM TIP_BOARD
+	</select>
+	
+	<select id="select" parameterType="int" 
+							resultMap="boardResultMap">
+		SELECT * FROM TIP_BOARD WHERE BOARD_NUM=#{boardNum}
+	</select>
+	
+	<select id="selectList" resultMap="boardResultMap">
+		SELECT * FROM 
+		(SELECT ROWNUM RN, BOARD_NUM, WRITER, TITLE, CONTENT, WRITE_DATE, READ_COUNT, HIT 
+		FROM 
+		(SELECT * FROM TIP_BOARD ORDER BY BOARD_NUM DESC)) 
+		WHERE RN BETWEEN #{startRow} AND #{count}
+	</select>
+	
+	<update id="update" parameterType="BoardVO">
+	UPDATE TIP_BOARD 
+	SET 
+		TITLE=#{title}, CONTENT=#{content},
+		WRITE_DATE=#{writeDate}
+	WHERE
+		BOARD_NUM=#{boardNum}	 
+	</update>
+	
+	<update id="updateReadCount" parameterType="int">
+	UPDATE TIP_BOARD
+	SET 
+		READ_COUNT=READ_COUNT+1
+	WHERE
+		BOARD_NUM=#{boardNum}
+	</update>
+	
+	<update id="updateRecommendCount" parameterType="int">
+	UPDATE TIP_BOARD
+	SET 
+		HIT=HIT+1
+	WHERE
+		BOARD_NUM=#{boardNum}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+	DELETE FROM TIP_BOARD
+	WHERE BOARD_NUM=#{boardNum}
+	</delete>
+	
+	<resultMap type="BoardVO" id="boardResultMap">
+		<result property="title" column="TITLE"/>
+		<result property="boardNum" column="BOARD_NUM"/>
+		<result property="writer" column="WRITER"/>
+		<result property="writeDate" column="WRITE_DATE"/>
+		<result property="readCount" column="READ_COUNT"/>
+		<result property="content" column="CONTENT"/>
+		<result property="hit" column="HIT"/>
+	</resultMap>
+</mapper>
+
+

@@ -2,11 +2,11 @@ package vo;
 
 public class MemberVO {
 	private String auth;
-	private String id;			// 이메일
-	private String password; 	// 비밀번호
-	private String nickName;	// 닉네임
-	private int point; 			// default 0
-	private int lv;				// default 1
+	private String id;			
+	private String password; 	
+	private String nickName;	
+	private int point; 			
+	private int lv;				
 ///////////////////////////////////////////////////////////////////////////////
 	public MemberVO() {}
 	

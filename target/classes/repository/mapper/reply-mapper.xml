@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="repository.mapper.ReplyMapper">
+
+	<insert id="insert" parameterType="ReplyVO" useGeneratedKeys="true"
+		keyProperty="boardNum">
+		INSERT INTO TIP_REPLY
+		(REPLY_NUM,BOARD_NUM,WRITER,CONTENT)
+		VALUES
+		(TIP_REP_NUM.NEXTVAL, #{boardNum}, #{writer}, #{content})
+	</insert>
+
+	<update id="afterInsert" parameterType="ReplyVO">
+		UPDATE TIP_REPLY SET
+		GRP=REPLY_NUM WHERE REPLY_NUM=#{replyNum}
+	</update>
+
+	<update id="update" parameterType="ReplyVO">
+		UPDATE TIP_REPLY SET
+		CONTENT=#{content} WHERE REPLY_NUM=#{replyNum}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM TIP_REPLY WHERE REPLY_NUM=#{replyNum}
+	</delete>
+
+	<delete id="deleteAll">
+		DELETE FROM TIP_REPLY WHERE BOARD_NUM=#{boardNum}
+	</delete>
+
+	<select id="select" resultMap="replyResultMap">
+		SELECT * FROM TIP_REPLY WHERE
+		REPLY_NUM=#{replyNum}
+	</select>
+
+	<select id="selectList" resultMap="replyResultMap">
+		SELECT * FROM
+		(SELECT ROWNUM RN, REPLY_NUM, BOARD_NUM, WRITER, CONTENT
+		FROM
+		(SELECT * FROM TIP_REPLY WHERE BOARD_NUM=#{boardNum} ORDER BY REPLY_NUM DESC))
+		WHERE RN BETWEEN #{startRow} AND #{count}
+	</select>
+	<select id="totalCount" resultType="int">
+		SELECT COUNT(*) FROM TIP_REPLY
+		WHERE BOARD_NUM=#{boardNum}
+	</select>
+
+	<resultMap type="ReplyVO" id="replyResultMap">
+		<result property="replyNum" column="REPLY_NUM" />
+		<result property="boardNum" column="BOARD_NUM" />
+		<result property="writer" column="WRITER" />
+		<result property="content" column="CONTENT" />
+	</resultMap>
+
+</mapper>
