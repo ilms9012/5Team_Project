@@ -264,7 +264,7 @@
 				</a>
 			</div>
 			<span class="menu"></span>
-			<div class="navigation" style="margin-left: -100px;">
+			<div class="navigation">
 				<ul class="navig cl-effect-3" style="margin-left: -100px;">
 					<li><a href="#">통계</a></li>
 					<li><a href="test.do">랭킹</a></li>
@@ -272,7 +272,7 @@
 					<li><a href="board.do">공략/팁</a></li>
 					<li><a href="#">자유게시판</a></li>
 				</ul>
-				<div class="search-bar" style="margin-left: -100px;">
+				<div class="search-bar">
 					<input type="text" style="margin-left: -100px;" placeholder="search" required /> 
 					<input type="submit" value="" style="margin-left: 0px;"/> 
 					<c:if test="${empty loginId}">
@@ -282,7 +282,7 @@
 					</c:if>
 					
 					<c:if test="${not empty loginId}">
-						<a href="javascript:logoutWithKakao()" style="margin-left: -200px;">
+						<a href="javascript:logoutWithKakao()">
 							<b style="margin-left: -100px;">&nbsp;&nbsp;로그아웃</b>
 						</a>
 						<script type="text/javascript">
