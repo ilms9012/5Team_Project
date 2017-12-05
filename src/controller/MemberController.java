@@ -89,7 +89,7 @@ public class MemberController {
 	public String login(HttpSession session, String id, String password) {
 		if(service.login(id, password)) {
 			session.setAttribute("loginId", id);
-			session.setAttribute("loginNick", );
+//			session.setAttribute("loginNick", );
 			return "login_success";
 		} else {
 			return "login_fail";
