@@ -269,7 +269,7 @@
 					<li><a href="#">통계</a></li>
 					<li><a href="test.do">랭킹</a></li>
 					<li><a href="compareForm.do">전적비교</a></li>
-					<li><a href="#">공략/팁</a></li>
+					<li><a href="board.do">공략/팁</a></li>
 					<li><a href="#">자유게시판</a></li>
 				</ul>
 				<div class="search-bar">
