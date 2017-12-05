@@ -48,7 +48,6 @@ public class PubgtrackerAPIDao {
 		try {
 			System.out.println(nickname);
 			player = jPubg.getByNickname(nickname, Criteria);
-			System.out.println();
 		} catch (IllegalArgumentException e) {
 			System.out.println("플레이어를 찾을 수 없습니다." + e.getLocalizedMessage());
 			return null;

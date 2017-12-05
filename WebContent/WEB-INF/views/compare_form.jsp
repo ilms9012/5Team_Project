@@ -14,14 +14,17 @@ body {
 	font-size: 14px;
 	font-family: "Helvetica Neue", Helvetica;
 }
+
 #top {
 	font: bold;
 	font-size: 20px;
 	height: 100px;
 }
-img:hover{
+
+img:hover {
 	opacity: 0.3;
 }
+
 </style>
 <script type="text/javascript">
 	$(function() {
@@ -45,7 +48,7 @@ img:hover{
 						success : function(avatar) {
 							if (avatar != 'null') {
 								// 프로필 사진 + 아이디 넣기
-								$('#avatar'+playerNum).append('<img src="'+avatar+'" width="60" height="60">');
+								$('#avatar'+playerNum).append('<a href="#"><img src="'+avatar+'" width="60" height="60" title="누르면 삭제됩니다."></a>');
 								$('#player'+playerNum).append('<label>'+searchNick+'</label>');
 								playerNum++;
 							} else {
@@ -63,9 +66,10 @@ img:hover{
 		});
 		// 프로필사진 클릭하면 삭제할 수 있게
 		$(document).on('click','img', function(){
-			var p = $(this).parent().attr('id');
-			$(this).parent().next().empty();
-			$(this).parent().empty();
+			var p = $(this).parent().parent().attr('id');
+			$(this).parent().parent().prev().empty();
+			$(this).parent().parent().next().empty();
+			$(this).parent().parent().empty();
 			if(p == 'avatar1' && playerNum == 3){
 				// 2 값들을 1로 옮겨야 함
 				$('#avatar2').children().appendTo('#avatar1');
@@ -93,8 +97,8 @@ img:hover{
 </head>
 <body>
 <%@ include file="header.jsp"%>
-	<br><br><br><br><br>
-	<div class="container"> 
+	<div class="container">
+		<br><br><br><br><br>
 		<div id="top" class="row">
 			<div class="col-md-5" align="right">
 				<span id="player1"></span>&nbsp;&nbsp;

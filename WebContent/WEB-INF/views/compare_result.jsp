@@ -5,7 +5,7 @@
 <html>
 <head>
 <title>전적비교</title>
-<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap.css">
 
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="js/RadarChart.js"></script>
@@ -83,9 +83,14 @@ svg {
 		<form action="compare.do" method="post">
 			<input type="hidden" name="nickname1" value="${statInfo1[0].nickname}"> 
 			<input type="hidden" name="nickname2" value="${statInfo2[0].nickname}"> 
-
-			<button type="submit" name="gameServer" value="0" class="btn btn-success">AS</button>
-			<button type="submit" name="gameServer" value="1" class="btn btn-info">KR/JP</button>
+			<c:if test="${gameServer eq 0}">
+				<button type="submit" name="gameServer" value="0" class="btn btn-info">AS</button>
+				<button type="submit" name="gameServer" value="1" class="btn btn-primary">KR/JP</button>
+			</c:if>
+			<c:if test="${gameServer eq 1}">
+				<button type="submit" name="gameServer" value="0" class="btn btn-primary">AS</button>
+				<button type="submit" name="gameServer" value="1" class="btn btn-info">KR/JP</button>
+			</c:if>
 		</form>
 		<br><hr>
 		<div id="top" class="row">
@@ -101,14 +106,8 @@ svg {
 				&nbsp;&nbsp;<b>${statInfo2[0].nickname}</b>
 			</div>
 		</div>
-		<br>
+		<br><br><br>
 		<hr>
-		<c:if test="${gameServer eq 0}">
-			<h1>AS</h1>
-		</c:if>
-		<c:if test="${gameServer eq 1}">
-			<h1>KR/JP</h1>
-		</c:if>
 		<c:forEach begin="0" end="2" var="i">
 			<div class="col-md-4">
 				<c:if test="${i%3 eq 0}">

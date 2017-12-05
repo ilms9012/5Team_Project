@@ -272,9 +272,17 @@
 					<li><a href="board.do">공략/팁</a></li>
 					<li><a href="#">자유게시판</a></li>
 				</ul>
+<<<<<<< HEAD
 				<div class="search-bar">
 					<input type="text" style="margin-left: -100px;" placeholder="search" required /> 
 					<input type="submit" value="" style="margin-left: 0px;"/> 
+=======
+				<div class="search-bar" style="margin-left: -100px;">
+					<form action="search.do">
+						<input type="text" name="nickname" style="margin-left: -100px;" placeholder="search" required /> 
+						<input type="submit" value="" style="margin-left: 0px;"/>
+					</form> 
+>>>>>>> 24f79f38b1ce3288cda1f3d7ba0ef6509a7ca76c
 					<c:if test="${empty loginId}">
 						<a href="#" data-toggle="modal" data-target="#loginModal">
 							<b>로그인</b>
