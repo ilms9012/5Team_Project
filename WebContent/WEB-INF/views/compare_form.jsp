@@ -93,7 +93,7 @@ img:hover{
 </script>
 </head>
 <body>
-<%@ include file="header.jsp"%>
+<%-- <%@ include file="header.jsp"%> --%>
 	<br>
 	<br>
 	<div id="top" class="row">
