@@ -47,8 +47,8 @@
 <script type="text/javascript">
 	$(function() {
 		$("#update-button").click(function(){
-			$("#update-button").replacewith("#update-button-change");
-			
+			$('#update-button').empty();
+			$('#update-button').append('<i class="fa fa-spinner fa-spin"></i> <b>Loading<b></button>');
 		});
 	})
 </script>
@@ -60,14 +60,16 @@
 			<c:set value="${statInfo[i].avatar}" var="avartar" />
 		</c:if>
 	</c:forEach>
+	<br>
 	<div id="avatar-div">
 		<img id="avatar" src="${avartar}">
 	</div>
 	<p style="text-align: center; font-size: 40px;">${statInfo[0].nickname}</p>
 	<form action="update.do">
-	 <button id="update-button-change" class="btn btn-primary btn-lg" style="background-color: #B2CCFF" type="submit" name="nickname" value=""><i class="fa fa-spinner fa-spin"></i> 전적갱신</button>
-		<button id="update-button" type="submit" name="nickname"
-			value="${statInfo[0].nickname}">전적갱신</button>
+		&nbsp;&nbsp;&nbsp;<button id="update-button" type="submit" name="nickname"
+			value="${statInfo[0].nickname}" class="btn btn-primary">
+			전적갱신
+		</button>
 	</form>
 	<div id="buttons">
 		<form action="DBSearch.do">
