@@ -42,7 +42,7 @@ body {
                 </div>
                 <br>
                 <div class="error-actions">
-                   	<a href="http://www.fishingnews.co.kr/" class="btn btn-primary btn-lg">
+                   	<a href="/" class="btn btn-primary btn-lg">
                     	<span class="glyphicon glyphicon-home"></span>
                         Take Me Home 
                    	</a>

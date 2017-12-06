@@ -73,10 +73,18 @@
 	</form>
 	<div id="buttons">
 		<form action="DBSearch.do">
-			<button type="submit" name="serverMode" value="0"
-				class="btn btn-success">Asia</button>
-			<button type="submit" name="serverMode" value="3"
-				class="btn btn-info">KR/JP</button>
+			<c:if test="${serverMode eq 0}">
+				<button type="submit" name="serverMode" value="0"
+					class="btn btn-info">Asia</button>
+				<button type="submit" name="serverMode" value="3"
+					class="btn btn-primary">KR/JP</button>
+			</c:if>
+			<c:if test="${serverMode eq 3}">
+				<button type="submit" name="serverMode" value="0"
+					class="btn btn-primary">Asia</button>
+				<button type="submit" name="serverMode" value="3"
+					class="btn btn-info">KR/JP</button>
+			</c:if>
 			<input type="hidden" name="nickname" value="${statInfo[0].nickname}">
 		</form>
 	</div>
