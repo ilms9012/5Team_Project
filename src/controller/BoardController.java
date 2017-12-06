@@ -31,7 +31,7 @@ public class BoardController {
 	
 	@RequestMapping("/writeForm.do")
 	public String writeForm(HttpSession session) {
-		String loginId = (String) session.getAttribute("loginId");
+		String loginId = (String) session.getAttribute("loginNick");
 		if (loginId != null && loginId.length() > 0) {
 			return "write_form";
 		} else {
@@ -42,7 +42,7 @@ public class BoardController {
 	@RequestMapping(value = "/write.do", method = RequestMethod.POST)
 	public ModelAndView write(BoardVO board, HttpSession session, HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView();
-		String loginId = (String) session.getAttribute("loginId");
+		String loginId = (String) session.getAttribute("loginNick");
 
 		if (loginId != null && loginId.length() > 0) {
 			service.write(board, loginId, req);
@@ -59,7 +59,7 @@ public class BoardController {
 	@ResponseBody
 	public ModelAndView reply(ReplyVO reply, HttpSession session, HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView();
-		String loginId = (String) session.getAttribute("loginId");
+		String loginId = (String) session.getAttribute("loginNick");
 		
 		if (loginId != null && loginId.length() > 0) {
 			service.reply(reply, loginId);
@@ -70,7 +70,7 @@ public class BoardController {
 
 	@RequestMapping("/replyDelete.do")
 	public ModelAndView replyDelete(int replyNum, HttpSession session) {
-		String loginId = (String) session.getAttribute("loginId");
+		String loginId = (String) session.getAttribute("loginNick");
 		boolean replyResult = true;
 		int boardNum = service.replyDelete(replyNum, loginId);
 		
@@ -85,7 +85,7 @@ public class BoardController {
 	public ModelAndView read(int boardNum, HttpSession session, @RequestParam(defaultValue = "1") int page) {
 		ModelAndView mv = new ModelAndView();
 
-		String loginId = (String) session.getAttribute("loginId");
+		String loginId = (String) session.getAttribute("loginNick");
 
 		BoardVO board = service.read(boardNum, loginId);
 
@@ -107,7 +107,7 @@ public class BoardController {
 
 	@RequestMapping(value = "/updatee.do", method = RequestMethod.POST)
 	public ModelAndView update(BoardVO board, HttpSession session) {
-		String loginId = (String) session.getAttribute("loginId");
+		String loginId = (String) session.getAttribute("loginNick");
 
 		boolean result = service.update(board, loginId);
 		ModelAndView mv = new ModelAndView();
@@ -123,7 +123,7 @@ public class BoardController {
 
 	@RequestMapping("/delete.do")
 	public ModelAndView delete(int boardNum, HttpSession session) {
-		String loginId = (String) session.getAttribute("loginId");
+		String loginId = (String) session.getAttribute("loginNick");
 
 		boolean result = service.delete(boardNum, loginId);
 
@@ -136,7 +136,7 @@ public class BoardController {
 	
 	@RequestMapping("/recommendForm.do")
 	public ModelAndView recommendForm(int boardNum, HttpSession session) {
-		String loginId = (String)session.getAttribute("loginId");
+		String loginId = (String)session.getAttribute("loginNick");
 		BoardVO board = service.recommend(boardNum,loginId);
 		
 		ModelAndView mv = new ModelAndView();
