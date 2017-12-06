@@ -43,9 +43,11 @@ body {
 	margin-left: 5px;
 	margin-right: 5px;
 }
+
 svg {
 	width: 400;
 }
+
 </style>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -55,8 +57,21 @@ svg {
 		for (var i = 1; i < 71; i += 3) {
 			var left = $('td:eq(' + (i - 1) + ')').text();
 			var right = $('td:eq(' + (i + 1) + ')').text();
-			left = parseFloat(left);
-			right = parseFloat(right);
+			if(i%19==0 || i%43==0 || i%67==0){
+				// 만약 시간이라면 17분 39초를 초까지 비교해야함
+				var leftTime = left.split("분 ");
+				var rightTime = right.split("분 ");
+				leftTime[0] = parseFloat(leftTime[0]);
+				leftTime[1] = parseFloat(leftTime[1]);
+				rightTime[0] = parseFloat(rightTime[0]);
+				rightTime[1] = parseFloat(rightTime[1]);
+				left = leftTime[0] + leftTime[1]*0.01;
+				right = rightTime[0] + rightTime[1]*0.01;
+			} else {
+				left = parseFloat(left);
+				right = parseFloat(right);
+			}
+// 			console.log('i:'+i+'/left:'+left+'/right:'+right);
 			if (left > right) {
 				$('td:eq(' + (i - 1) + ')').css('background', 'mistyrose');
 				$('td:eq(' + (i - 1) + ')').css('font-weight', 'bold');
@@ -65,6 +80,11 @@ svg {
 				$('td:eq(' + (i + 1) + ')').css('font-weight', 'bold');
 			}
 		}
+		
+		$("#updateBtn").click(function(){
+			$('#updateBtn').empty();
+			$('#updateBtn').append('<i class="fa fa-spinner fa-spin"></i> <b>Loading<b></button>');
+		});
 	});
 </script>
 
@@ -85,18 +105,28 @@ svg {
 	
 	<div style="margin-left: 30px; margin-right: 30px;">
 		<br>
-		<form action="compare.do" method="post">
+		<form action="compareDB.do" method="post">
 			<input type="hidden" name="nickname1" value="${statInfo1[0].nickname}"> 
 			<input type="hidden" name="nickname2" value="${statInfo2[0].nickname}"> 
-			<c:if test="${gameServer eq 0}">
-				<button type="submit" name="gameServer" value="0" class="btn btn-info">AS</button>
-				<button type="submit" name="gameServer" value="1" class="btn btn-primary">KR/JP</button>
+			<c:if test="${serverMode eq 0}">
+				<button type="submit" name="serverMode" value="0" class="btn btn-info">AS</button>
+				<button type="submit" name="serverMode" value="1" class="btn btn-primary">KR/JP</button>
 			</c:if>
-			<c:if test="${gameServer eq 1}">
-				<button type="submit" name="gameServer" value="0" class="btn btn-primary">AS</button>
-				<button type="submit" name="gameServer" value="1" class="btn btn-info">KR/JP</button>
+			<c:if test="${serverMode eq 1}">
+				<button type="submit" name="serverMode" value="0" class="btn btn-primary">AS</button>
+				<button type="submit" name="serverMode" value="1" class="btn btn-info">KR/JP</button>
 			</c:if>
 		</form>
+		<div align="right">
+			<form action="compareUpdate.do" method="post">
+				<input type="hidden" name="nickname1" value="${statInfo1[0].nickname}"> 
+				<input type="hidden" name="nickname2" value="${statInfo2[0].nickname}">
+				<input type="hidden" name="serverMode" value="${serverMode}"> 
+				<button type="submit" id="updateBtn" class="btn btn-primary">
+					전적갱신
+				</button>
+			</form>
+		</div>
 		<br><hr>
 		<div id="top" class="row">
 			<div class="col-md-5" align="right" style="color: rgb(45, 121, 172);">
@@ -113,7 +143,7 @@ svg {
 		</div>
 		<br><br><br>
 		<hr>
-		<c:forEach begin="0" end="2" var="i">
+		<c:forEach begin="${serverMode * 3}" end="${serverMode * 3 + 2}" var="i">
 			<div class="col-md-4">
 				<c:if test="${i%3 eq 0}">
 					<h3>SOLO</h3>

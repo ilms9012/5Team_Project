@@ -130,22 +130,51 @@ public class SearchController {
 		return service.searchAvatar(nickname);
 	}
 
+	// 처음 검색할 때는 api에서 다 가져오고 그 후에 서버 바꿀 때는 DBSearch로 가져오고 
+	// 전적갱신하면 그 때 api에서 다시 가져오기
+	// 첫 게임 서버는 무조건 아시아로 세팅
 	@RequestMapping("/compare.do")
-	public ModelAndView compare(int gameServer, String nickname1, String nickname2) {
+	public ModelAndView compare(String nickname1, String nickname2) {
 		ModelAndView mv = new ModelAndView();
 
-		List<StatVO> result1 = service.searchServerStat(gameServer, nickname1);
-		List<StatVO> result2 = service.searchServerStat(gameServer, nickname2);
+		List<StatVO> result1 = service.statSearch(nickname1);
+		List<StatVO> result2 = service.statSearch(nickname2);
 
-		for (StatVO a : result1) {
-			System.out.println(a);
-		}
-
-		mv.addObject("gameServer", gameServer);
+		mv.addObject("serverMode", 0);
 		mv.addObject("statInfo1", result1);
 		mv.addObject("statInfo2", result2);
 		mv.setViewName("compare_result");
 
+		return mv;
+	}
+	
+	@RequestMapping("/compareDB.do")
+	public ModelAndView compareDB(String nickname1, String nickname2, int serverMode) {
+		ModelAndView mv = new ModelAndView();
+
+		List<StatVO> result1 = service.DBSearch(nickname1);
+		List<StatVO> result2 = service.DBSearch(nickname2);
+
+		mv.addObject("serverMode", serverMode);
+		mv.addObject("statInfo1", result1);
+		mv.addObject("statInfo2", result2);
+		mv.setViewName("compare_result");
+
+		return mv;
+	}
+	
+	@RequestMapping("/compareUpdate.do")
+	public ModelAndView compareUpdate(String nickname1, String nickname2, int serverMode) {
+		ModelAndView mv = new ModelAndView();
+		
+		List<StatVO> result1 = service.update(nickname1);
+		List<StatVO> result2 = service.update(nickname2);
+
+		mv.addObject("serverMode", serverMode);
+		mv.addObject("statInfo1", result1);
+		mv.addObject("statInfo2", result2);
+		mv.setViewName("compare_result");
+		
 		return mv;
 	}
 

@@ -25,6 +25,7 @@ public class PubgtrackerAPIDao {
 
 	@Autowired
 	public static final String API_KEY = "47fc2c55-b8d9-411a-8ddc-63cd678e4dec";
+	
 	public StatVO selectStat(String nickname, int game_Mode) {
 		JPubg jPubg = JPubgFactory.getWrapper(API_KEY);
 		FilterCriteria Criteria;

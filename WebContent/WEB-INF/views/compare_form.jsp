@@ -40,9 +40,9 @@ img:hover {
 				if(playerNum == 2 && searchNick == $('#player1').children().text()) {
 					alert('비교할 다른 아이디를 입력해주세요!');
 				} else {
-					$('#searchBtn').empty();
-					$('#searchBtn').append('<i class="fa fa-spinner fa-spin"></i>'+
-							' <b>Loading<b></button>');
+					$('#searchBtn').replaceWith
+					('<button type="button" class="btn btn-primary" id="loadingBtn">'+
+							'<i class="fa fa-spinner fa-spin"></i> <b>Loading<b></button>'); 
 					$.ajax({
 						type : 'post',
 						url : 'searchAvatar.do',
@@ -63,8 +63,8 @@ img:hover {
 							alert('배틀그라운드 아이디 검색 중 에러가 발생했습니다.');
 						},
 						complete : function() {
-							$('#searchBtn').empty();
-							$('#searchBtn').append('검색');
+							$('#loadingBtn').replaceWith
+								('<button type="button" id="searchBtn" class="btn btn-primary">검색</button>');
 						}
 					});
 				}
@@ -90,10 +90,8 @@ img:hover {
 			if(playerNum == 3){
 				var nickname1 = $('#player1').children().text();
 				var nickname2 = $('#player2').children().text();
-				var gameServer = $('#gameServer').children().text();
 				$('#nickname1').attr('value', nickname1);
 				$('#nickname2').attr('value', nickname2);
-				$('#gameServer').attr('value', 0);
 				
 				$('#compareBtn').empty();
 				$('#compareBtn').append('<i class="fa fa-spinner fa-spin"></i> <b>Loading<b></button>');
@@ -132,7 +130,6 @@ img:hover {
 			<form action="compare.do" method="post" class="form-inline">
 				<input type="hidden" name="nickname1" id="nickname1"> 
 				<input type="hidden" name="nickname2" id="nickname2"> 
-				<input type="hidden" name="gameServer" id="gameServer">
 				<div class="form-group">
 					<input type="text" id="searchNick" class="form-control"
 						placeholder="배틀그라운드 닉네임을 입력하세요." size="40px;">
