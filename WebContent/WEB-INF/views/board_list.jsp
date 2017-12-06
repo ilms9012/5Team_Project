@@ -128,7 +128,7 @@
 		<!-- 	하단 페이지 링크 부분 -->
 			<c:forEach begin="${boardPage.startPage}" end="${boardPage.endPage}"
 				var="p" step="1">
-				<a href="board.do?page=${p}">${p} 
+				<a href="board.do?page=${p}">${p} </a>
 			</c:forEach>
 	</div>
 	<div id="write">
