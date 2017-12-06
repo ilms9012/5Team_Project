@@ -12,6 +12,5 @@
 </script>
 </head>
 <body>
-<h2>글 작성 완료</h2>
 </body>
 </html>
