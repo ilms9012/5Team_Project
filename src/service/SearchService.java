@@ -31,7 +31,6 @@ public class SearchService {
 					dao.insert(stat);
 					statList.add(i - 1, stat);
 				} else {
-					System.out.println("asdasd");
 					statList.add(i - 1, nullVO);
 				}
 			}
@@ -40,17 +39,16 @@ public class SearchService {
 	}
 
 	// 서버 별로 가져오기
-	// gameServer 0이면 아시아, 1이면 한국/일본
-	public List<StatVO> searchServerStat(int gameServer, String nickname) {
+	// serverMode 0이면 아시아, 1이면 한국/일본
+	public List<StatVO> searchServerStat(int serverMode, String nickname) {
 		List<StatVO> statList = new ArrayList<>();
 		StatVO nullVO = new StatVO(nickname, "null", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-		for (int i = gameServer * 3 + 1; i < gameServer * 3 + 4; i++) {
+		for (int i = serverMode * 3 + 1; i < serverMode * 3 + 4; i++) {
 			StatVO stat = apiDao.selectStat(nickname, i);
 			if (dao.selectMode(i, nickname) != 0) {
 				dao.update(stat);
 				statList.add(stat);
 			} else {
-				// StatVO stat = apiDao.selectStat(nickname, i);
 				if (stat != null) {
 					dao.insert(stat);
 					statList.add(stat);
@@ -61,7 +59,7 @@ public class SearchService {
 		}
 		return statList;
 	}
-
+	
 	// 프로필 사진 꺼내오기
 	public String searchAvatar(String nickname) {
 		return apiDao.selectAvatar(nickname);

@@ -17,6 +17,11 @@
 		<error-code>404</error-code>
 		<location>/WEB-INF/error/404.jsp</location>
 	</error-page>
+	
+	<error-page>
+		<error-code>500</error-code>
+		<location>/WEB-INF/error/500.jsp</location>
+	</error-page>
 
 	<servlet>
 		<servlet-name>springDispatcherServlet</servlet-name>
