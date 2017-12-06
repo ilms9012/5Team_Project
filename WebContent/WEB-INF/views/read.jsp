@@ -164,6 +164,7 @@
 							<a onclick="reply_del_func(${replyVO.replyNum})" href="#" class="btn btn-info">ªË¡¶</a>
 					</c:if>
 					</div>
+					<br>
 			</c:forEach>
 			<br>
 			<br>

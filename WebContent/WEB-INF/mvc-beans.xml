@@ -19,7 +19,8 @@
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<!-- 게시판 글, 댓글 수정 삭제 작성 관련 controller들 -->
-			<mvc:mapping path="/write.do"/>
+			<mvc:mapping path="/board.do"/>
+			<mvc:mapping path="/freeBoard.do"/>
 			
 			<bean class="interceptor.LoginCheckInterceptor" />
 		</mvc:interceptor>
