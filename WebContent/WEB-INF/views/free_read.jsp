@@ -120,13 +120,13 @@
 		<p align="center">
 			<a href="freeBoard.do"><button type="button" class="btn btn-info">목록</button></a>
 			&nbsp;&nbsp;
-			<c:if test="${sessionScope.loginId == board.writer}">
+			<c:if test="${sessionScope.loginNick == board.writer}">
 				<a href="freeUpdateForm.do?boardNum=${board.boardNum}"
 					class="btn btn-info">수정</a>
 		&nbsp;&nbsp;
 		<a onclick="del_func()" href="#" class="btn btn-info">삭제</a>
 			</c:if>
-			<c:if test="${sessionScope.loginId != board.writer}">
+			<c:if test="${sessionScope.loginNick != board.writer}">
 				<a href="freeRecommendForm.do?boardNum=${board.boardNum}" class="btn btn-info">추천</a>
 			</c:if>
 		</p>
@@ -159,7 +159,7 @@
 					<h4>ID : <strong>[ ${replyVO.writer} ]</strong></h4>
 					<div class="alert alert-info" id="alert">
 	    			→ ${replyVO.content}&nbsp;&nbsp;&nbsp;
-	    			<c:if test="${sessionScope.loginId == replyVO.writer}">
+	    			<c:if test="${sessionScope.loginNick == replyVO.writer}">
 	    					<input type="hidden" name="replyNum" id="replyNum">
 							<a onclick="reply_del_func(${replyVO.replyNum})" href="#" class="btn btn-info">삭제</a>
 					</c:if>
