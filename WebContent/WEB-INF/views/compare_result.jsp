@@ -102,32 +102,8 @@ svg {
 			<c:set var="avatar2" value="${s2.avatar}" />
 		</c:if>
 	</c:forEach>
-	
+	<br><br><hr>
 	<div style="margin-left: 30px; margin-right: 30px;">
-		<br>
-		<form action="compareDB.do" method="post">
-			<input type="hidden" name="nickname1" value="${statInfo1[0].nickname}"> 
-			<input type="hidden" name="nickname2" value="${statInfo2[0].nickname}"> 
-			<c:if test="${serverMode eq 0}">
-				<button type="submit" name="serverMode" value="0" class="btn btn-info">AS</button>
-				<button type="submit" name="serverMode" value="1" class="btn btn-primary">KR/JP</button>
-			</c:if>
-			<c:if test="${serverMode eq 1}">
-				<button type="submit" name="serverMode" value="0" class="btn btn-primary">AS</button>
-				<button type="submit" name="serverMode" value="1" class="btn btn-info">KR/JP</button>
-			</c:if>
-		</form>
-		<div align="right">
-			<form action="compareUpdate.do" method="post">
-				<input type="hidden" name="nickname1" value="${statInfo1[0].nickname}"> 
-				<input type="hidden" name="nickname2" value="${statInfo2[0].nickname}">
-				<input type="hidden" name="serverMode" value="${serverMode}"> 
-				<button type="submit" id="updateBtn" class="btn btn-primary">
-					전적갱신
-				</button>
-			</form>
-		</div>
-		<br><hr>
 		<div id="top" class="row">
 			<div class="col-md-5" align="right" style="color: rgb(45, 121, 172);">
 				<b>${statInfo1[0].nickname}</b>&nbsp;&nbsp;
@@ -141,7 +117,30 @@ svg {
 				&nbsp;&nbsp;<b>${statInfo2[0].nickname}</b>
 			</div>
 		</div>
-		<br><br><br>
+		<br>
+		<form action="compareUpdate.do" method="post">
+			<input type="hidden" name="nickname1" value="${statInfo1[0].nickname}"> 
+			<input type="hidden" name="nickname2" value="${statInfo2[0].nickname}">
+			<input type="hidden" name="serverMode" value="${serverMode}"> 
+			<button type="submit" id="updateBtn" class="btn btn-primary">
+				전적갱신
+			</button>
+		</form>
+		<div align="right">
+			<form action="compareDB.do" method="post">
+				<input type="hidden" name="nickname1" value="${statInfo1[0].nickname}"> 
+				<input type="hidden" name="nickname2" value="${statInfo2[0].nickname}"> 
+				<c:if test="${serverMode eq 0}">
+					<button type="submit" name="serverMode" value="0" class="btn btn-info">Asia</button>
+					<button type="submit" name="serverMode" value="1" class="btn btn-primary">KR/JP</button>
+				</c:if>
+				<c:if test="${serverMode eq 1}">
+					<button type="submit" name="serverMode" value="0" class="btn btn-primary">Asia</button>
+					<button type="submit" name="serverMode" value="1" class="btn btn-info">KR/JP</button>
+				</c:if>
+			</form>
+		</div>
+		<br><br>
 		<hr>
 		<c:forEach begin="${serverMode * 3}" end="${serverMode * 3 + 2}" var="i">
 			<div class="col-md-4">
