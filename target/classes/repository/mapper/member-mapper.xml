@@ -5,8 +5,8 @@
 		INSERT INTO MEMBER(AUTH, ID, PASSWORD, NICKNAME) VALUES(#{auth}, #{id}, #{password}, #{nickName})
 	</insert>
 	
-	<select id="selectIdPw" parameterType="map" resultType="int">
-		SELECT COUNT(ID) FROM MEMBER WHERE ID=#{id} AND PASSWORD=#{password}
+	<select id="selectIdPw" parameterType="map" resultType="String">
+		SELECT NICKNAME FROM MEMBER WHERE ID=#{id} AND PASSWORD=#{password}
 	</select>	
 	
 	<select id="selectId" parameterType="String" resultType="MemberVO">

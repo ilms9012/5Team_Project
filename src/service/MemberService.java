@@ -33,23 +33,9 @@ public class MemberService {
 		}
 	}
 	
-	// 카카오 로그인 회원가입 여부 
-	public boolean kakaoJoinCheck(String id) {
-		if(dao.selectIdPw(id, "1") > 0) {
-			// 회원가입 되어있음
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-	// 이메일, 패스워드 확인
-	public boolean login(String id, String password) {
-		if(dao.selectIdPw(id, password) > 0) {
-			return true;
-		} else {
-			return false;
-		}
+	// 이메일, 패스워드로 닉네임 가져오기
+	public String login(String id, String password) {
+		return dao.selectIdPw(id, password);
 	}
 	
 	// 인증코드 체크 후 이메일 인증 여부 업데이트

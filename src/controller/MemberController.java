@@ -88,8 +88,10 @@ public class MemberController {
 	@RequestMapping("/login.do")
 	@ResponseBody
 	public String login(HttpSession session, String id, String password) {
-		if(service.login(id, password)) {
+		String nickname = service.login(id, password);
+		if(nickname != null) {
 			session.setAttribute("loginId", id);
+			session.setAttribute("loginNick", nickname);
 			return "true";
 		} else {
 			return "false";
@@ -109,7 +111,7 @@ public class MemberController {
 		
 		Gson gson = new Gson();
 		
-		if(service.kakaoJoinCheck(id)) {
+		if(service.login(id, "1") != null) {
 			// 만약 같은 id가 있고 비밀번호가 1이라면 회원가입한거니까 바로 로그인
 			rs.put("check", "true");
 			session.setAttribute("loginId", id);
