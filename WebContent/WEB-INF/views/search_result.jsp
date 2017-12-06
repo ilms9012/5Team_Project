@@ -13,11 +13,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>전적검색 결과</title>
 <style type="text/css">
-#buttons {
-	position: relative;
-	left: 1100px;
-	padding: 2px;
-}
+/* #buttons { */
+/* 	position: relative; */
+/* 	left: 1100px; */
+/* 	padding: 2px; */
+/* } */
 
 #stat-table {
 	width: 90%;
@@ -41,6 +41,10 @@
 #thead {
 	text-align: center;
 }
+
+#myDiv {
+	height: 700px;
+}
 </style>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
@@ -55,6 +59,7 @@
 </head>
 <body>
 	<%@ include file="header.jsp"%>
+	<div class="container"><div id="myDiv">
 	<c:forEach begin="0" end="2" var="i">
 		<c:if test="${statInfo[i].avatar!=null}">
 			<c:set value="${statInfo[i].avatar}" var="avartar" />
@@ -71,7 +76,7 @@
 			전적갱신
 		</button>
 	</form>
-	<div id="buttons">
+	<div id="buttons" align="right">
 		<form action="DBSearch.do">
 			<c:if test="${serverMode eq 0}">
 				<button type="submit" name="serverMode" value="0"
@@ -144,5 +149,7 @@
 			</table>
 		</div>
 	</c:forEach>
+	</div></div>
+<%@ include file="footer.jsp" %>
 </body>
 </html>

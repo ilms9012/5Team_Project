@@ -10,4 +10,9 @@ public class HelloController {
 	public String main() {
 		return "main";
 	}
+	
+	@RequestMapping("/noLogin.do")
+	public String noLogin() {
+		return "no_login";
+	}
 }

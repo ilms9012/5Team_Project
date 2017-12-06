@@ -25,6 +25,10 @@ img:hover {
 	opacity: 0.3;
 }
 
+#myDiv {
+	height: 700px;
+}
+
 </style>
 <script type="text/javascript">
 	$(function() {
@@ -108,6 +112,7 @@ img:hover {
 <body>
 <%@ include file="header.jsp"%>
 	<div class="container">
+	<div id="myDiv">
 		<br><br><br><br><br>
 		<div id="top" class="row">
 			<div class="col-md-5" align="right">
@@ -139,5 +144,7 @@ img:hover {
 			</form>
 		</div>
 	</div>
+	</div>
+<%@ include file="footer.jsp" %>
 </body>
 </html>

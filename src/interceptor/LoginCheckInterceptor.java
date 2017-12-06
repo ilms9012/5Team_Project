@@ -24,7 +24,7 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 			logMsg += request.getRemoteAddr();
 			request.getServletContext().log(logMsg);
 			System.out.println("로그인 정보 없어서 걸림!");
-			response.sendRedirect("/");
+			response.sendRedirect("noLogin.do");
 			return false;
 		}
 	}

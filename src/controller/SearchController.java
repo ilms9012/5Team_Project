@@ -45,6 +45,7 @@ public class SearchController {
 			} else if (asMatches < krjpMatches) {
 				mv.addObject("statInfo", result2);
 				mv.addObject("serverMode", serverMode2);
+				mv.setViewName("search_result");
 			} else {
 				mv.addObject("statInfo", result2);
 				mv.addObject("serverMode", serverMode1);
@@ -73,6 +74,7 @@ public class SearchController {
 			} else if (asMatches < krjpMatches) {
 				mv.addObject("statInfo", result);
 				mv.addObject("serverMode", serverMode2);
+				mv.setViewName("search_result");
 			} else {
 				mv.addObject("statInfo", result);
 				mv.addObject("serverMode", serverMode1);

@@ -172,7 +172,7 @@ svg {
 	 						value : '${statInfo1[i].win_Ratio*0.01}'
 	 					}, {
 	 						axis : "K/D",
-	 						value : '${statInfo1[i].kill_Death_Ratio*0.03}'
+	 						value : '${statInfo1[i].kill_Death_Ratio*0.05}'
 	 					}, {
 	 						axis : "∆Ú±’µÙ",
 	 						value : '${statInfo1[i].damage_Per_Game*0.001}'
@@ -181,7 +181,7 @@ svg {
 	 						value : '${statInfo1[i].time_Survived_Per_Game*0.0005}'
 	 					}, {
 	 						axis : "«ÏµÂº¶",
-	 						value : '${statInfo1[i].headshot_Kill_Ratio}'
+	 						value : '${statInfo1[i].headshot_Kill_Ratio*2}'
 	 					}, {
 	 						axis : "√÷¥Ÿ≈≥",
 	 						value : '${statInfo1[i].round_Most_Kill*0.05}'
@@ -190,7 +190,7 @@ svg {
 	 						value : '${statInfo2[i].win_Ratio*0.01}'
 	 					}, {
 			 				axis : "K/D",
-	 						value : '${statInfo2[i].kill_Death_Ratio*0.03}'
+	 						value : '${statInfo2[i].kill_Death_Ratio*0.05}'
 	 					}, {
 			 				axis : "∆Ú±’µÙ",
 	 						value : '${statInfo2[i].damage_Per_Game*0.001}'
@@ -199,7 +199,7 @@ svg {
 	 						value : '${statInfo2[i].time_Survived_Per_Game*0.0005}'
 	 					}, {
 	 						axis : "«ÏµÂº¶",
-				 			value : '${statInfo2[i].headshot_Kill_Ratio}'
+				 			value : '${statInfo2[i].headshot_Kill_Ratio*2}'
 			 			}, {
 	 						axis : "√÷¥Ÿ≈≥",
 	 						value : '${statInfo2[i].round_Most_Kill*0.05}'
@@ -331,5 +331,7 @@ svg {
 		</c:forEach>
 	</div>
 </div>
+<br><br><br><br><br>
+<%@ include file="footer.jsp" %>
 </body>
 </html>
