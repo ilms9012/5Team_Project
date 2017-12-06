@@ -47,13 +47,8 @@
 <script type="text/javascript">
 	$(function() {
 		$("#update-button").click(function(){
-<<<<<<< HEAD
 			$('#update-button').empty();
 			$('#update-button').append('<i class="fa fa-spinner fa-spin"></i> <b>Loading<b></button>');
-=======
-			$("#update-button").();
-			
->>>>>>> d7bab256b4c3fe5b566b80be7fcffd823dd19ae1
 		});
 	})
 </script>
