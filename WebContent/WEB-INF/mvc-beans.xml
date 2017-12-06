@@ -18,9 +18,29 @@
 
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<!-- 게시판 글, 댓글 수정 삭제 작성 관련 controller들 -->
-			<mvc:mapping path="/board.do"/>
-			<mvc:mapping path="/freeBoard.do"/>
+			<!-- 게시판 글, 댓글 수정 삭제 작성 관련 controller들만 인터셉트하도록 -->
+			<mvc:mapping path="/*.do"/>
+			
+			<mvc:exclude-mapping path="/main.do"/>
+			<mvc:exclude-mapping path="/noLogin.do"/>
+			<mvc:exclude-mapping path="/join.do"/>
+			<mvc:exclude-mapping path="/kakaoJoin.do"/>
+			<mvc:exclude-mapping path="/checkAuthNum.do"/>
+			<mvc:exclude-mapping path="/sendMail.do"/>
+			<mvc:exclude-mapping path="/login.do"/>
+			<mvc:exclude-mapping path="/kakaoLogin.do"/>
+			<mvc:exclude-mapping path="/search.do"/>
+			<mvc:exclude-mapping path="/update.do"/>
+			<mvc:exclude-mapping path="/compareForm.do"/>
+			<mvc:exclude-mapping path="/searchAvatar.do"/>
+			<mvc:exclude-mapping path="/compare.do"/>
+			<mvc:exclude-mapping path="/compareDB.do"/>
+			<mvc:exclude-mapping path="/compareUpdate.do"/>
+			<mvc:exclude-mapping path="/DBSearch.do"/>
+			<mvc:exclude-mapping path="/board.do"/>
+			<mvc:exclude-mapping path="/read.do"/>
+			<mvc:exclude-mapping path="/freeBoard.do"/>
+			<mvc:exclude-mapping path="/freeRead.do"/>
 			
 			<bean class="interceptor.LoginCheckInterceptor" />
 		</mvc:interceptor>
