@@ -91,6 +91,13 @@ to {
       100% {color:red; font-weight: bold;} */
 }
 </style>
+<script type="text/javascript">
+$(function(){
+	var originalContent = $('#original_content').val();
+	originalContent = originalContent.replace(/<br>/gi, "");
+	$('#content').val(originalContent);
+})
+</script>
 </head>
 <body>
 	<%@ include file="header.jsp"%>
@@ -110,8 +117,9 @@ to {
 					value="${original.title}">
 			</div>
 			<div class="form-group">
+			<input type="hidden" id="original_content" value="${original.content}">
 				<label for=content">내용</label>
-				<textarea class="form-control" id="content" name="content" rows="3">${original.content}</textarea>
+				<textarea class="form-control" id="content" name="content" rows="3"></textarea>
 			</div>
 			<input type="hidden" name="boardNum" value="${original.boardNum}">
 			<button type="submit" class="btn btn-primary">수정완료</button>

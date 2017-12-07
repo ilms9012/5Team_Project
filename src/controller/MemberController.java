@@ -115,6 +115,9 @@ public class MemberController {
 			// 만약 같은 id가 있고 비밀번호가 1이라면 회원가입한거니까 바로 로그인
 			rs.put("check", "true");
 			session.setAttribute("loginId", id);
+			String nickname = service.login(id, "1");
+			session.setAttribute("loginNick", nickname);
+			
 		} else {
 			rs.put("check", "false");
 			rs.put("id", id);

@@ -55,8 +55,16 @@
 			<param-value>EUC-KR</param-value>
 		</init-param>
 	</filter>
+	<filter>
+    <filter-name>XSS</filter-name>
+    <filter-class>filter.CrossScriptingFilter</filter-class>
+	</filter>
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+	    <filter-name>XSS</filter-name>
+	    <url-pattern>*.do</url-pattern>
 	</filter-mapping>
 </web-app>

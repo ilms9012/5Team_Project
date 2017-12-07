@@ -32,7 +32,7 @@
 }
 
 #readcontainer {
-	width: 60%;
+	width: 70%;
 	margin: 0 auto; /* 가로로 중앙에 배치 */
 	padding-top: 10%; 
 }
