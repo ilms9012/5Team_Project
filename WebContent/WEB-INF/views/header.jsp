@@ -69,7 +69,8 @@
 		// Run the show!
 		filterList.init();
 		
-		Kakao.init('331aad78e1d25a226f305f41ebe4b7e2');
+// 		Kakao.init('331aad78e1d25a226f305f41ebe4b7e2');
+		Kakao.init('90cae839e6de2e21f08bc94c8d302baa');
 		
  		// 회원가입 버튼을 누르는 순간 중복확인하고 새로운 모달창으로 이동하면서 이메일 인증
 		$('#loginModal .join').click(function(){
@@ -279,7 +280,7 @@
 					</form> 
 					<c:if test="${empty loginId}">
 						<a href="#" data-toggle="modal" data-target="#loginModal">
-							<b>로그인</b>
+							<b style="margin-left: -100px;">로그인</b>
 						</a>
 					</c:if>
 					
